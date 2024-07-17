@@ -1,3 +1,4 @@
+/*
 Enunciado:
 
 floristería // singleton, ja que només volem instanciar un únic objetce floristería.
@@ -36,9 +37,10 @@ Main
 	crearTicket();
 	showTickets();
 [!]	benefits() / totalIncome();
-
+*/
 /*
 Dubtes:
+    0. Establecer idioma de objetos y contenido.
 	1. "Visualitzar el total de diners guanyats amb totes les vendes." benefits/totalIncome();
 		Aquest requisit vol mostrar els beneficis totals o els ingresos totals?
 		a) beneficis: caldrá afegir el preu de cost com atribut a cada producte
