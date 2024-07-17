@@ -1,0 +1,206 @@
+Enunciado:
+
+floristería // singleton, ja que només volem instanciar un únic objetce floristería.
+	nom
+	arbres
+		alçada
+		+ preu
+		+ stock
+	flors
+		color
+		+ preu
+		+ stock
+	decoracio
+		material (enum: "fusta", "plastic")
+		+ preu
+		+ stock
+	valorStock
+	ticket
+
+
+Main
+	crearFloristeria()
+	afegirArbre()
+	afegirFlor()
+	afegirDecoracio()
+	productPrint(){
+		sysout(arbres.toString(), flors.toString(), decoracio.toString())
+	}
+	retirarArbre()
+	retirarFlor()
+	retirarDecoracio()
+	stockPrint() {
+		sysout(arbres.getStrock(), flors.getStock(), decoracio.getStock())
+	}
+	valorStockPrint();
+	crearTicket();
+	showTickets();
+[!]	benefits() / totalIncome();
+
+/*
+Dubtes:
+	1. "Visualitzar el total de diners guanyats amb totes les vendes." benefits/totalIncome();
+		Aquest requisit vol mostrar els beneficis totals o els ingresos totals?
+		a) beneficis: caldrá afegir el preu de cost com atribut a cada producte
+		b) ingresos: no caldrá preu de cost
+		
+	2. Relaciones de herencia:
+		a)	Product;
+				Tree;
+				Flower;
+				Decoration;
+		b)	Tree;
+			Flower;
+			Decoration;
+		Quina es la millor relació, si es que n'ha d'haver-hi?
+		
+	3. Floristería ha de ser singleton: quins patterns més podem utilitzar?
+	4. Decoration > material: cómo definir que solo hay dos posibilidades?
+	5. Cómo se establecía la lógica de identificador único?
+*/
+	
+	
+// pseudo-code
+
+public class Floristeria{
+	final static Floristeria instance;
+	final static String name = nomFloristeriaWhatever;
+	private ArrayList(Product) products;
+	
+	Floristeria(){
+		Floristeria instance = new Floristeria();
+		name = name;
+	}
+	
+	getValorStock{
+		// foreach Product::getValor
+	}
+	// other methods
+	// toString
+	
+}
+
+public abstract class Product{
+	protected String productClass;
+	protected float price;
+	protected int productId;
+	protected boolean sold;
+	
+	
+	Product(name, price){
+		this.name = name;
+		this.price = price;
+	}
+	addProduct();
+	removeProduct();
+}
+
+public class Tree extends Product{
+	private float height;
+	private int treeId;
+	
+	Tree(height){
+		super(name, price, productId);
+		this height = height;
+		
+	addProduct(){
+		// tree instancing
+	}
+	
+	removeProduct(){
+		// tree remove
+	}
+	
+	//necessary geters & seters
+	setHeight(){
+		// necessary if updating tree characteristics
+	}
+	
+	setPrice(){
+		// necessary if updating price
+	}
+	
+	getStock(){
+		//necessary for stockPrint
+	}
+	
+	toString(){
+		// detailed print of tree characteristics
+	}
+		
+	}
+}
+
+
+public class Flower extends Product{
+	private String color;
+	private int flowerId;
+	
+	Flower(color){
+		super(name, price, stock);
+		this.color = color;
+		
+	addProduct(){
+		// flower instancing
+	}
+	
+	removeProduct(){
+		// flower remove
+	}
+	
+	//necessary geters & seters
+	setColor(){
+		// necessary if updating flower characteristics
+	}
+	
+	setPrice(){
+		// necessary if updating price
+	}
+	
+	getStock(){
+		//necessary for stockPrint()
+	}
+	
+	toString(){
+		// detailed print of flower characteristics
+	}
+		
+	}
+}
+	
+	
+public class Decoration extends Product{
+	private String material;
+	private int decorationId;
+	
+	Decoration(material){
+		super(name, price, id);
+		this.material = material;
+		
+	addProduct(){
+		// decoration instancing
+	}
+	
+	removeProduct(){
+		// Decoration remove
+	}
+	
+	//add necessary geters & seters
+	setMaterial(){
+		// necessary if updating Decoration characteristics
+	}
+	
+	setPrice(){
+		// necessary if updating price
+	}
+	
+	getStock(){
+		//necessary for stockPrint()
+	}
+	
+	toString(){
+		// detailed print of Decoration characteristics
+	}
+		
+	}
+}
