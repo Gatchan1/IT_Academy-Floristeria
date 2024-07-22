@@ -6,33 +6,25 @@ import java.util.Locale;
 
 public abstract class DaoManager {
 
-    private static DaoManager manager = null;
+    private static DaoManager instance = null;
 
-    /*    public static synchronized void setManager(DaoManager manager) {
-            if (DaoManager.manager == null) {
-                DaoManager.manager = manager;
-            } else {
-                throw new IllegalStateException("Maneger ya inicializado");
-            }
-        }
-     */
     public static synchronized void setManager(String database) {
-        if (manager != null) {
+        if (instance != null) {
             throw new IllegalStateException("Manager ya inicializado");
         } else if (database.equalsIgnoreCase("mysql")) {
-            manager = MysqlDaoManager.getInstance();
+            instance = MysqlDaoManager.getInstance();
         } /*else if ( database.equalsIgnoreCase("mongo"))) {
-            manager = MongoDaoManager.getInstance();
+            instance = MongoDaoManager.getInstance();
         }*/ else {
             throw new IllegalStateException("La base de datos escogida no es válida");
         }
     }
 
     public static DaoManager getManager() {
-        if (manager == null) {
+        if (instance == null) {
             throw new IllegalStateException("Manager no inicializado");
         }
-        return manager;
+        return instance;
     }
 
 
