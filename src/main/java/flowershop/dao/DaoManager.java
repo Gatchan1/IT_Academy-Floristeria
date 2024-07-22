@@ -17,12 +17,11 @@ public abstract class DaoManager {
         }
      */
     public static synchronized void setDatabase(String database) {
-        String dbSelection = database.toLowerCase();
         if (manager != null) {
             throw new IllegalStateException("Manager ya inicializado");
-        } else if (dbSelection.equals("mysql")) {
+        } else if (database.equalsIgnoreCase("mysql")) {
             manager = MysqlDaoManager.getInstance();
-        } /*else if ( dbSelection.equals("mongo"))) {
+        } /*else if ( database.equalsIgnoreCase("mongo"))) {
             manager = MongoDaoManager.getInstance();
         }*/ else {
             throw new IllegalStateException("La base de datos escogida no es válida");
