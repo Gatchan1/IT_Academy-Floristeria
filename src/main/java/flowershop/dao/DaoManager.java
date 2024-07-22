@@ -16,7 +16,7 @@ public abstract class DaoManager {
             }
         }
      */
-    public static synchronized void setDatabase(String database) {
+    public static synchronized void setManager(String database) {
         if (manager != null) {
             throw new IllegalStateException("Manager ya inicializado");
         } else if (database.equalsIgnoreCase("mysql")) {
