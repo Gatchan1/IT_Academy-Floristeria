@@ -1,8 +1,12 @@
 package flowershop.dao;
 
+import flowershop.dao.mysql.MysqlDaoManager;
+
+import java.util.Locale;
+
 public abstract class DaoManager {
 
-    private static DaoManager manager = null;
+/*    private static DaoManager manager = null;
 
     public static synchronized void setManager(DaoManager manager) {
         if (DaoManager.manager == null) {
@@ -18,6 +22,29 @@ public abstract class DaoManager {
         }
         return manager;
     }
+ */
+    private static DaoManager manager = null;
+
+    public static synchronized void setDatabase(String database) {
+        String dbSelection = database.toLowerCase();
+        if (manager != null) {
+            throw new IllegalStateException("Manager ya inicializado");
+        } else if (dbSelection.equals("mysql")) {
+            manager = MysqlDaoManager.getInstance();
+        } /*else if ( dbSelection.equals("mongo"))) {
+            manager = MongoDaoManager.getInstance();
+        }*/ else {
+            throw new IllegalStateException("La base de datos escogida no es válida");
+        }
+    }
+
+    public static DaoManager getManager() {
+        if (manager == null) {
+            throw new IllegalStateException("Manager no inicializado");
+        }
+        return manager;
+    }
+
 
     public abstract ProductDao getProductDao();
     public abstract TreeDao getTreeDao();
