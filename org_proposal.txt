@@ -1,7 +1,8 @@
 + flowershop
        - Main.java (el método main podría contener solo dos líneas: 1º instanciar una Flowershop y 2º flowershop.start() )
-       - Flowershop.java (constructor tipo Singleton. El método start sirve para arrancar la aplicación en sí)
-       - Menu.java (el menú de la aplicación en sí. Otra opción es llamarlo "Application")
+       + Application
+             - Flowershop.java (constructor tipo Singleton. El método start sirve para arrancar la aplicación en sí)
+             - Menu.java (el menú de la aplicación en sí. Otra opción es llamarlo "Application")
        + entities
              - Product.java
              - Tree.java
@@ -10,16 +11,19 @@
        + dao
              - DAOManager.java (interfaz)
              - GenericDAO.java (interfaz)
+             - ProductDAO.java (interfaz)
              - TreeDAO.java (interfaz)
              - FlowerDAO.java (interfaz)
              - DecorationDAO.java (interfaz)
              + mysql
                     - MySQLDaoManager.java
+                    - MySQLProductDAO.java
                     - MySQLTreeDAO.java
                     - MySQLFlowerDAO.java
                     - MySQLDecorationDAO.java
              + mongodb
                     - MongoDaoManager.java
+                    - MongoProductDAO.java
                     - MongoTreeDAO.java
                     - MongoFlowerDAO.java
                     - MongoDecorationDAO.java
