@@ -6,25 +6,16 @@ import java.util.Locale;
 
 public abstract class DaoManager {
 
-/*    private static DaoManager manager = null;
-
-    public static synchronized void setManager(DaoManager manager) {
-        if (DaoManager.manager == null) {
-            DaoManager.manager = manager;
-        } else {
-            throw new IllegalStateException("Maneger ya inicializado");
-        }
-    }
-
-    public static DaoManager getManager() {
-        if (manager == null) {
-            throw new IllegalStateException("Manager no inicializado");
-        }
-        return manager;
-    }
- */
     private static DaoManager manager = null;
 
+    /*    public static synchronized void setManager(DaoManager manager) {
+            if (DaoManager.manager == null) {
+                DaoManager.manager = manager;
+            } else {
+                throw new IllegalStateException("Maneger ya inicializado");
+            }
+        }
+     */
     public static synchronized void setDatabase(String database) {
         String dbSelection = database.toLowerCase();
         if (manager != null) {
