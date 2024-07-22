@@ -5,7 +5,7 @@
              - Menu.java (el menú de la aplicación en sí. Otra opción es llamarlo "Application")
        + helpers
              - Input
-       + configdb (es una propuesta, paquete con conexiones, consultas de creacion y metodos para crear bd. tb                             insertar stock inicial)
+       + configdb (es una propuesta, paquete con conexiones, consultas de creacion y metodos para crear bd. tb insertar stock inicial)
               + mysql
                      - MysqlConnection
                      - QueriesMysql
