@@ -1,6 +1,5 @@
-package org.example.dao;
+package flowershop.dao;
 
-import java.util.List;
 //SI LA ENTIDAD O MODELO NO TIENE ID GENERICO(SERVIRA O NO?):
 //public interface TicketDao extends GenericDao<TicketDao> {
 //public interface TicketDao extends GenericDao<TicketDao, Integer> {

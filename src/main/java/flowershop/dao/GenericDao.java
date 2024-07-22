@@ -1,4 +1,4 @@
-package org.example.dao;
+package flowershop.dao;
 
 import java.util.List;
 //QUIZAS ELIMINAR GENERIC DAO, CON PRODUCTDAO NO HABRÁ QUE IMPLEMENTAR METODOS CRUD EN FLOWERDAO ETC.

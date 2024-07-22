@@ -1,6 +1,4 @@
-package org.example.dao;
-
-import java.util.List;
+package flowershop.dao;
 
 public interface TreeDao<ID> extends GenericDao<Tree<ID>, ID> {
 

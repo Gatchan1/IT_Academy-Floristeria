@@ -1,4 +1,4 @@
-package org.example.dao;
+package flowershop.dao;
 
 public abstract class DaoManager {
 

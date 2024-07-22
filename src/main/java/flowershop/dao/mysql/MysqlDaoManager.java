@@ -1,12 +1,12 @@
-package org.example.dao;
+package flowershop.dao.mysql;
+
+import flowershop.dao.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-//Por no abrir otro paquete, pero esto iria en la implementacion dao de mysql:
-// package.org.example.dao.mysql;
 public class MysqlDaoManager extends DaoManager {
 
     private static final Logger logger = Logger.getLogger(DaoFactoryJdbc.class.getName());
