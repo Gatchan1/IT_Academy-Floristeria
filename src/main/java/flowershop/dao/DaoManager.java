@@ -7,6 +7,12 @@ import java.util.Locale;
 public abstract class DaoManager {
 
     private static DaoManager instance = null;
+    //public abstract ProductDao getProductDao();
+    public abstract TreeDao getTreeDao();
+    public abstract FlowerDao getFlowerDao();
+    public abstract DecorationDao getDecorationDao();
+    public abstract TicketDao getTicketDao();
+
 
     public static synchronized void setManager(String database) {
         if (instance != null) {
@@ -27,12 +33,6 @@ public abstract class DaoManager {
         return instance;
     }
 
-
-    public abstract ProductDao getProductDao();
-    public abstract TreeDao getTreeDao();
-    public abstract FlowerDao getFlowerDao();
-    public abstract DecorationDao getDecorationDao();
-    public abstract TicketDao getTicketDao();
 }
 /*EN EL MAIN se puede usar setManager para establecer si queremos la fabrica de mysql o la de mongo.
 Y despues podemos ya podemos usar el mas abstracto DaoManager.getFactory para obtener los daos
