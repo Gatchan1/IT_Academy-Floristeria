@@ -29,14 +29,14 @@
              - TicketDAO.java (interfaz)
              + mysql
                     - MySQLDaoManager.java
-                    - MySQLProductDAO.java
+                    - MySQLProductDAO.java (de momento no trabajaremos con este archivo, no hace falta crearlo por ahora)
                     - MySQLTreeDAO.java
                     - MySQLFlowerDAO.java
                     - MySQLDecorationDAO.java
                     - MySQLTicketDAO.java
              + mongodb
                     - MongoDaoManager.java
-                    - MongoProductDAO.java
+                    - MongoProductDAO.java (de momento no trabajaremos con este archivo, no hace falta crearlo por ahora)
                     - MongoTreeDAO.java
                     - MongoFlowerDAO.java
                     - MongoDecorationDAO.java
