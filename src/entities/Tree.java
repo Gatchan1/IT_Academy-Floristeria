@@ -6,8 +6,8 @@ public class Tree extends Product {
     public Tree(){
     }
 
-    public Tree(int id, String name, float price, int stock, float height) {
-        super(id, name, price, stock)
+    public Tree(String name, double price, int stock, double height) {
+        super(name, price, stock);
         this.height = height;
     }
 
@@ -19,7 +19,7 @@ public class Tree extends Product {
         this.idTree = idTree;
     }
 
-    public float getHeight() {
+    public double getHeight() {
         return height;
     }
 

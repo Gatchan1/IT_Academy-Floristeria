@@ -1,13 +1,13 @@
-public class Decoration {
+public class Decoration extends Product {
 
-    private int idDecoration;
-    private String material;
+   private int idDecoration;
+   private Material material;
 
     public Decoration(){
     }
 
-    public Decoration(int id, String name, float price, int stock, String material) {
-        super(id, name, price, stock)
+    public Decoration(String name, double price, int stock, Material material) {
+        super(name, price, stock);
         this.material = material;
     }
 
@@ -19,11 +19,18 @@ public class Decoration {
         this.idDecoration = idDecoration;
     }
 
-    public String getMaterial() {
+    public Material getMaterial() {
         return material;
     }
 
-    public void setMaterial(String material) {
+    public void setMaterial(Material material) {
         this.material = material;
     }
+
+    public enum Material {
+        FUSTA,
+        PLASTIC;
+    }
+
+
 }

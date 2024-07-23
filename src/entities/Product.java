@@ -8,10 +8,10 @@ public class Product {
     public Product(){
     }
 
-    public Product(String name, float price, int stock){
+    public Product(int id, String name, double price, int stock){
         this.name = name;
         this.price = price;
-        protected int stock;
+        this.stock = stock;
     }
 
     public int getId() {
