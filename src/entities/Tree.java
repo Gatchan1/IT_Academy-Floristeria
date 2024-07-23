@@ -1,7 +1,7 @@
 public class Tree extends Product {
 
     private int idTree;
-    private float height;
+    private double height;
 
     public Tree(){
     }
