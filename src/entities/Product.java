@@ -1,14 +1,48 @@
 public class Product {
 
+    protected int id;
     protected String name;
-    protected float price;
+    protected double price;
     protected int stock;
 
-    Product(String name, float price, int stock){
+    public Product(){
+    }
+
+    public Product(String name, float price, int stock){
         this.name = name;
         this.price = price;
         protected int stock;
     }
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
 }
