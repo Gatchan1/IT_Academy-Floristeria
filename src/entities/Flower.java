@@ -1,3 +1,5 @@
+package src.entities;
+
 public class Flower extends Product{
 
     private int idFlower;

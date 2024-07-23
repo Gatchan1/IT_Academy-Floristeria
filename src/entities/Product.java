@@ -1,3 +1,5 @@
+package src.entities;
+
 public class Product {
 
     protected int id;

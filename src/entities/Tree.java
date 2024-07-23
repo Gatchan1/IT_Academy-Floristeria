@@ -1,3 +1,5 @@
+package src.entities;
+
 public class Tree extends Product {
 
     private int idTree;
