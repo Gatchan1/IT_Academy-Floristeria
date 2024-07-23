@@ -1,10 +1,29 @@
 public class Tree extends Product {
 
+    private int idTree;
     private float height;
 
+    public Tree(){
+    }
 
-    public Tree(String name, float price, int stock, float height) {
-        super(name, price, stock)
+    public Tree(int id, String name, float price, int stock, float height) {
+        super(id, name, price, stock)
+        this.height = height;
+    }
+
+    public int getIdTree() {
+        return idTree;
+    }
+
+    public void setIdTree(int idTree) {
+        this.idTree = idTree;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public void setHeight(float height) {
         this.height = height;
     }
 }
