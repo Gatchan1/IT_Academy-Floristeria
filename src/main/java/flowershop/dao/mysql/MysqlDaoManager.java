@@ -6,10 +6,11 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+//TODO: import MysqlConnection
 
 public class MysqlDaoManager extends DaoManager {
 
-    private static final Logger logger = Logger.getLogger(DaoFactoryJdbc.class.getName());
+    private static final Logger logger = Logger.getLogger(MysqlDaoManager.class.getName());
     private static MysqlDaoManager instance;
     private Connection connection;
 
@@ -17,7 +18,7 @@ public class MysqlDaoManager extends DaoManager {
     private FlowerDao<Integer> flowerDao;
     private DecorationDao<Integer> decorationDao;
     private TicketDao<Integer> ticketDao;
-    private ProductDao<Integer> productDao;
+    //private ProductDao<Integer> productDao;
 
     private MysqlDaoManager() {
         try {
@@ -44,18 +45,18 @@ public class MysqlDaoManager extends DaoManager {
         return this.connection;
     }
 
-    @Override
+   /* @Override
     public ProductDao getProductDao() {
         if (productDao == null) {
-            productDao = new ProductDaoMsql(connection);
+            productDao = new MysqlProductDao(connection);
         }
         return productDao;
-    }
+    } */
 
     @Override
     public TreeDao getTreeDao() {
         if (treeDao == null) {
-            treeDao = new TreeDaoMysql(connection);
+            treeDao = new MysqlTreeDao(connection);
         }
         return treeDao;
     }
@@ -63,7 +64,7 @@ public class MysqlDaoManager extends DaoManager {
     @Override
     public FlowerDao getFlowerDao() {
         if (flowerDao == null) {
-            flowerDao = new FlowerDaoMysql(connection);
+            flowerDao = new MysqlFlowerDao(connection);
         }
         return flowerDao;
     }
@@ -71,7 +72,7 @@ public class MysqlDaoManager extends DaoManager {
     @Override
     public DecorationDao getDecorationDao() {
         if (decorationDao == null) {
-            decorationDao = new DecorationDaoMysql(connection);
+            decorationDao = new MysqlDecorationDao(connection);
         }
         return decorationDao;
     }
@@ -79,7 +80,7 @@ public class MysqlDaoManager extends DaoManager {
     @Override
     public TicketDao getTicketDao() {
         if (ticketDao == null) {
-            ticketDao = new TicketDaoJdbc(connection);
+            ticketDao = new MysqlTicketDao(connection);
         }
         return ticketDao;
     }
