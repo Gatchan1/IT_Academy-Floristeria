@@ -62,7 +62,25 @@ public class MysqlFlowerDao implements FlowerDao {
 
     @Override
     public Flower read(Integer id) {
-        return null;
+        Flower flower = null;
+        String sql = "SELECT name, stock, price, f.color" +
+                "FROM product p JOIN flower f ON p.id_product=f.id_product WHERE p.id_product = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+             stmt.setInt(1, id);
+             try (ResultSet rs = stmt.executeQuery()) {
+                 if (rs.next()) {
+                     String name = rs.getString(1);
+                     int stock = rs.getInt(2);
+                     double price = rs.getDouble(3);
+                     String color = rs.getString(4);
+                     flower = new Flower(name, stock, price, color); //check
+                     flower.setId(id);
+                 }
+             }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Error al buscar elemento en la base de datos.", e);
+        }
+        return flower;
     }
 
     @Override
