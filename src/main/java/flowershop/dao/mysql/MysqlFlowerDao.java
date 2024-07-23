@@ -51,12 +51,12 @@ public class MysqlFlowerDao implements FlowerDao {
             stmtFlower.setString(2, flower.color);
             affectedRows = stmtFlower.executeUpdate();
             if (affectedRows == 0) {
-                throw new SQLException();
+                throw new SQLException("Error al introducir elemento en la base de datos");
             }
 
             connection.commit();
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Error al introducir elemento en la base de datos.", e);
+            logger.log(Level.SEVERE, "Error al introducir elemento en la base de datos", e);
         }
     }
 
@@ -78,14 +78,30 @@ public class MysqlFlowerDao implements FlowerDao {
                  }
              }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Error al buscar elemento en la base de datos.", e);
+            logger.log(Level.SEVERE, "Error al buscar elemento en la base de datos", e);
         }
         return flower;
     }
 
     @Override
-    public void update(Flower flower) {
-
+    public void updateStock(Integer id, int stockDiff) throws Exception {
+        Flower flower = read(id);
+        if (flower == null) {
+            throw new Exception("La id introducida no corresponde a ningún elemento"); //TODO: usar excepción personalizada!
+        }
+        int stock = flower.getStock();
+        int newStock = stock + stockDiff;
+        String sql = "UPDATE product SET stock = ? WHERE id_product = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, newStock);
+            stmt.setInt(2, id);
+            int affectedRows = stmt.executeUpdate();
+            if (affectedRows == 0) {
+                throw new Exception("No se ha producido ninguna modificación"); //TODO: usar excepción personalizada;
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Error al modificar el stock del producto en la base de datos", e);
+        }
     }
 
     @Override
