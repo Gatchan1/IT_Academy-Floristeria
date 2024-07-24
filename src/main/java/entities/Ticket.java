@@ -9,8 +9,7 @@ public class Ticket {
     public Ticket(){
     }
 
-    public Ticket(int id, HashMap<T, int> saleProducts, double saleTotal){
-        this.id = id;
+    public Ticket(HashMap<T, int> saleProducts, double saleTotal){
         this.saleProducts = saleProducts;
         this.saleTotal = saleTotal;
     }
