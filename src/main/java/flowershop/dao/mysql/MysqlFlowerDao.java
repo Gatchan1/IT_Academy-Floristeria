@@ -121,7 +121,7 @@ public class MysqlFlowerDao implements FlowerDao {
         List<Flower> flowers = new ArrayList<Flower>();
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT p.id_product, name, stock, price, f.color" +
-                     "FROM product p JOIN flower f ON p.id_product=f.id_product");) {
+                     "FROM product p JOIN flower f ON p.id_product=f.id_product")) {
             while (rs.next()) {
                 int id = rs.getInt(1);
                 String name = rs.getString(2);
@@ -139,8 +139,24 @@ public class MysqlFlowerDao implements FlowerDao {
         return flowers;
     }
 
-    //int getTotalStockForFlowers();
+    @Override
+    public int getTotalStockFlowers() {
+        int id = 0;
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT SUM(stock)" +
+                     "FROM product WHERE type='FLOWER'")) {
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Error al leer stock en la base de datos", e);
+        }
+        return id;
+    }
 
-    //double getTotalValueForFlowers();
+    @Override
+    public double getTotalValueFlowers() {
+        return 0;
+    }
 }
 //public Flower read(String name, String color) ?
