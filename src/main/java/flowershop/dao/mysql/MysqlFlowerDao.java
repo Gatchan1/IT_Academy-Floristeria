@@ -73,7 +73,7 @@ public class MysqlFlowerDao implements FlowerDao {
                      int stock = rs.getInt(2);
                      double price = rs.getDouble(3);
                      String color = rs.getString(4);
-                     flower = new Flower(name, stock, price, color); //check
+                     flower = new Flower(name, price, stock, color);
                      flower.setId(id);
                  }
              }

@@ -1,6 +1,6 @@
 package flowershop.dao;
 
-public interface FlowerDao extends GenericDao<Flower, Integer>{
+public interface FlowerDao extends GenericDao<Flower<ID>, Integer>{
 
 
 
