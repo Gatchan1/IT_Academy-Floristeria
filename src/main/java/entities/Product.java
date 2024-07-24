@@ -8,9 +8,11 @@ public class Product {
     protected int stock;
 
     public Product(){
+        super();
     }
 
-    public Product(int id, String name, double price, int stock){
+    public Product(String name, double price, int stock){
+        super();
         this.name = name;
         this.price = price;
         this.stock = stock;
