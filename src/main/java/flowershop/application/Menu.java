@@ -3,10 +3,21 @@ package flowershop.application;
 import flowershop.helpers.Input;
 import flowershop.dao.DaoManager;
 
+
+/*si le inyectamos controladores en el constructor no puede ser static startmenu
+        Menu menu = new Menu(daoManager);
+        menu.startMenu();*/
 public class Menu {
 
+    private final ProductController productController;
+    // private final TicketController ticketController;
     private static final int MIN_OPTION = 0;
     private static final int MAX_OPTION = 5;
+
+    public Menu(DaoManager daoManager) {
+        this.productController = ProductController.getInstance(daoManager);
+        // this.ticketController = TicketCrontroller.getInstance(daoManager);
+    }
 
     private static int showMenu() {
 
@@ -24,10 +35,7 @@ public class Menu {
         return option;
     }
 
-    public static void startMenu(DaoManager daoManager) {
-
-        ProductController productController = ProductController.getInstance(daoManager);
-        // TicketController ticketController = TicketCrontroller.getInstance(daoManager);
+    public void startMenu() {
 
         boolean exit = false;
 
