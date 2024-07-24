@@ -6,9 +6,11 @@ public class Decoration extends Product {
    private Material material;
 
     public Decoration(){
+        super();
     }
 
     public Decoration(String name, double price, int stock, Material material) {
+        super(name, price, stock);
         this.material = material;
     }
 

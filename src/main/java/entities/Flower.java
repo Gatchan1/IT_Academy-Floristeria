@@ -9,6 +9,7 @@ public class Flower extends Product{
     }
 
     public Flower(String name, double price, int stock, String color) {
+        super(name, price, stock);
         this.color = color;
     }
 
