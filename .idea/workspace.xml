@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="846724b4-8d97-491b-82d5-4b7ba2816fc9" name="Changes" comment="modification menu">
-      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/application/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/application/ProductController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/flowershop/application/Flowershop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +39,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/menu",
+    "git-widget-placeholder": "Merging feature/menu",
     "kotlin-language-version-configured": "true",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
