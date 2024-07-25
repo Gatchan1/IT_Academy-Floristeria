@@ -2,9 +2,7 @@ package flowershop.dao;
 
 public interface TreeDao<ID> extends GenericDao<Tree<ID>, ID> {
 
+    int getTotalStockTrees();
 
-
-    //int getTotalStockForTrees();
-
-    //double getTotalValueForTrees();
+    double getTotalValueTrees();
 }
