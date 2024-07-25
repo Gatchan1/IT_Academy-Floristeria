@@ -37,27 +37,44 @@ public class ProductController {
         int category = selectCategory();
 
         String name = Input.readString("Introduce el nombre del producto a añadir: ");
-        float price = Input.readFloat("Introduce precio del producto: ");
+        double price = Input.readDouble("Introduce precio del producto: ");
         int stock = Input.readInt("Introduce stock del producto: ");
 
         switch (category) {
             case 1:
-                float height = Input.readFloat("Introduce altura del árbol: ");
-                Tree<ID> tree = new Tree<>(name, price, stock, height);
-                treeDao.create(tree);
+                double height = Input.readDouble("Introduce altura del árbol: ");
+                Tree<ID> newTree = new Tree<>(name, price, stock, height);
+                List<Tree<ID>> existingTrees = treeDao.findAll();
+                if (existingTrees.contains(newTree)) {
+                    System.out.println("El árbol ya existe y no se añadirá.");
+                } else {
+                    treeDao.create(newTree);
+                    System.out.println("Árbol añadido correctamente.");
+                }
                 break;
             case 2:
-                String colour = Input.readString("Introduce color de la flor: ");
-                Flower<ID> flower = new Flower<>(name, price, stock, colour);
-                flowerDao.create(flower);
+                String color = Input.readString("Introduce color de la flor: ");
+                Flower<ID> newFlower = new Flower<>(name, price, stock, color);
+                List<Flower<ID>> existingFlowers = flowerDao.findAll();
+                if (existingFlowers.contains(newFlower)) {
+                    System.out.println("La flor ya existe y no se añadirá.");
+                } else {
+                    flowerDao.create(newFlower);
+                    System.out.println("Flor añadida correctamente.");
+                }
                 break;
             case 3:
-                String material = materialDecoration();
-                Decoration<ID> decoration = new Decoration<>(name, price, stock, material);
-                decorationDao.create(decoration);
+                Decoration.Material material = selectMaterial();
+                Decoration<ID> newDecoration = new Decoration<>(name, price, stock, material);
+                List<Decoration<ID>> existingDecorations = decorationDao.findAll();
+                if (existingDecorations.contains(newDecoration)) {
+                    System.out.println("El producto de decoración ya existe y no se añadirá.");
+                } else {
+                    decorationDao.create(newDecoration);
+                    System.out.println("Producto de decoración añadido correctamente.");
+                }
                 break;
         }
-        System.out.println("Producto añadido correctamente");
     }
 
     public void deleteProduct() {
@@ -130,7 +147,8 @@ public class ProductController {
             System.out.println("No hay productos disponibles");
         } else {
             System.out.println("***** Productos en stock *****");
-            System.out.printf(HEADER_FORMAT, "Índice", "Nombre", "Precio", "Stock", "Detalle", "ID");
+            System.out.printf(HEADER_FORMAT, "ÍNDICE", "NOMBRE", "PRECIO", "STOCK", "DETALLE", "ID");
+            System.out.println("-----------------------------------------------------------------");
 
             for (Map.Entry<Integer, Product<ID>> entry : productMap.entrySet()) {
                 int index = entry.getKey();
@@ -138,13 +156,13 @@ public class ProductController {
 
                 if (product instanceof Flower) {
                     Flower<ID> flower = (Flower<ID>) product;
-                    System.out.printf(PRODUCT_FORMAT, index, flower.getName(), flower.getPrice(), flower.getStock(), flower.getColour(), flower.getId().toString());
+                    System.out.printf(PRODUCT_FORMAT, index, flower.getName(), flower.getPrice(), flower.getStock(), flower.getColor(), flower.getId().toString());
                 } else if (product instanceof Tree) {
                     Tree<ID> tree = (Tree<ID>) product;
                     System.out.printf(PRODUCT_FORMAT, index, tree.getName(), tree.getPrice(), tree.getStock(), String.valueOf(tree.getHeight()), tree.getId().toString());
                 } else if (product instanceof Decoration) {
                     Decoration<ID> decoration = (Decoration<ID>) product;
-                    System.out.printf(PRODUCT_FORMAT, index, decoration.getName(), decoration.getPrice(), decoration.getStock(), decoration.getMaterial(), decoration.getId().toString());
+                    System.out.printf(PRODUCT_FORMAT, index, decoration.getName(), decoration.getPrice(), decoration.getStock(), decoration.getMaterial().toString, decoration.getId().toString());
                 }
             }
         }
@@ -166,7 +184,7 @@ public class ProductController {
         return category;
     }
 
-    private String materialDecoration() {
+    private Decoration.Material materialDecoration() {
         final int MIN_OPTION = 1;
         final int MAX_OPTION = 2;
 
@@ -179,9 +197,9 @@ public class ProductController {
 
         switch (option) {
             case 1:
-                return "Madera";
+                return Decoration.Material.FUSTA;
             case 2:
-                return "Plástico";
+                return Decoration.Material.PLASTIC;;
             default:
                 return null;
         }
