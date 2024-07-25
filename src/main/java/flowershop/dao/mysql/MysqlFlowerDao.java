@@ -141,17 +141,17 @@ public class MysqlFlowerDao implements FlowerDao {
 
     @Override
     public int getTotalStockFlowers() {
-        int id = 0;
+        int totalStock = 0;
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT SUM(stock)" +
                      "FROM product WHERE type='FLOWER'")) {
             if (rs.next()) {
-                id = rs.getInt(1);
+                totalStock = rs.getInt(1);
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Error al leer stock en la base de datos", e);
         }
-        return id;
+        return totalStock;
     }
 
     @Override
