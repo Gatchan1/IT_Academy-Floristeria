@@ -60,7 +60,7 @@ public class MysqlDecorationDao implements DecorationDao<Integer> {
     @Override
     public Decoration<Integer> read(Integer id) {
         Decoration<Integer> decoration = null;
-        String sql = "SELECT name, stock, price, d.color FROM product p" +
+        String sql = "SELECT name, stock, price, d.material FROM product p" +
                 "JOIN decoration d ON p.id_product=d.id_product WHERE p.id_product = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
@@ -70,7 +70,7 @@ public class MysqlDecorationDao implements DecorationDao<Integer> {
                     int stock = rs.getInt(2);
                     double price = rs.getDouble(3);
                     String material = rs.getString(4);
-                    decoration = new Decoration(name, price, stock, material);
+                    decoration = new Decoration<Integer>(name, price, stock, material);
                     decoration.setId(id);
                 }
             }
