@@ -37,5 +37,25 @@ public class Decoration extends Product {
 
     // hash&equals
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+           return true;
+        }
+        if (!(o instanceof Decoration)){
+           return false;
+        }
+        if (!super.equals(o)){
+           return false;
+        }
+        Decoration decoration = (Decoration) o;
+        return Objects.equals(material, decoration.material);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), material);
+    }
+
 
 }
