@@ -8,7 +8,7 @@ public abstract class DaoManager {
 
     private static DaoManager instance = null;
 
-    public static synchronized void setManager(String database) {
+    public static void setManager(String database) {
         if (instance != null) {
             throw new IllegalStateException("Manager ya inicializado");
         } else if (database.equalsIgnoreCase("mysql")) {

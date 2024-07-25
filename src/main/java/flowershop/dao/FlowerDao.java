@@ -1,10 +1,8 @@
 package flowershop.dao;
 
-public interface FlowerDao extends GenericDao<Flower<ID>, Integer>{
+public interface FlowerDao extends GenericDao<Flower<ID>, Integer> {
 
+    int getTotalStockFlowers();
 
-
-    //int getTotalStockForFlowers();
-
-    //double getTotalValueForFlowers();
+    double getTotalValueFlowers();
 }

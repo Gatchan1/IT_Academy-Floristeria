@@ -3,10 +3,8 @@ package flowershop.dao.mysql;
 import flowershop.dao.FlowerDao;
 //TODO: import Flower
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -66,21 +64,21 @@ public class MysqlFlowerDao implements FlowerDao {
         String sql = "SELECT name, stock, price, f.color" +
                 "FROM product p JOIN flower f ON p.id_product=f.id_product WHERE p.id_product = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-             stmt.setInt(1, id);
-             try (ResultSet rs = stmt.executeQuery()) {
-                 if (rs.next()) {
-                     String name = rs.getString(1);
-                     int stock = rs.getInt(2);
-                     double price = rs.getDouble(3);
-                     String color = rs.getString(4);
-                     flower = new Flower(name, price, stock, color);
-                     flower.setId(id);
-                 }
-             }
+            stmt.setInt(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    String name = rs.getString(1);
+                    int stock = rs.getInt(2);
+                    double price = rs.getDouble(3);
+                    String color = rs.getString(4);
+                    flower = new Flower(name, price, stock, color);
+                    flower.setId(id);
+                }
+            }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Error al buscar elemento en la base de datos", e);
         }
-        return flower;
+        return flower;   //might be null if the id doesn't have a match.
     }
 
     @Override
@@ -105,12 +103,70 @@ public class MysqlFlowerDao implements FlowerDao {
     }
 
     @Override
-    public void deleteById(Integer id) {
-
+    public void deleteById(Integer id) throws Exception {
+        String sql = "DELETE FROM product WHERE id_product = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            int affectedRows = stmt.executeUpdate();
+            if (affectedRows == 0) {
+                throw new Exception("No se ha producido ningún borrado"); //TODO: usar excepción personalizada;
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Error al borrar el producto en la base de datos", e);
+        }
     }
 
     @Override
     public List<Flower> findAll() {
-        return List.of();
+        List<Flower> flowers = new ArrayList<Flower>();
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT p.id_product, name, stock, price, f.color" +
+                     "FROM product p JOIN flower f ON p.id_product=f.id_product")) {
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String name = rs.getString(2);
+                int stock = rs.getInt(3);
+                double price = rs.getDouble(4);
+                String color = rs.getString(5);
+
+                Flower flower = new Flower(name, price, stock, color);
+                flower.setId(id);
+                flowers.add(flower);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Error al leer elementos en la base de datos", e);
+        }
+        return flowers;
+    }
+
+    @Override
+    public int getTotalStockFlowers() {
+        int totalStock = 0;
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT SUM(stock)" +
+                     "FROM product WHERE type='FLOWER'")) {
+            if (rs.next()) {
+                totalStock = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Error al leer stock en la base de datos", e);
+        }
+        return totalStock;
+    }
+
+    @Override
+    public double getTotalValueFlowers() {
+        int totalValue = 0;
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT SUM(stock * price)" +
+                     "FROM product WHERE type='FLOWER'")) {
+            if (rs.next()) {
+                totalValue = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Error al leer stock en la base de datos", e);
+        }
+        return totalValue;
     }
 }
+//public Flower read(String name, String color) ?

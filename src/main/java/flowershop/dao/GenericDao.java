@@ -17,7 +17,7 @@ public interface GenericDao<T, ID> {
 
     void updateStock(ID id, int stockDiff) throws Exception;
 
-    void deleteById(ID id);
+    void deleteById(ID id) throws Exception;
 
     List<T> findAll();
     //List<T> getAll(); como queda mejor???

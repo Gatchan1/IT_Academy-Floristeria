@@ -33,7 +33,7 @@ public class MysqlDaoManager extends DaoManager {
         }
     }
 
-    public static synchronized MysqlDaoManager getInstance() {
+    public static MysqlDaoManager getInstance() {
         if (instance == null) {
             instance = new MysqlDaoManager();
         }
