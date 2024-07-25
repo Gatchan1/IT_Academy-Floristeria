@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="06e7c094-5979-4a6c-8235-c7044cf948de" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/dao/mysql/MysqlFlowerDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/dao/mysql/MysqlFlowerDao.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,5 +54,17 @@
       <updated>1721820097791</updated>
     </task>
     <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-field">
+          <url>file://$PROJECT_DIR$/src/main/java/flowershop/dao/mysql/MysqlFlowerDao.java</url>
+          <line>12</line>
+          <properties field="connection" class="flowershop.dao.mysql.MysqlFlowerDao" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
