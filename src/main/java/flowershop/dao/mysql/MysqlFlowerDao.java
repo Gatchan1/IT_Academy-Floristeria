@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class MysqlFlowerDao implements FlowerDao {
+public class MysqlFlowerDao implements FlowerDao<Integer> {
     private final Connection connection;
     private static final Logger logger = Logger.getLogger(MysqlFlowerDao.class.getName());
 
@@ -18,7 +18,7 @@ public class MysqlFlowerDao implements FlowerDao {
     }
 
     @Override
-    public void create(Flower flower) throws SQLException {
+    public void create(Flower<Integer> flower) throws SQLException {
         connection.setAutoCommit(false);
 
         String sqlProduct = "INSERT INTO product (name, stock, price, type) VALUES (?, ?, ?, ?)";
@@ -59,8 +59,8 @@ public class MysqlFlowerDao implements FlowerDao {
     }
 
     @Override
-    public Flower read(Integer id) {
-        Flower flower = null;
+    public Flower<Integer> read(Integer id) {
+        Flower<Integer> flower = null;
         String sql = "SELECT name, stock, price, f.color" +
                 "FROM product p JOIN flower f ON p.id_product=f.id_product WHERE p.id_product = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -71,19 +71,19 @@ public class MysqlFlowerDao implements FlowerDao {
                     int stock = rs.getInt(2);
                     double price = rs.getDouble(3);
                     String color = rs.getString(4);
-                    flower = new Flower(name, price, stock, color);
+                    flower = new Flower<Integer>(name, price, stock, color);
                     flower.setId(id);
                 }
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Error al buscar elemento en la base de datos", e);
         }
-        return flower;   //might be null if the id doesn't have a match.
+        return flower;   //might be null if the id doesn't match a flower.
     }
 
     @Override
     public void updateStock(Integer id, int stockDiff) throws Exception {
-        Flower flower = read(id);
+        Flower<Integer> flower = read(id);
         if (flower == null) {
             throw new Exception("La id introducida no corresponde a ningún elemento"); //TODO: usar excepción personalizada!
         }
@@ -117,8 +117,8 @@ public class MysqlFlowerDao implements FlowerDao {
     }
 
     @Override
-    public List<Flower> findAll() {
-        List<Flower> flowers = new ArrayList<Flower>();
+    public List<Flower<Integer>> findAll() {
+        List<Flower<Integer>> flowers = new ArrayList<Flower<Integer>>();
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT p.id_product, name, stock, price, f.color" +
                      "FROM product p JOIN flower f ON p.id_product=f.id_product")) {
@@ -129,7 +129,7 @@ public class MysqlFlowerDao implements FlowerDao {
                 double price = rs.getDouble(4);
                 String color = rs.getString(5);
 
-                Flower flower = new Flower(name, price, stock, color);
+                Flower<Integer> flower = new Flower<Integer>(name, price, stock, color);
                 flower.setId(id);
                 flowers.add(flower);
             }
