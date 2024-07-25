@@ -1,17 +1,23 @@
 package entities;
 
-public class Ticket {
+import java.time.LocalDate;
+import java.util.HashMap;
+
+public class Ticket<T> {
 
     private int idTicket;
-    private HashMap<T, int> saleProducts;
+    private HashMap<T, Integer> saleProducts;
+    private LocalDate saleDate;
     private double saleTotal;
 
     public Ticket(){
+        this.saleDate = LocalDate.now();
     }
 
-    public Ticket(HashMap<T, int> saleProducts, double saleTotal){
+    public Ticket(HashMap<T, Integer> saleProducts, double saleTotal){
         this.saleProducts = saleProducts;
         this.saleTotal = saleTotal;
+        this.saleDate = LocalDate.now();
     }
 
     public int getIdTicket() {
@@ -22,11 +28,11 @@ public class Ticket {
         this.idTicket = idTicket;
     }
 
-    public HashMap<T, int> getSaleProducts() {
+    public HashMap<T, Integer> getSaleProducts() {
         return saleProducts;
     }
 
-    public void setSaleProducts(HashMap<T, int> saleProducts) {
+    public void setSaleProducts(HashMap<T, Integer> saleProducts) {
         this.saleProducts = saleProducts;
     }
 
@@ -37,4 +43,14 @@ public class Ticket {
     public void setSaleTotal(double saleTotal) {
         this.saleTotal = saleTotal;
     }
+
+    public LocalDate getSaleDate() {
+        return saleDate;
+    }
+
+    public void setSaleDate(LocalDate saleDate) {
+        this.saleDate = LocalDate.now;
+    }
+
+    //hash&equals
 }

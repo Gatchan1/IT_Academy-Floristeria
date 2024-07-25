@@ -1,6 +1,6 @@
 package entities;
 
-public class Product {
+public class Product{
 
     protected int id;
     protected String name;
@@ -16,7 +16,7 @@ public class Product {
         this.stock = stock;
     }
 
-    public int getId() {
+    public getId() {
         return id;
     }
 
@@ -48,5 +48,6 @@ public class Product {
         this.stock = stock;
     }
 
+    //hash & equals
 
 }

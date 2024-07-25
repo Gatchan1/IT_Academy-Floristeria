@@ -31,9 +31,11 @@ public class Decoration extends Product {
     }
 
     public enum Material {
-        FUSTA,
+        WOOD,
         PLASTIC;
     }
+
+    // hash&equals
 
 
 }

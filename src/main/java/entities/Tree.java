@@ -26,7 +26,11 @@ public class Tree extends Product {
         return height;
     }
 
-    public void setHeight(float height) {
+    public void setHeight(double height) {
         this.height = height;
     }
+
+    //hash&equals
+
+
 }
