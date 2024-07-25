@@ -28,10 +28,10 @@ public class MysqlFlowerDao implements FlowerDao {
         ) {
             Integer productId = null;
 
-            stmtProduct.setString(1, flower.name);
-            stmtProduct.setInt(2, flower.stock);
-            stmtProduct.setDouble(3, flower.price);
-            stmtProduct.setString(4, "flower");   //check
+            stmtProduct.setString(1, flower.getName());
+            stmtProduct.setInt(2, flower.getStock());
+            stmtProduct.setDouble(3, flower.getPrice());
+            stmtProduct.setString(4, "FLOWER");   //check
             int affectedRows = stmtProduct.executeUpdate();
             if (affectedRows == 0) {
                 throw new SQLException();
@@ -46,7 +46,7 @@ public class MysqlFlowerDao implements FlowerDao {
             }
 
             stmtFlower.setInt(1, productId);
-            stmtFlower.setString(2, flower.color);
+            stmtFlower.setString(2, flower.getColor());
             affectedRows = stmtFlower.executeUpdate();
             if (affectedRows == 0) {
                 throw new SQLException("Error al introducir elemento en la base de datos");
