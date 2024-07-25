@@ -3,10 +3,10 @@ package entities;
 import java.time.LocalDate;
 import java.util.HashMap;
 
-public class Ticket<T> {
+public class Ticket {
 
     private int idTicket;
-    private HashMap<T, Integer> saleProducts;
+    private HashMap<Product, Integer> saleProducts;
     private LocalDate saleDate;
     private double saleTotal;
 
@@ -14,7 +14,7 @@ public class Ticket<T> {
         this.saleDate = LocalDate.now();
     }
 
-    public Ticket(HashMap<T, Integer> saleProducts, double saleTotal){
+    public Ticket(HashMap<Product, Integer> saleProducts, double saleTotal){
         this.saleProducts = saleProducts;
         this.saleTotal = saleTotal;
         this.saleDate = LocalDate.now();
@@ -28,11 +28,11 @@ public class Ticket<T> {
         this.idTicket = idTicket;
     }
 
-    public HashMap<T, Integer> getSaleProducts() {
+    public HashMap<Product, Integer> getSaleProducts() {
         return saleProducts;
     }
 
-    public void setSaleProducts(HashMap<T, Integer> saleProducts) {
+    public void setSaleProducts(HashMap<Product, Integer> saleProducts) {
         this.saleProducts = saleProducts;
     }
 
