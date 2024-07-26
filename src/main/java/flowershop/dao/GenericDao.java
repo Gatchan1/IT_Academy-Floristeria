@@ -15,8 +15,6 @@ public interface GenericDao<T, ID> {
 
     T read(ID id);
 
-    void updateStock(ID id, int stockDiff) throws Exception;
-
     void deleteById(ID id) throws Exception;
 
     List<T> findAll();
