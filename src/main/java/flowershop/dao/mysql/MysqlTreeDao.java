@@ -1,7 +1,7 @@
 package flowershop.dao.mysql;
 
 import flowershop.dao.TreeDao;
-
+//TODO: import Tree
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ public class MysqlTreeDao implements TreeDao<Integer> {
 
         String sqlProduct = "INSERT INTO product (name, stock, price, type) VALUES (?, ?, ?, ?)";
         String sqlTree = "INSERT INTO tree (id_product, height) VALUES (?, ?)";
-        try (PreparedStatement stmtProduct = connection.prepareStatement(sqlProduct);
+        try (PreparedStatement stmtProduct = connection.prepareStatement(sqlProduct, Statement.RETURN_GENERATED_KEYS);
              PreparedStatement stmtTree = connection.prepareStatement(sqlTree);
         ) {
             Integer productId = null;
@@ -35,9 +35,9 @@ public class MysqlTreeDao implements TreeDao<Integer> {
             if (affectedRows == 0) {
                 throw new SQLException();
             }
-            try (ResultSet rs = stmtProduct.getGeneratedKeys()) {
-                if (rs.next()) {
-                    productId = rs.getInt(1);
+            try (ResultSet keys = stmtProduct.getGeneratedKeys()) {
+                if (keys.next()) {
+                    productId = keys.getInt(1);
                 }
             }
             if (productId == null) {
@@ -60,7 +60,7 @@ public class MysqlTreeDao implements TreeDao<Integer> {
     @Override
     public Tree<Integer> read(Integer id) {
         Tree<Integer> tree = null;
-        String sql = "SELECT name, stock, price, t.height FROM product p" +
+        String sql = "SELECT name, stock, price, t.height FROM product p " +
                 "JOIN tree t ON p.id_product=t.id_product WHERE p.id_product = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
@@ -119,7 +119,7 @@ public class MysqlTreeDao implements TreeDao<Integer> {
     public List<Tree<Integer>> findAll() {
         List<Tree<Integer>> trees = new ArrayList<Tree<Integer>>();
         try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT p.id_product, name, stock, price, t.height" +
+             ResultSet rs = stmt.executeQuery("SELECT p.id_product, name, stock, price, t.height " +
                      "FROM product p JOIN tree t ON p.id_product=t.id_product")) {
             while (rs.next()) {
                 int id = rs.getInt(1);
@@ -142,7 +142,7 @@ public class MysqlTreeDao implements TreeDao<Integer> {
     public int getTotalStockTrees() {
         int totalStock = 0;
         try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT SUM(stock)" +
+             ResultSet rs = stmt.executeQuery("SELECT SUM(stock) " +
                      "FROM product WHERE type='TREE'")) {
             if (rs.next()) {
                 totalStock = rs.getInt(1);
@@ -157,7 +157,7 @@ public class MysqlTreeDao implements TreeDao<Integer> {
     public double getTotalValueTrees() {
         int totalValue = 0;
         try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT SUM(stock * price)" +
+             ResultSet rs = stmt.executeQuery("SELECT SUM(stock * price) " +
                      "FROM product WHERE type='TREE'")) {
             if (rs.next()) {
                 totalValue = rs.getInt(1);

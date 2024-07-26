@@ -22,7 +22,7 @@ public class MysqlDecorationDao implements DecorationDao<Integer> {
 
         String sqlProduct = "INSERT INTO product (name, stock, price, type) VALUES (?, ?, ?, ?)";
         String sqlDecoration = "INSERT INTO decoration (id_product, material) VALUES (?, ?)";
-        try (PreparedStatement stmtProduct = connection.prepareStatement(sqlProduct);
+        try (PreparedStatement stmtProduct = connection.prepareStatement(sqlProduct, Statement.RETURN_GENERATED_KEYS);
              PreparedStatement stmtDecoration = connection.prepareStatement(sqlDecoration);
         ) {
             Integer productId = null;
@@ -35,9 +35,9 @@ public class MysqlDecorationDao implements DecorationDao<Integer> {
             if (affectedRows == 0) {
                 throw new SQLException();
             }
-            try (ResultSet rs = stmtProduct.getGeneratedKeys()) {
-                if (rs.next()) {
-                    productId = rs.getInt(1);
+            try (ResultSet keys = stmtProduct.getGeneratedKeys()) {
+                if (keys.next()) {
+                    productId = keys.getInt(1);
                 }
             }
             if (productId == null) {
@@ -60,7 +60,7 @@ public class MysqlDecorationDao implements DecorationDao<Integer> {
     @Override
     public Decoration<Integer> read(Integer id) {
         Decoration<Integer> decoration = null;
-        String sql = "SELECT name, stock, price, d.material FROM product p" +
+        String sql = "SELECT name, stock, price, d.material FROM product p " +
                 "JOIN decoration d ON p.id_product=d.id_product WHERE p.id_product = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
@@ -119,7 +119,7 @@ public class MysqlDecorationDao implements DecorationDao<Integer> {
     public List<Decoration<Integer>> findAll() {
         List<Decoration<Integer>> decorations = new ArrayList<Decoration<Integer>>();
         try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT p.id_product, name, stock, price, d.material" +
+             ResultSet rs = stmt.executeQuery("SELECT p.id_product, name, stock, price, d.material " +
                      "FROM product p JOIN decoration d ON p.id_product=d.id_product")) {
             while (rs.next()) {
                 int id = rs.getInt(1);
@@ -142,7 +142,7 @@ public class MysqlDecorationDao implements DecorationDao<Integer> {
     public int getTotalStockDecorations() {
         int totalStock = 0;
         try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT SUM(stock)" +
+             ResultSet rs = stmt.executeQuery("SELECT SUM(stock) " +
                      "FROM product WHERE type='DECORATION'")) {
             if (rs.next()) {
                 totalStock = rs.getInt(1);
@@ -157,7 +157,7 @@ public class MysqlDecorationDao implements DecorationDao<Integer> {
     public double getTotalValueDecorations() {
         int totalValue = 0;
         try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT SUM(stock * price)" +
+             ResultSet rs = stmt.executeQuery("SELECT SUM(stock * price) " +
                      "FROM product WHERE type='DECORATION'")) {
             if (rs.next()) {
                 totalValue = rs.getInt(1);

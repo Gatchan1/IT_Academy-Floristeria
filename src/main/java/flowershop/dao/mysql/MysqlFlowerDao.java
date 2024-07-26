@@ -23,7 +23,7 @@ public class MysqlFlowerDao implements FlowerDao<Integer> {
 
         String sqlProduct = "INSERT INTO product (name, stock, price, type) VALUES (?, ?, ?, ?)";
         String sqlFlower = "INSERT INTO flower (id_product, color) VALUES (?, ?)";
-        try (PreparedStatement stmtProduct = connection.prepareStatement(sqlProduct);
+        try (PreparedStatement stmtProduct = connection.prepareStatement(sqlProduct, Statement.RETURN_GENERATED_KEYS);
              PreparedStatement stmtFlower = connection.prepareStatement(sqlFlower);
         ) {
             Integer productId = null;
@@ -36,9 +36,9 @@ public class MysqlFlowerDao implements FlowerDao<Integer> {
             if (affectedRows == 0) {
                 throw new SQLException();
             }
-            try (ResultSet rs = stmtProduct.getGeneratedKeys()) {
-                if (rs.next()) {
-                    productId = rs.getInt(1);
+            try (ResultSet keys = stmtProduct.getGeneratedKeys()) {
+                if (keys.next()) {
+                    productId = keys.getInt(1);
                 }
             }
             if (productId == null) {
@@ -61,7 +61,7 @@ public class MysqlFlowerDao implements FlowerDao<Integer> {
     @Override
     public Flower<Integer> read(Integer id) {
         Flower<Integer> flower = null;
-        String sql = "SELECT name, stock, price, f.color" +
+        String sql = "SELECT name, stock, price, f.color " +
                 "FROM product p JOIN flower f ON p.id_product=f.id_product WHERE p.id_product = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
@@ -120,7 +120,7 @@ public class MysqlFlowerDao implements FlowerDao<Integer> {
     public List<Flower<Integer>> findAll() {
         List<Flower<Integer>> flowers = new ArrayList<Flower<Integer>>();
         try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT p.id_product, name, stock, price, f.color" +
+             ResultSet rs = stmt.executeQuery("SELECT p.id_product, name, stock, price, f.color " +
                      "FROM product p JOIN flower f ON p.id_product=f.id_product")) {
             while (rs.next()) {
                 int id = rs.getInt(1);
@@ -143,7 +143,7 @@ public class MysqlFlowerDao implements FlowerDao<Integer> {
     public int getTotalStockFlowers() {
         int totalStock = 0;
         try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT SUM(stock)" +
+             ResultSet rs = stmt.executeQuery("SELECT SUM(stock) " +
                      "FROM product WHERE type='FLOWER'")) {
             if (rs.next()) {
                 totalStock = rs.getInt(1);
@@ -158,7 +158,7 @@ public class MysqlFlowerDao implements FlowerDao<Integer> {
     public double getTotalValueFlowers() {
         int totalValue = 0;
         try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT SUM(stock * price)" +
+             ResultSet rs = stmt.executeQuery("SELECT SUM(stock * price) " +
                      "FROM product WHERE type='FLOWER'")) {
             if (rs.next()) {
                 totalValue = rs.getInt(1);
