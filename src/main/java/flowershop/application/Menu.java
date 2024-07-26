@@ -1,11 +1,13 @@
 package flowershop.application;
 
-import flowershop.helpers.Input;
+
 import flowershop.dao.DaoManager;
+import flowershop.helpers.Input;
 
-public class Menu {
 
-    private final ProductController productController;
+public class Menu<ID> {
+
+    private final ProductController<ID> productController;
     //private final TicketController ticketController;
     //private final StockController stockController;
 
@@ -23,7 +25,7 @@ public class Menu {
         System.out.println("*************** Menu Principal Floristería ***************");
 
         int option = Input.readIntInRange(
-                        "1. Crear un producto.\n" +
+                "1. Crear un producto.\n" +
                         "2. Eliminar un producto.\n" +
                         "3. Actualizar stock de un producto.\n" +
                         "4. Stock por producto.\n" +
@@ -39,40 +41,40 @@ public class Menu {
         boolean exit = false;
 
         do {
-           switch(showMenu()) {
-               case 1:
-                   productController.addProduct();
-                   break;
-               case 2:
-                   productController.deleteProduct();
-                   break;
-               case 3:
-                   productController.updateProductStock();
-                   break;
-               case 4:
-                   //stockProducts();
-                   break;
-               case 5:
-                   //stockByCategory();
-                   break;
-               case 6:
-                   //ticketController.crearunticket();
-                   break;
-               case 7:
-                   //ticketController.mostratTodos los tickets
-               case 0:
-                   byeBye();
-                   exit = true;
-                   break;
-           }
+            switch(showMenu()) {
+                case 1:
+                    productController.addProduct();
+                    break;
+                case 2:
+                    productController.deleteProduct();
+                    break;
+                case 3:
+                    productController.updateProductStock();
+                    break;
+                case 4:
+                    //stockProducts();
+                    break;
+                case 5:
+                    //stockByCategory();
+                    break;
+                case 6:
+                    //ticketController.crearunticket();
+                    break;
+                case 7:
+                    //ticketController.mostratTodos los tickets
+                case 0:
+                    byeBye();
+                    exit = true;
+                    break;
+            }
         } while (!exit);
     }
 
     public static void byeBye(){
         System.out.println(
                 "Flores en el sol,\n" +
-                "belleza en cada pétalo.\n" +
-                "Ciao Bellx!\n");
+                        "belleza en cada pétalo.\n" +
+                        "Ciao Bellx!\n");
         //DESCONECTAR BBDD??
     }
 }
