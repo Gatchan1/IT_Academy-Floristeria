@@ -126,6 +126,16 @@ public class MysqlTicketDao implements TicketDao {
 
     @Override
     public double getTotalRevenue() {
-        return 0;
+        int totalRevenue = 0;
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT SUM(total_price) FROM ticket")) {
+            if (rs.next()) {
+                totalRevenue = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Error al leer stock en la base de datos", e);
+        }
+
+        return totalRevenue;
     }
 }
