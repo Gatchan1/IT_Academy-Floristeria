@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class MysqlTreeDao implements TreeDao<Integer> {
+public class MysqlTreeDao<Integer> implements TreeDao<Integer> {
     private final Connection connection;
     private static final Logger logger = Logger.getLogger(MysqlTreeDao.class.getName());
 
@@ -81,6 +81,29 @@ public class MysqlTreeDao implements TreeDao<Integer> {
     }
 
     @Override
+    public List<Tree<Integer>> findAll() {
+        List<Tree<Integer>> trees = new ArrayList<Tree<Integer>>();
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT p.id_product, name, stock, price, t.height " +
+                     "FROM product p JOIN tree t ON p.id_product=t.id_product")) {
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String name = rs.getString(2);
+                int stock = rs.getInt(3);
+                double price = rs.getDouble(4);
+                double height = rs.getDouble(5);         //check
+
+                Tree<Integer> tree = new Tree<Integer>(name, price, stock, height);
+                tree.setId(id);
+                trees.add(tree);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Error al leer elementos en la base de datos", e);
+        }
+        return trees;
+    }
+
+    @Override
     public void updateStock(Integer id, int stockDiff) throws Exception {
         Tree<Integer> tree = read(id);
         if (tree == null) {
@@ -116,26 +139,8 @@ public class MysqlTreeDao implements TreeDao<Integer> {
     }
 
     @Override
-    public List<Tree<Integer>> findAll() {
-        List<Tree<Integer>> trees = new ArrayList<Tree<Integer>>();
-        try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT p.id_product, name, stock, price, t.height " +
-                     "FROM product p JOIN tree t ON p.id_product=t.id_product")) {
-            while (rs.next()) {
-                int id = rs.getInt(1);
-                String name = rs.getString(2);
-                int stock = rs.getInt(3);
-                double price = rs.getDouble(4);
-                double height = rs.getDouble(5);         //check
-
-                Tree<Integer> tree = new Tree<Integer>(name, price, stock, height);
-                tree.setId(id);
-                trees.add(tree);
-            }
-        } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Error al leer elementos en la base de datos", e);
-        }
-        return trees;
+    public boolean exists(Tree<ID> product) throws Exception {
+        return false;
     }
 
     @Override

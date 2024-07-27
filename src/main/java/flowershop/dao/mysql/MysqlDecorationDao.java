@@ -81,6 +81,29 @@ public class MysqlDecorationDao implements DecorationDao<Integer> {
     }
 
     @Override
+    public List<Decoration<Integer>> findAll() {
+        List<Decoration<Integer>> decorations = new ArrayList<Decoration<Integer>>();
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT p.id_product, name, stock, price, d.material " +
+                     "FROM product p JOIN decoration d ON p.id_product=d.id_product")) {
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String name = rs.getString(2);
+                int stock = rs.getInt(3);
+                double price = rs.getDouble(4);
+                String material = rs.getString(5);
+
+                Decoration<Integer> decoration = new Decoration<Integer>(name, price, stock, material);
+                decoration.setId(id);
+                decorations.add(decoration);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Error al leer elementos en la base de datos", e);
+        }
+        return decorations;
+    }
+
+    @Override
     public void updateStock(Integer id, int stockDiff) throws Exception {
         Decoration<Integer> decoration = read(id);
         if (decoration == null) {
@@ -116,26 +139,8 @@ public class MysqlDecorationDao implements DecorationDao<Integer> {
     }
 
     @Override
-    public List<Decoration<Integer>> findAll() {
-        List<Decoration<Integer>> decorations = new ArrayList<Decoration<Integer>>();
-        try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT p.id_product, name, stock, price, d.material " +
-                     "FROM product p JOIN decoration d ON p.id_product=d.id_product")) {
-            while (rs.next()) {
-                int id = rs.getInt(1);
-                String name = rs.getString(2);
-                int stock = rs.getInt(3);
-                double price = rs.getDouble(4);
-                String material = rs.getString(5);
-
-                Decoration<Integer> decoration = new Decoration<Integer>(name, price, stock, material);
-                decoration.setId(id);
-                decorations.add(decoration);
-            }
-        } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Error al leer elementos en la base de datos", e);
-        }
-        return decorations;
+    public boolean exists(Decoration<ID> product) throws Exception {
+        return false;
     }
 
     @Override

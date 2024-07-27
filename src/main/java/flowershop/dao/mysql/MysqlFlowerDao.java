@@ -82,6 +82,29 @@ public class MysqlFlowerDao implements FlowerDao<Integer> {
     }
 
     @Override
+    public List<Flower<Integer>> findAll() {
+        List<Flower<Integer>> flowers = new ArrayList<Flower<Integer>>();
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT p.id_product, name, stock, price, f.color " +
+                     "FROM product p JOIN flower f ON p.id_product=f.id_product")) {
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String name = rs.getString(2);
+                int stock = rs.getInt(3);
+                double price = rs.getDouble(4);
+                String color = rs.getString(5);
+
+                Flower<Integer> flower = new Flower<Integer>(name, price, stock, color);
+                flower.setId(id);
+                flowers.add(flower);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Error al leer elementos en la base de datos", e);
+        }
+        return flowers;
+    }
+
+    @Override
     public void updateStock(Integer id, int stockDiff) throws Exception {
         Flower<Integer> flower = read(id);
         if (flower == null) {
@@ -117,26 +140,8 @@ public class MysqlFlowerDao implements FlowerDao<Integer> {
     }
 
     @Override
-    public List<Flower<Integer>> findAll() {
-        List<Flower<Integer>> flowers = new ArrayList<Flower<Integer>>();
-        try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT p.id_product, name, stock, price, f.color " +
-                     "FROM product p JOIN flower f ON p.id_product=f.id_product")) {
-            while (rs.next()) {
-                int id = rs.getInt(1);
-                String name = rs.getString(2);
-                int stock = rs.getInt(3);
-                double price = rs.getDouble(4);
-                String color = rs.getString(5);
-
-                Flower<Integer> flower = new Flower<Integer>(name, price, stock, color);
-                flower.setId(id);
-                flowers.add(flower);
-            }
-        } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Error al leer elementos en la base de datos", e);
-        }
-        return flowers;
+    public boolean exists(Flower<ID> product) throws Exception {
+        return false;
     }
 
     @Override
