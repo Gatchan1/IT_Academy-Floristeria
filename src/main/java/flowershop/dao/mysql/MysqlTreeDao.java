@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class MysqlTreeDao<Integer> implements TreeDao<Integer> {
+public class MysqlTreeDao implements TreeDao {
     private final Connection connection;
     private static final Logger logger = Logger.getLogger(MysqlTreeDao.class.getName());
 
@@ -17,7 +17,7 @@ public class MysqlTreeDao<Integer> implements TreeDao<Integer> {
     }
 
     @Override
-    public void create(Tree<Integer> tree) throws SQLException {
+    public void create(Tree tree) throws SQLException {
         connection.setAutoCommit(false);
 
         String sqlProduct = "INSERT INTO product (name, stock, price, type) VALUES (?, ?, ?, ?)";
@@ -45,7 +45,7 @@ public class MysqlTreeDao<Integer> implements TreeDao<Integer> {
             }
 
             stmtTree.setInt(1, productId);
-            stmtTree.setDouble(2, tree.getHeight());       //check type
+            stmtTree.setDouble(2, tree.getHeight());
             affectedRows = stmtTree.executeUpdate();
             if (affectedRows == 0) {
                 throw new SQLException("Error al introducir elemento en la base de datos");
@@ -58,19 +58,19 @@ public class MysqlTreeDao<Integer> implements TreeDao<Integer> {
     }
 
     @Override
-    public Tree<Integer> read(Integer id) {
-        Tree<Integer> tree = null;
+    public Tree read(String id) {
+        Tree tree = null;
         String sql = "SELECT name, stock, price, t.height FROM product p " +
                 "JOIN tree t ON p.id_product=t.id_product WHERE p.id_product = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, id);
+            stmt.setInt(1, Integer.parseInt(id));
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     String name = rs.getString(1);
                     int stock = rs.getInt(2);
                     double price = rs.getDouble(3);
-                    double height = rs.getDouble(4);       //check
-                    tree = new Tree<Integer>(name, price, stock, height);
+                    double height = rs.getDouble(4);
+                    tree = new Tree(name, price, stock, height);
                     tree.setId(id);
                 }
             }
@@ -81,8 +81,8 @@ public class MysqlTreeDao<Integer> implements TreeDao<Integer> {
     }
 
     @Override
-    public List<Tree<Integer>> findAll() {
-        List<Tree<Integer>> trees = new ArrayList<Tree<Integer>>();
+    public List<Tree> findAll() {
+        List<Tree> trees = new ArrayList<Tree>();
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT p.id_product, name, stock, price, t.height " +
                      "FROM product p JOIN tree t ON p.id_product=t.id_product")) {
@@ -91,10 +91,10 @@ public class MysqlTreeDao<Integer> implements TreeDao<Integer> {
                 String name = rs.getString(2);
                 int stock = rs.getInt(3);
                 double price = rs.getDouble(4);
-                double height = rs.getDouble(5);         //check
+                double height = rs.getDouble(5);
 
-                Tree<Integer> tree = new Tree<Integer>(name, price, stock, height);
-                tree.setId(id);
+                Tree tree = new Tree(name, price, stock, height);
+                tree.setId(Integer.toString(id));
                 trees.add(tree);
             }
         } catch (SQLException e) {
@@ -104,8 +104,8 @@ public class MysqlTreeDao<Integer> implements TreeDao<Integer> {
     }
 
     @Override
-    public void updateStock(Integer id, int stockDiff) throws Exception {
-        Tree<Integer> tree = read(id);
+    public void updateStock(String id, int stockDiff) throws Exception {
+        Tree tree = read(id);
         if (tree == null) {
             throw new Exception("La id introducida no corresponde a ningún elemento"); //TODO: usar excepción personalizada!
         }
@@ -114,7 +114,7 @@ public class MysqlTreeDao<Integer> implements TreeDao<Integer> {
         String sql = "UPDATE product SET stock = ? WHERE id_product = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, newStock);
-            stmt.setInt(2, id);
+            stmt.setInt(2, Integer.parseInt(id));
             int affectedRows = stmt.executeUpdate();
             if (affectedRows == 0) {
                 throw new Exception("No se ha producido ninguna modificación"); //TODO: usar excepción personalizada;
@@ -125,10 +125,10 @@ public class MysqlTreeDao<Integer> implements TreeDao<Integer> {
     }
 
     @Override
-    public void deleteById(Integer id) throws Exception {
+    public void deleteById(String id) throws Exception {
         String sql = "DELETE FROM product WHERE id_product = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, id);
+            stmt.setInt(1, Integer.parseInt(id));
             int affectedRows = stmt.executeUpdate();
             if (affectedRows == 0) {
                 throw new Exception("No se ha producido ningún borrado"); //TODO: usar excepción personalizada;
@@ -139,7 +139,18 @@ public class MysqlTreeDao<Integer> implements TreeDao<Integer> {
     }
 
     @Override
-    public boolean exists(Tree<ID> product) throws Exception {
+    public boolean exists(Tree tree) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM product p JOIN tree t " +
+                "ON p.id_product=t.id_product WHERE p.name = ? AND t.height = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, tree.getName());
+            stmt.setDouble(2, tree.getHeight());
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        }
         return false;
     }
 

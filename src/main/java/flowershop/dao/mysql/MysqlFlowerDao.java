@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class MysqlFlowerDao implements FlowerDao<Integer> {
+public class MysqlFlowerDao implements FlowerDao {
     private final Connection connection;
     private static final Logger logger = Logger.getLogger(MysqlFlowerDao.class.getName());
 
@@ -18,7 +18,7 @@ public class MysqlFlowerDao implements FlowerDao<Integer> {
     }
 
     @Override
-    public void create(Flower<Integer> flower) throws SQLException {
+    public void create(Flower flower) throws SQLException {
         connection.setAutoCommit(false);
 
         String sqlProduct = "INSERT INTO product (name, stock, price, type) VALUES (?, ?, ?, ?)";
@@ -59,12 +59,12 @@ public class MysqlFlowerDao implements FlowerDao<Integer> {
     }
 
     @Override
-    public Flower<Integer> read(Integer id) {
-        Flower<Integer> flower = null;
+    public Flower read(String id) {
+        Flower flower = null;
         String sql = "SELECT name, stock, price, f.color " +
                 "FROM product p JOIN flower f ON p.id_product=f.id_product WHERE p.id_product = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, id);
+            stmt.setInt(1, Integer.parseInt(id));
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     String name = rs.getString(1);
@@ -82,8 +82,8 @@ public class MysqlFlowerDao implements FlowerDao<Integer> {
     }
 
     @Override
-    public List<Flower<Integer>> findAll() {
-        List<Flower<Integer>> flowers = new ArrayList<Flower<Integer>>();
+    public List<Flower> findAll() {
+        List<Flower> flowers = new ArrayList<Flower>();
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT p.id_product, name, stock, price, f.color " +
                      "FROM product p JOIN flower f ON p.id_product=f.id_product")) {
@@ -94,8 +94,8 @@ public class MysqlFlowerDao implements FlowerDao<Integer> {
                 double price = rs.getDouble(4);
                 String color = rs.getString(5);
 
-                Flower<Integer> flower = new Flower<Integer>(name, price, stock, color);
-                flower.setId(id);
+                Flower flower = new Flower(name, price, stock, color);
+                flower.setId(Integer.toString(id));
                 flowers.add(flower);
             }
         } catch (SQLException e) {
@@ -105,8 +105,8 @@ public class MysqlFlowerDao implements FlowerDao<Integer> {
     }
 
     @Override
-    public void updateStock(Integer id, int stockDiff) throws Exception {
-        Flower<Integer> flower = read(id);
+    public void updateStock(String id, int stockDiff) throws Exception {
+        Flower flower = read(id);
         if (flower == null) {
             throw new Exception("La id introducida no corresponde a ningún elemento"); //TODO: usar excepción personalizada!
         }
@@ -115,7 +115,7 @@ public class MysqlFlowerDao implements FlowerDao<Integer> {
         String sql = "UPDATE product SET stock = ? WHERE id_product = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, newStock);
-            stmt.setInt(2, id);
+            stmt.setInt(2, Integer.parseInt(id));
             int affectedRows = stmt.executeUpdate();
             if (affectedRows == 0) {
                 throw new Exception("No se ha producido ninguna modificación"); //TODO: usar excepción personalizada;
@@ -126,10 +126,10 @@ public class MysqlFlowerDao implements FlowerDao<Integer> {
     }
 
     @Override
-    public void deleteById(Integer id) throws Exception {
+    public void deleteById(String id) throws Exception {
         String sql = "DELETE FROM product WHERE id_product = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, id);
+            stmt.setInt(1, Integer.parseInt(id));
             int affectedRows = stmt.executeUpdate();
             if (affectedRows == 0) {
                 throw new Exception("No se ha producido ningún borrado"); //TODO: usar excepción personalizada;
@@ -140,7 +140,18 @@ public class MysqlFlowerDao implements FlowerDao<Integer> {
     }
 
     @Override
-    public boolean exists(Flower<ID> product) throws Exception {
+    public boolean exists(Flower flower) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM product p JOIN flower f " +
+                "ON p.id_product=f.id_product WHERE p.name = ? AND f.color = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, flower.getName());
+            stmt.setString(2, flower.getColor());
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        }
         return false;
     }
 

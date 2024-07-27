@@ -4,7 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="846724b4-8d97-491b-82d5-4b7ba2816fc9" name="Changes" comment="modification menu" />
+    <list default="true" id="846724b4-8d97-491b-82d5-4b7ba2816fc9" name="Changes" comment="modification menu">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/dao/DecorationDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/dao/DecorationDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/dao/FlowerDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/dao/FlowerDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/dao/GenericDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/dao/GenericDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/dao/ProductDaoMethods.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/dao/ProductDaoMethods.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/dao/ProductReaderDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/dao/ProductReaderDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/dao/TicketDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/dao/TicketDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/dao/TreeDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/dao/TreeDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/dao/mysql/MysqlDaoManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/dao/mysql/MysqlDaoManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/dao/mysql/MysqlDecorationDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/dao/mysql/MysqlDecorationDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/dao/mysql/MysqlFlowerDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/dao/mysql/MysqlFlowerDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/dao/mysql/MysqlProductReaderDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/dao/mysql/MysqlProductReaderDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/dao/mysql/MysqlTreeDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/dao/mysql/MysqlTreeDao.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

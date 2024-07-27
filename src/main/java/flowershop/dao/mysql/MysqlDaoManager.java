@@ -15,11 +15,11 @@ public class MysqlDaoManager extends DaoManager {
     private static MysqlDaoManager instance;
     private Connection connection;
 
-    private TreeDao<Integer> treeDao;
-    private FlowerDao<Integer> flowerDao;
-    private DecorationDao<Integer> decorationDao;
-    private TicketDao<Integer> ticketDao;
-    private ProductReaderDao<Product<Integer>, Integer> productReaderDao;
+    private TreeDao treeDao;
+    private FlowerDao flowerDao;
+    private DecorationDao decorationDao;
+    private TicketDao ticketDao;
+    private ProductReaderDao<Product> productReaderDao;
 
     private MysqlDaoManager() {
         try {

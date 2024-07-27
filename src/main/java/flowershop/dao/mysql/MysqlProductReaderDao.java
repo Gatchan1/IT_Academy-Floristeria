@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class MysqlProductReaderDao implements ProductReaderDao<Product<Integer>, Integer> {
+public class MysqlProductReaderDao implements ProductReaderDao<Product> {
     private final Connection connection;
     private static final Logger logger = Logger.getLogger(MysqlProductReaderDao.class.getName());
 
@@ -15,8 +15,8 @@ public class MysqlProductReaderDao implements ProductReaderDao<Product<Integer>,
         this.connection = connection;
     }
 
-    public Product<Integer> read(Integer id) {
-        Product<Integer> product = null;
+    public Product read(String id) {
+        Product product = null;
         String type = null;
         try (Statement stmtType = connection.createStatement()) {
             ResultSet rs = stmtType.executeQuery("SELECT type FROM product WHERE id_product = id");
@@ -40,7 +40,7 @@ public class MysqlProductReaderDao implements ProductReaderDao<Product<Integer>,
         String sql = "SELECT name, stock, price, " + type + "." + attribute + " FROM product p JOIN "
                      + type + " ON p.id_product=" + type + ".id_product WHERE p.id_product = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, id);
+            stmt.setInt(1, Integer.parseInt(id));
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     String name = rs.getString(1);
@@ -52,7 +52,7 @@ public class MysqlProductReaderDao implements ProductReaderDao<Product<Integer>,
                             yield new Flower<Integer>(name, price, stock, color);
                         }
                         case "decoration" -> {
-                            String material = rs.getString(4);
+                            Decoration.Material material = Decoration.Material.valueOf(rs.getString(4));
                             yield new Decoration<Integer>(name, price, stock, material);
                         }
                         case "tree" -> {

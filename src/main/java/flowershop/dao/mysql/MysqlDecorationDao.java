@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class MysqlDecorationDao implements DecorationDao<Integer> {
+public class MysqlDecorationDao implements DecorationDao {
     private final Connection connection;
     private static final Logger logger = Logger.getLogger(MysqlDecorationDao.class.getName());
 
@@ -17,7 +17,7 @@ public class MysqlDecorationDao implements DecorationDao<Integer> {
     }
 
     @Override
-    public void create(Decoration<Integer> decoration) throws SQLException {
+    public void create(Decoration decoration) throws SQLException {
         connection.setAutoCommit(false);
 
         String sqlProduct = "INSERT INTO product (name, stock, price, type) VALUES (?, ?, ?, ?)";
@@ -45,7 +45,7 @@ public class MysqlDecorationDao implements DecorationDao<Integer> {
             }
 
             stmtDecoration.setInt(1, productId);
-            stmtDecoration.setString(2, decoration.getMaterial());
+            stmtDecoration.setString(2, decoration.getMaterial().name());
             affectedRows = stmtDecoration.executeUpdate();
             if (affectedRows == 0) {
                 throw new SQLException("Error al introducir elemento en la base de datos");
@@ -58,18 +58,18 @@ public class MysqlDecorationDao implements DecorationDao<Integer> {
     }
 
     @Override
-    public Decoration<Integer> read(Integer id) {
-        Decoration<Integer> decoration = null;
+    public Decoration read(String id) {
+        Decoration decoration = null;
         String sql = "SELECT name, stock, price, d.material FROM product p " +
                 "JOIN decoration d ON p.id_product=d.id_product WHERE p.id_product = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, id);
+            stmt.setInt(1, Integer.parseInt(id));
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     String name = rs.getString(1);
                     int stock = rs.getInt(2);
                     double price = rs.getDouble(3);
-                    String material = rs.getString(4);
+                    Decoration.Material material = Decoration.Material.valueOf(rs.getString(4));
                     decoration = new Decoration<Integer>(name, price, stock, material);
                     decoration.setId(id);
                 }
@@ -81,8 +81,8 @@ public class MysqlDecorationDao implements DecorationDao<Integer> {
     }
 
     @Override
-    public List<Decoration<Integer>> findAll() {
-        List<Decoration<Integer>> decorations = new ArrayList<Decoration<Integer>>();
+    public List<Decoration> findAll() {
+        List<Decoration> decorations = new ArrayList<Decoration>();
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT p.id_product, name, stock, price, d.material " +
                      "FROM product p JOIN decoration d ON p.id_product=d.id_product")) {
@@ -91,10 +91,10 @@ public class MysqlDecorationDao implements DecorationDao<Integer> {
                 String name = rs.getString(2);
                 int stock = rs.getInt(3);
                 double price = rs.getDouble(4);
-                String material = rs.getString(5);
+                Decoration.Material material = Decoration.Material.valueOf(rs.getString(5));
 
-                Decoration<Integer> decoration = new Decoration<Integer>(name, price, stock, material);
-                decoration.setId(id);
+                Decoration decoration = new Decoration(name, price, stock, material);
+                decoration.setId(Integer.toString(id));
                 decorations.add(decoration);
             }
         } catch (SQLException e) {
@@ -104,8 +104,8 @@ public class MysqlDecorationDao implements DecorationDao<Integer> {
     }
 
     @Override
-    public void updateStock(Integer id, int stockDiff) throws Exception {
-        Decoration<Integer> decoration = read(id);
+    public void updateStock(String id, int stockDiff) throws Exception {
+        Decoration decoration = read(id);
         if (decoration == null) {
             throw new Exception("La id introducida no corresponde a ningún elemento"); //TODO: usar excepción personalizada!
         }
@@ -114,7 +114,7 @@ public class MysqlDecorationDao implements DecorationDao<Integer> {
         String sql = "UPDATE product SET stock = ? WHERE id_product = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, newStock);
-            stmt.setInt(2, id);
+            stmt.setInt(2, Integer.parseInt(id));
             int affectedRows = stmt.executeUpdate();
             if (affectedRows == 0) {
                 throw new Exception("No se ha producido ninguna modificación"); //TODO: usar excepción personalizada;
@@ -125,10 +125,10 @@ public class MysqlDecorationDao implements DecorationDao<Integer> {
     }
 
     @Override
-    public void deleteById(Integer id) throws Exception {
+    public void deleteById(String id) throws Exception {
         String sql = "DELETE FROM product WHERE id_product = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, id);
+            stmt.setInt(1, Integer.parseInt(id));
             int affectedRows = stmt.executeUpdate();
             if (affectedRows == 0) {
                 throw new Exception("No se ha producido ningún borrado"); //TODO: usar excepción personalizada;
@@ -139,7 +139,18 @@ public class MysqlDecorationDao implements DecorationDao<Integer> {
     }
 
     @Override
-    public boolean exists(Decoration<ID> product) throws Exception {
+    public boolean exists(Decoration decoration) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM product p JOIN decoration d " +
+                "ON p.id_product=d.id_product WHERE p.name = ? AND d.material = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, decoration.getName());
+            stmt.setString(2, decoration.getMaterial().name());
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        }
         return false;
     }
 

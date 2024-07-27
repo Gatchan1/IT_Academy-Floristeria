@@ -8,12 +8,12 @@ import java.util.List;
 // si en modelos existiera un item ticket el create quizás necesitaria dos parametros de entrada, diferente de este crud
 //Raquel - No, solo habrá una entidad de ticket; no habrá entidad de item ticket. Con lo que este crud sí que sirve.
 //Raquel - El que no usaremos de momento es ProductDao, a no ser que nos sobre tiempo para intentar refactorizar.
-public interface GenericDao<T, ID> {
+public interface GenericDao<T> {
 
     // CRUD
     void create(T entity) throws SQLException;
 
-    T read(ID id);
+    T read(String id);
 
     List<T> findAll();
 }
