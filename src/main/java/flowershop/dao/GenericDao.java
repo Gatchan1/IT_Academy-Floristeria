@@ -15,8 +15,5 @@ public interface GenericDao<T, ID> {
 
     T read(ID id);
 
-    void deleteById(ID id) throws Exception;
-
     List<T> findAll();
-    //List<T> getAll(); como queda mejor???
 }
