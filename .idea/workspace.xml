@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="846724b4-8d97-491b-82d5-4b7ba2816fc9" name="Changes" comment="modification menu">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/dao/mysql/MysqlDecorationDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/dao/mysql/MysqlDecorationDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/dao/mysql/MysqlFlowerDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/dao/mysql/MysqlFlowerDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/dao/mysql/MysqlProductReaderDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/dao/mysql/MysqlProductReaderDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/dao/mysql/MysqlTicketDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/dao/mysql/MysqlTicketDao.java" afterDir="false" />
-    </list>
+    <list default="true" id="846724b4-8d97-491b-82d5-4b7ba2816fc9" name="Changes" comment="modification menu" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -44,7 +38,7 @@
   "keyToString": {
     "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/serge/start-DAO",
+    "git-widget-placeholder": "dev",
     "kotlin-language-version-configured": "true",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
