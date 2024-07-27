@@ -5,19 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="846724b4-8d97-491b-82d5-4b7ba2816fc9" name="Changes" comment="modification menu">
+      <change afterPath="$PROJECT_DIR$/src/main/java/flowershop/configdb/mysql/ConnectionMysql.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/flowershop/configdb/mysql/CreateDatabaseMysql.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/flowershop/configdb/mysql/InitialStockMysql.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/flowershop/configdb/mysql/QueriesMysql.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/dao/DecorationDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/dao/DecorationDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/dao/FlowerDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/dao/FlowerDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/dao/GenericDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/dao/GenericDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/dao/ProductDaoMethods.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/dao/ProductDaoMethods.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/dao/ProductReaderDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/dao/ProductReaderDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/dao/TicketDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/dao/TicketDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/dao/TreeDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/dao/TreeDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/dao/mysql/MysqlDaoManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/dao/mysql/MysqlDaoManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/dao/mysql/MysqlDecorationDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/dao/mysql/MysqlDecorationDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/dao/mysql/MysqlFlowerDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/dao/mysql/MysqlFlowerDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/dao/mysql/MysqlProductReaderDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/dao/mysql/MysqlProductReaderDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/dao/mysql/MysqlTreeDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/dao/mysql/MysqlTreeDao.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,14 +44,20 @@
   "keyToString": {
     "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/serge/start-DAO",
+    "git-widget-placeholder": "feature/configdbmysql",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/PC/IdeaProjects/IT_Academy-Floristeria/src/main/java/flowershop/configdb/mysql",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.0",
     "settings.editor.selected.configurable": "preferences.lookFeel"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\PC\IdeaProjects\IT_Academy-Floristeria\src\main\java\flowershop\configdb\mysql" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
