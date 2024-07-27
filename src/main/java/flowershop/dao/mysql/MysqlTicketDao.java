@@ -5,6 +5,8 @@ import flowershop.dao.TicketDao;
 //TODO: import Product
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -64,7 +66,43 @@ public class MysqlTicketDao implements TicketDao<Integer> {
 
     @Override
     public Ticket<Integer> read(Integer id) {
-        return null;
+        Ticket<Integer> ticket = null;
+        String sql = "SELECT sale_date, total_price, id_product, quantity " +
+                "FROM ticket t JOIN ticket_detail td ON t.id_ticket=td.id_ticket WHERE t.id_ticket = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                LocalDate saleDate = LocalDate.parse("2000-01-01");
+                double saleTotal = 0;
+                // ^^^ both these values are only placeholders;
+                // the real values are set while looping the ResultSet.
+                boolean dateAndTotalAreSet = false;
+                HashMap<Product, Integer> saleProducts = new HashMap<Product, Integer>();
+
+                MysqlProductDao productDao = new MysqlProductDao(connection);
+
+                while (rs.next()) {
+                    if (!dateAndTotalAreSet) {
+                        saleDate = rs.getDate(1).toLocalDate();
+                        saleTotal = rs.getDouble(2);
+                        dateAndTotalAreSet = true;
+                    }
+                    int productId = rs.getInt(3);
+                    int quantity = rs.getInt(4);
+
+                    Product product = productDao.read(productId);
+                    // AQUI ESTAMOS USANDO LA MISMA CONNECTION PARA HACER UNA CONSULTA MIENTRAS ITERAMOS OTRA CONSULTA.
+                    // OJALÁ NO DÉ PROBLEMAS
+                    saleProducts.put(product, quantity);
+                }
+
+                ticket = new Ticket(saleProducts, saleTotal);     //check
+                ticket.setSaleDate(saleDate);                     //check
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Error al buscar elemento en la base de datos", e);
+        }
+        return ticket;   //might be null if the id doesn't match a ticket.
     }
 
     @Override
