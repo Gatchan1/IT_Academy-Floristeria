@@ -79,7 +79,7 @@ public class MysqlTicketDao implements TicketDao<Integer> {
                 boolean dateAndTotalAreSet = false;
                 HashMap<Product, Integer> saleProducts = new HashMap<Product, Integer>();
 
-                MysqlProductDao productDao = new MysqlProductDao(connection);
+                MysqlProductReaderDao productReader = new MysqlProductReaderDao(connection);
 
                 while (rs.next()) {
                     if (!dateAndTotalAreSet) {
@@ -90,7 +90,7 @@ public class MysqlTicketDao implements TicketDao<Integer> {
                     int productId = rs.getInt(3);
                     int quantity = rs.getInt(4);
 
-                    Product product = productDao.read(productId);
+                    Product product = productReader.read(productId);
                     // AQUI ESTAMOS USANDO LA MISMA CONNECTION PARA HACER UNA CONSULTA MIENTRAS ITERAMOS OTRA CONSULTA.
                     // OJALÁ NO DÉ PROBLEMAS
                     saleProducts.put(product, quantity);
@@ -103,11 +103,6 @@ public class MysqlTicketDao implements TicketDao<Integer> {
             logger.log(Level.SEVERE, "Error al buscar elemento en la base de datos", e);
         }
         return ticket;   //might be null if the id doesn't match a ticket.
-    }
-
-    @Override
-    public void deleteById(Integer id) throws Exception {
-
     }
 
     @Override

@@ -7,11 +7,11 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class MysqlProductDao implements ProductDao<Product<Integer>, Integer> {
+public class MysqlProductReaderDao implements ProductDao<Product<Integer>, Integer> {
     private final Connection connection;
-    private static final Logger logger = Logger.getLogger(MysqlProductDao.class.getName());
+    private static final Logger logger = Logger.getLogger(MysqlProductReaderDao.class.getName());
 
-    public MysqlProductDao(Connection connection) {
+    public MysqlProductReaderDao(Connection connection) {
         this.connection = connection;
     }
 
