@@ -19,7 +19,7 @@ public class MysqlDaoManager extends DaoManager {
     private FlowerDao<Integer> flowerDao;
     private DecorationDao<Integer> decorationDao;
     private TicketDao<Integer> ticketDao;
-    private ProductDao<Product<Integer>, Integer> productDao;
+    private ProductReaderDao<Product<Integer>, Integer> productReaderDao;
 
     private MysqlDaoManager() {
         try {
@@ -47,11 +47,11 @@ public class MysqlDaoManager extends DaoManager {
     }
 
     @Override
-    public ProductDao getProductDao() {
-        if (productDao == null) {
-            productDao = new MysqlProductDao(connection);
+    public ProductReaderDao getProductReaderDao() {
+        if (productReaderDao == null) {
+            productReaderDao = new MysqlProductReaderDao(connection);
         }
-        return productDao;
+        return productReaderDao;
     }
 
     @Override

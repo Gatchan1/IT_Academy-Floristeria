@@ -140,7 +140,7 @@ public class MysqlFlowerDao implements FlowerDao<Integer> {
     }
 
     @Override
-    public int getTotalStockFlowers() {
+    public int getTotalStock() {
         int totalStock = 0;
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT SUM(stock) " +
@@ -155,7 +155,7 @@ public class MysqlFlowerDao implements FlowerDao<Integer> {
     }
 
     @Override
-    public double getTotalValueFlowers() {
+    public double getTotalValue() {
         int totalValue = 0;
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT SUM(stock * price) " +

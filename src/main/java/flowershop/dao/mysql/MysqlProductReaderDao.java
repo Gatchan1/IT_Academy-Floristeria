@@ -1,13 +1,13 @@
 package flowershop.dao.mysql;
 
 //TODO: import Product
-import flowershop.dao.ProductDao;
+import flowershop.dao.ProductReaderDao;
 
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class MysqlProductReaderDao implements ProductDao<Product<Integer>, Integer> {
+public class MysqlProductReaderDao implements ProductReaderDao<Product<Integer>, Integer> {
     private final Connection connection;
     private static final Logger logger = Logger.getLogger(MysqlProductReaderDao.class.getName());
 

@@ -139,7 +139,7 @@ public class MysqlTreeDao implements TreeDao<Integer> {
     }
 
     @Override
-    public int getTotalStockTrees() {
+    public int getTotalStock() {
         int totalStock = 0;
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT SUM(stock) " +
@@ -154,7 +154,7 @@ public class MysqlTreeDao implements TreeDao<Integer> {
     }
 
     @Override
-    public double getTotalValueTrees() {
+    public double getTotalValue() {
         int totalValue = 0;
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT SUM(stock * price) " +

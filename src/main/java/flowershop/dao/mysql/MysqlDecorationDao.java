@@ -139,7 +139,7 @@ public class MysqlDecorationDao implements DecorationDao<Integer> {
     }
 
     @Override
-    public int getTotalStockDecorations() {
+    public int getTotalStock() {
         int totalStock = 0;
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT SUM(stock) " +
@@ -154,7 +154,7 @@ public class MysqlDecorationDao implements DecorationDao<Integer> {
     }
 
     @Override
-    public double getTotalValueDecorations() {
+    public double getTotalValue() {
         int totalValue = 0;
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT SUM(stock * price) " +
