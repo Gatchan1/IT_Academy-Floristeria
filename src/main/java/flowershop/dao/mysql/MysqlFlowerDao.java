@@ -71,7 +71,7 @@ public class MysqlFlowerDao implements FlowerDao {
                     int stock = rs.getInt(2);
                     double price = rs.getDouble(3);
                     String color = rs.getString(4);
-                    flower = new Flower<Integer>(name, price, stock, color);
+                    flower = new Flower(name, price, stock, color);
                     flower.setId(id);
                 }
             }
@@ -102,6 +102,10 @@ public class MysqlFlowerDao implements FlowerDao {
             logger.log(Level.SEVERE, "Error al leer elementos en la base de datos", e);
         }
         return flowers;
+    }
+
+    private void setFlower(Flower flower, int id, ResultSet rs) {
+
     }
 
     @Override

@@ -1,6 +1,9 @@
 package flowershop.dao.mysql;
 
 //TODO: import Product
+//TODO: import Decoration
+//TODO: import Flower
+//TODO: import Tree
 import flowershop.dao.ProductReaderDao;
 
 import java.sql.*;
@@ -49,15 +52,15 @@ public class MysqlProductReaderDao implements ProductReaderDao<Product> {
                     product = switch (type) {
                         case "flower" -> {
                             String color = rs.getString(4);
-                            yield new Flower<Integer>(name, price, stock, color);
+                            yield new Flower(name, price, stock, color);
                         }
                         case "decoration" -> {
                             Decoration.Material material = Decoration.Material.valueOf(rs.getString(4));
-                            yield new Decoration<Integer>(name, price, stock, material);
+                            yield new Decoration(name, price, stock, material);
                         }
                         case "tree" -> {
                             double height = rs.getDouble(4);
-                            yield new Tree<Integer>(name, price, stock, height);
+                            yield new Tree(name, price, stock, height);
                         }
                         default -> product;
                     };

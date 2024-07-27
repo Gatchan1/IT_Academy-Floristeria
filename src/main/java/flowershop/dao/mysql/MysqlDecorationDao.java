@@ -70,7 +70,7 @@ public class MysqlDecorationDao implements DecorationDao {
                     int stock = rs.getInt(2);
                     double price = rs.getDouble(3);
                     Decoration.Material material = Decoration.Material.valueOf(rs.getString(4));
-                    decoration = new Decoration<Integer>(name, price, stock, material);
+                    decoration = new Decoration(name, price, stock, material);
                     decoration.setId(id);
                 }
             }
