@@ -23,22 +23,22 @@ public class MysqlFlowerDao implements FlowerDao {
 
         String sqlProduct = "INSERT INTO product (name, stock, price, type) VALUES (?, ?, ?, ?)";
         String sqlFlower = "INSERT INTO flower (id_product, color) VALUES (?, ?)";
-        try (PreparedStatement stmtProduct = connection.prepareStatement(sqlProduct);
+        try (PreparedStatement stmtProduct = connection.prepareStatement(sqlProduct, Statement.RETURN_GENERATED_KEYS);
              PreparedStatement stmtFlower = connection.prepareStatement(sqlFlower);
         ) {
             Integer productId = null;
 
-            stmtProduct.setString(1, flower.name);
-            stmtProduct.setInt(2, flower.stock);
-            stmtProduct.setDouble(3, flower.price);
-            stmtProduct.setString(4, "flower");   //check
+            stmtProduct.setString(1, flower.getName());
+            stmtProduct.setInt(2, flower.getStock());
+            stmtProduct.setDouble(3, flower.getPrice());
+            stmtProduct.setString(4, "FLOWER");   //check
             int affectedRows = stmtProduct.executeUpdate();
             if (affectedRows == 0) {
                 throw new SQLException();
             }
-            try (ResultSet rs = stmtProduct.getGeneratedKeys()) {
-                if (rs.next()) {
-                    productId = rs.getInt(1);
+            try (ResultSet keys = stmtProduct.getGeneratedKeys()) {
+                if (keys.next()) {
+                    productId = keys.getInt(1);
                 }
             }
             if (productId == null) {
@@ -46,7 +46,7 @@ public class MysqlFlowerDao implements FlowerDao {
             }
 
             stmtFlower.setInt(1, productId);
-            stmtFlower.setString(2, flower.color);
+            stmtFlower.setString(2, flower.getColor());
             affectedRows = stmtFlower.executeUpdate();
             if (affectedRows == 0) {
                 throw new SQLException("Error al introducir elemento en la base de datos");
@@ -59,12 +59,12 @@ public class MysqlFlowerDao implements FlowerDao {
     }
 
     @Override
-    public Flower read(Integer id) {
+    public Flower read(String id) {
         Flower flower = null;
-        String sql = "SELECT name, stock, price, f.color" +
+        String sql = "SELECT name, stock, price, f.color " +
                 "FROM product p JOIN flower f ON p.id_product=f.id_product WHERE p.id_product = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, id);
+            stmt.setInt(1, Integer.parseInt(id));
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     String name = rs.getString(1);
@@ -78,11 +78,38 @@ public class MysqlFlowerDao implements FlowerDao {
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Error al buscar elemento en la base de datos", e);
         }
-        return flower;   //might be null if the id doesn't have a match.
+        return flower;   //might be null if the id doesn't match a flower.
     }
 
     @Override
-    public void updateStock(Integer id, int stockDiff) throws Exception {
+    public List<Flower> findAll() {
+        List<Flower> flowers = new ArrayList<Flower>();
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT p.id_product, name, stock, price, f.color " +
+                     "FROM product p JOIN flower f ON p.id_product=f.id_product")) {
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String name = rs.getString(2);
+                int stock = rs.getInt(3);
+                double price = rs.getDouble(4);
+                String color = rs.getString(5);
+
+                Flower flower = new Flower(name, price, stock, color);
+                flower.setId(Integer.toString(id));
+                flowers.add(flower);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Error al leer elementos en la base de datos", e);
+        }
+        return flowers;
+    }
+
+    private void setFlower(Flower flower, int id, ResultSet rs) {
+
+    }
+
+    @Override
+    public void updateStock(String id, int stockDiff) throws Exception {
         Flower flower = read(id);
         if (flower == null) {
             throw new Exception("La id introducida no corresponde a ningún elemento"); //TODO: usar excepción personalizada!
@@ -92,7 +119,7 @@ public class MysqlFlowerDao implements FlowerDao {
         String sql = "UPDATE product SET stock = ? WHERE id_product = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, newStock);
-            stmt.setInt(2, id);
+            stmt.setInt(2, Integer.parseInt(id));
             int affectedRows = stmt.executeUpdate();
             if (affectedRows == 0) {
                 throw new Exception("No se ha producido ninguna modificación"); //TODO: usar excepción personalizada;
@@ -103,10 +130,10 @@ public class MysqlFlowerDao implements FlowerDao {
     }
 
     @Override
-    public void deleteById(Integer id) throws Exception {
+    public void deleteById(String id) throws Exception {
         String sql = "DELETE FROM product WHERE id_product = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, id);
+            stmt.setInt(1, Integer.parseInt(id));
             int affectedRows = stmt.executeUpdate();
             if (affectedRows == 0) {
                 throw new Exception("No se ha producido ningún borrado"); //TODO: usar excepción personalizada;
@@ -117,33 +144,26 @@ public class MysqlFlowerDao implements FlowerDao {
     }
 
     @Override
-    public List<Flower> findAll() {
-        List<Flower> flowers = new ArrayList<Flower>();
-        try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT p.id_product, name, stock, price, f.color" +
-                     "FROM product p JOIN flower f ON p.id_product=f.id_product")) {
-            while (rs.next()) {
-                int id = rs.getInt(1);
-                String name = rs.getString(2);
-                int stock = rs.getInt(3);
-                double price = rs.getDouble(4);
-                String color = rs.getString(5);
-
-                Flower flower = new Flower(name, price, stock, color);
-                flower.setId(id);
-                flowers.add(flower);
+    public boolean exists(Flower flower) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM product p JOIN flower f " +
+                "ON p.id_product=f.id_product WHERE p.name = ? AND f.color = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, flower.getName());
+            stmt.setString(2, flower.getColor());
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
             }
-        } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Error al leer elementos en la base de datos", e);
         }
-        return flowers;
+        return false;
     }
 
     @Override
-    public int getTotalStockFlowers() {
+    public int getTotalStock() {
         int totalStock = 0;
         try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT SUM(stock)" +
+             ResultSet rs = stmt.executeQuery("SELECT SUM(stock) " +
                      "FROM product WHERE type='FLOWER'")) {
             if (rs.next()) {
                 totalStock = rs.getInt(1);
@@ -155,10 +175,10 @@ public class MysqlFlowerDao implements FlowerDao {
     }
 
     @Override
-    public double getTotalValueFlowers() {
+    public double getTotalValue() {
         int totalValue = 0;
         try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT SUM(stock * price)" +
+             ResultSet rs = stmt.executeQuery("SELECT SUM(stock * price) " +
                      "FROM product WHERE type='FLOWER'")) {
             if (rs.next()) {
                 totalValue = rs.getInt(1);

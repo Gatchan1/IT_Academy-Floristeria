@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 //TODO: import MysqlConnection
+//TODO: import Product
 
 public class MysqlDaoManager extends DaoManager {
 
@@ -14,11 +15,11 @@ public class MysqlDaoManager extends DaoManager {
     private static MysqlDaoManager instance;
     private Connection connection;
 
-    private TreeDao<Integer> treeDao;
-    private FlowerDao<Integer> flowerDao;
-    private DecorationDao<Integer> decorationDao;
-    private TicketDao<Integer> ticketDao;
-    //private ProductDao<Integer> productDao;
+    private TreeDao treeDao;
+    private FlowerDao flowerDao;
+    private DecorationDao decorationDao;
+    private TicketDao ticketDao;
+    private ProductReaderDao<Product> productReaderDao;
 
     private MysqlDaoManager() {
         try {
@@ -45,13 +46,13 @@ public class MysqlDaoManager extends DaoManager {
         return this.connection;
     }
 
-   /* @Override
-    public ProductDao getProductDao() {
-        if (productDao == null) {
-            productDao = new MysqlProductDao(connection);
+    @Override
+    public ProductReaderDao getProductReaderDao() {
+        if (productReaderDao == null) {
+            productReaderDao = new MysqlProductReaderDao(connection);
         }
-        return productDao;
-    } */
+        return productReaderDao;
+    }
 
     @Override
     public TreeDao getTreeDao() {
