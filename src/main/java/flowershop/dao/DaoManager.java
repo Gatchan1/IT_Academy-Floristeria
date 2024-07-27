@@ -27,11 +27,12 @@ public abstract class DaoManager {
         return instance;
     }
 
-    //public abstract ProductDao getProductDao();
     public abstract TreeDao getTreeDao();
     public abstract FlowerDao getFlowerDao();
     public abstract DecorationDao getDecorationDao();
     public abstract TicketDao getTicketDao();
+
+    public abstract ProductDao getProductDao();
 }
 /*EN EL MAIN se puede usar setManager para establecer si queremos la fabrica de mysql o la de mongo.
 Y despues podemos ya podemos usar el mas abstracto DaoManager.getFactory para obtener los daos
