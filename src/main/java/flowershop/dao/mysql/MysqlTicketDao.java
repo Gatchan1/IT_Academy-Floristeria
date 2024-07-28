@@ -51,7 +51,7 @@ public class MysqlTicketDao implements TicketDao {
             Map<Product, Integer> products = ticket.getSaleProducts();
             for (Map.Entry<Product, Integer> entry : products.entrySet()) {
                 stmtDetail.setInt(1, ticketId);
-                stmtDetail.setInt(2, entry.getKey().getId());      //check
+                stmtDetail.setInt(2, Integer.parseInt(entry.getKey().getId()));      //check
                 stmtDetail.setInt(3, entry.getValue());
                 affectedRows = stmtDetail.executeUpdate();
                 if (affectedRows == 0) {
