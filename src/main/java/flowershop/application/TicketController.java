@@ -13,22 +13,29 @@ import java.util.stream.Stream;
 
 public class TicketController {
 
-    private static ProductController instance;
+    private static TicketController instance;
     private final TicketDao ticketDao;
     private final ProductReaderDao productReaderDao;
 
-    public TicketController(DaoManager daoManager){
+    public TicketController(DaoManager daoManager) {
+
         this.ticketDao = daoManager.getTicketDao();
     }
 
     public static TicketController getInstance(DaoManager daoManager){
         if (instance == null) {
-            instance = new ProductController(daoManager);
+            instance = new TocketController(daoManager);
         }
         return instance;
     }
 
     public void addTicket(){
+
+        String id = Input.readString("Introduce el id del producto: ");
+        int amount = Input.readInt("Introduce la cantidad de este producto: ");
+
+       // Product productAdd = getProduct.
+
 
     }
 
