@@ -63,4 +63,15 @@ public class TicketController {
     }
 
 
+        public void totalIncome(){
+            System.out.println("Ha seleccionado mostrar el total de ingresos: ")
+            List<Ticket> tickets = ticketDao.findAll();
+            double income;
+            for (Ticket ticket : tickets){
+                income += ticket.getSaleTotal();
+            }
+            System.out.println("El total de ingresos es " + income + "€. ");
+        }
+
+
 }
