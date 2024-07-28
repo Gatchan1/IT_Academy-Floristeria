@@ -1,4 +1,4 @@
-package entities;
+package flowershop.entities;
 
 public class Tree extends Product {
 
