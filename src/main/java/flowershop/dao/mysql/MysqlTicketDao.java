@@ -133,7 +133,7 @@ public class MysqlTicketDao implements TicketDao {
                 totalRevenue = rs.getInt(1);
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Error al leer stock en la base de datos", e);
+            logger.log(Level.SEVERE, "Error al leer ganancias en la base de datos", e);
         }
 
         return totalRevenue;
