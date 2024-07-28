@@ -1,5 +1,7 @@
 package flowershop.entities;
 
+import java.util.Objects;
+
 public class Product{
 
     protected String id;

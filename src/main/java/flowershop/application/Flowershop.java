@@ -46,7 +46,7 @@ public class Flowershop {
         if ("mysql".equalsIgnoreCase(database)) {
             CreateDatabaseMysql.initializeDatabase();
         } else if ("mongo".equalsIgnoreCase(database)) {
-            //.getMondoDatabase
+            //.getMongoDatabase
         }
     }
 

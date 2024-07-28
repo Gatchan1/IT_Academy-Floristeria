@@ -2,6 +2,8 @@ package flowershop.entities;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class Ticket {
 
@@ -51,18 +53,38 @@ public class Ticket {
         this.saleDate = saleDate;
     }
 
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        Ticket ticket = (Ticket) o;
-//        return Double.compare(ticket.saleTotal, saleTotal) == 0 &&
-//                Objects.equals(saleProducts, ticket.saleProducts) &&
-//                Objects.equals(saleDate, ticket.saleDate);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(saleProducts, saleDate, saleTotal);
-//    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ticket ticket = (Ticket) o;
+        return Double.compare(ticket.saleTotal, saleTotal) == 0 &&
+                Objects.equals(saleProducts, ticket.saleProducts) &&
+                Objects.equals(saleDate, ticket.saleDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(saleProducts, saleDate, saleTotal);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder productsString = new StringBuilder();
+        for (Map.Entry<Product, Integer> entry : saleProducts.entrySet()) {
+            productsString.append(entry.getKey().toString())
+                    .append(" Quantity: ")
+                    .append(entry.getValue())
+                    .append(" ");
+        }
+
+        if (productsString.length() > 0) {
+            productsString.setLength(productsString.length() - 2);
+        }
+        return "Ticket ID:" + id +
+                "\n saleProducts: " + productsString.toString() + " " +
+                "\n saleDate :" + saleDate +
+                "\n saleTotal=" + saleTotal +
+                "\n";
+    }
 }
