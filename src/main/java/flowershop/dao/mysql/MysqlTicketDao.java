@@ -23,8 +23,8 @@ public class MysqlTicketDao implements TicketDao {
 
     @Override
     public void create(Ticket ticket) throws SQLException {
-        // primero crear el elemento de la tabla ticket, y sacar esa id, y
-        // luego crear los elementos de la tabla ticket_detail.
+        // first create the ticket table item, and retrieve its id, and
+        // then create the items in table ticket_detail.
         connection.setAutoCommit(false);
 
         String sqlTicket = "INSERT INTO ticket (total_price) VALUES (?)";

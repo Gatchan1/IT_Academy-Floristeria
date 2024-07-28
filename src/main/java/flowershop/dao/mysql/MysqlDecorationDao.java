@@ -2,6 +2,8 @@ package flowershop.dao.mysql;
 
 import flowershop.dao.DecorationDao;
 import flowershop.entities.Decoration;
+import flowershop.exceptions.NothingDeletedException;
+import flowershop.exceptions.WrongIdException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -108,7 +110,7 @@ public class MysqlDecorationDao implements DecorationDao {
     public void updateStock(String id, int stockDiff) throws Exception {
         Decoration decoration = read(id);
         if (decoration == null) {
-            throw new Exception("La id introducida no corresponde a ningún elemento"); //TODO: usar excepción personalizada!
+            throw new WrongIdException("La id introducida no corresponde a ninguna decoración");
         }
         int stock = decoration.getStock();
         int newStock = stock + stockDiff;
@@ -116,10 +118,7 @@ public class MysqlDecorationDao implements DecorationDao {
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, newStock);
             stmt.setInt(2, Integer.parseInt(id));
-            int affectedRows = stmt.executeUpdate();
-            if (affectedRows == 0) {
-                throw new Exception("No se ha producido ninguna modificación"); //TODO: usar excepción personalizada;
-            }
+            stmt.executeUpdate();
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Error al modificar el stock del producto en la base de datos", e);
         }
@@ -132,7 +131,7 @@ public class MysqlDecorationDao implements DecorationDao {
             stmt.setInt(1, Integer.parseInt(id));
             int affectedRows = stmt.executeUpdate();
             if (affectedRows == 0) {
-                throw new Exception("No se ha producido ningún borrado"); //TODO: usar excepción personalizada;
+                throw new NothingDeletedException("No se ha producido ningún borrado");
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Error al borrar el producto en la base de datos", e);
