@@ -1,7 +1,7 @@
 package flowershop.application;
-//TODO: import DaoManager
-//TODO: import CreateDatabase
-//TODO: import Menu
+
+import flowershop.configdb.mysql.CreateDatabaseMysql;
+import flowershop.dao.DaoManager;
 
 public class Flowershop {
     private String database;
@@ -19,18 +19,19 @@ public class Flowershop {
     }
 
     public static void start() {
-         Flowershop.setInstance();
-         instance.setDaoManager();
-         CreateDatabase.create(instance.database);
-         Menu.start(manager);
+        Flowershop.setInstance();
+        CreateDatabaseMysql.initializeDatabase();
+        instance.setDaoManager();
+        Menu menu = new Menu(instance.getManager());
+        menu.startMenu();
     }
 
     private void setDaoManager() {
-         DaoManager.setManager(database);
-         this.manager = DaoManager.getManager();
+        DaoManager.setManager(database);
+        this.manager = DaoManager.getManager();
+    }
+
+    public DaoManager getManager() {
+        return manager;
     }
 }
-
-// Habíamos comentado la posibilidad de dejar creado un método estilo public void setDatabase(String db),
-// pero no se me ocurre cómo compaginarlo con lo de asignar la database en el constructor.
-// Así que por ahora no lo he creado.
