@@ -35,7 +35,7 @@ public class QueriesMysql {
     private static final String CREATE_TABLE_TICKET = """
             CREATE TABLE IF NOT EXISTS ticket (
             id_ticket INT AUTO_INCREMENT PRIMARY KEY,
-            sale_date DATE NOT NULL,
+            sale_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             total_price DECIMAL(10, 2) NOT NULL
             ) ENGINE = InnoDB;""";
     private static final String CREATE_TABLE_TICKET_DETAIL = """

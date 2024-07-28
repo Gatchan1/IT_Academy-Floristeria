@@ -68,7 +68,7 @@ public class MysqlTicketDao implements TicketDao {
     @Override
     public Ticket read(String id) {
         Ticket ticket = null;
-        String sql = "SELECT sale_date, total_price, id_product, quantity " +
+        String sql = "SELECT DATE(sale_date), total_price, id_product, quantity " +
                 "FROM ticket t JOIN ticket_detail td ON t.id_ticket=td.id_ticket WHERE t.id_ticket = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, Integer.parseInt(id));
@@ -99,6 +99,7 @@ public class MysqlTicketDao implements TicketDao {
 
                 ticket = new Ticket(saleProducts, saleTotal);     //check
                 ticket.setSaleDate(saleDate);                     //check
+                ticket.setId(id);
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Error al buscar elemento en la base de datos", e);

@@ -7,7 +7,7 @@ import flowershop.configdb.mysql.ConnectionMysql;
 public class Menu {
 
     private final ProductController productController;
-    //private final TicketController ticketController;
+    private final TicketController ticketController;
     //private final StockController stockController;
 
     private static final int MIN_OPTION = 0;
@@ -15,7 +15,7 @@ public class Menu {
 
     public Menu(DaoManager daoManager) {
         this.productController = ProductController.getInstance(daoManager);
-        // this.ticketController = TicketCrontroller.getInstance(daoManager);
+        this.ticketController = TicketController.getInstance(daoManager);
         // this.stockController = StockController.getInstance(daoManager);
     }
 
@@ -68,9 +68,10 @@ public class Menu {
                     break;
                 case 7:
                     //ticketController.;
+                    ticketController.addTicket(productController);
                     break;
                 case 8:
-                    //ticketController.;
+                    ticketController.showOldTickets();
                     break;
                 case 9:
                     //ticketController.;
