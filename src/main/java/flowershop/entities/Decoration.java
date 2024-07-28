@@ -1,4 +1,4 @@
-package entities;
+package flowershop.entities;
 
 public class Decoration extends Product {
 
@@ -62,10 +62,6 @@ public class Decoration extends Product {
                 getName(), getMaterial(), getPrice(), getStock());
     }
 
-    @Override
-    public String toString() {
-        return String.format("Nombre: %s, Color: %s, Precio: %.2f, Stock: %d",
-                getName(), getColor(), getPrice(), getStock());
-    }
+
 
 }
