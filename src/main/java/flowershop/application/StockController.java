@@ -52,7 +52,7 @@ public class StockController{
 
     public void stockProducts(){
         System.out.println("Ha seleccionado mostrar stock por producto. ");
-        List<Product> productList = ProductReaderDao.findAll();
+        List<Product> productList = productList();
 
         if (productList.size() != 0) {
             for (Product product : productList) {
@@ -69,7 +69,7 @@ public class StockController{
 
     public  void stockTotalValue(){
         System.out.println("Ha seleccionado mostrar stock por producto. ");
-        List<Product> productList = ProductReaderDao.findAll();
+        List<Product> productList = productList();
         double stockValue;
 
         if (productList.size() != 0) {
@@ -80,6 +80,17 @@ public class StockController{
         System.out.println("El valor del stock es: "+ stockValue + "€.");
 
         //test productDaoMethods.getTotalValue;
+
+    }
+
+    public List<Product> productList(){
+        List<Product> productListTree = TreeDao.findAll();
+        List<Product> productListFlower = FlorwerDao.findAll();
+        List<Product> productListDecoration = DecorationDao.findAll();
+        List<Product> productList.addAll(productListTree);
+        List<Product> productList.addAll(productListTree);
+        List<Product> productList.addAll(productListTree);
+        return productList;
 
     }
 
