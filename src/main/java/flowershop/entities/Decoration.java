@@ -2,11 +2,9 @@ package flowershop.entities;
 
 public class Decoration extends Product {
 
-   private int id;
    private Material material;
 
     public Decoration() {
-
         super();
     }
 
@@ -15,23 +13,19 @@ public class Decoration extends Product {
         this.material = material;
     }
 
-    public int getId() {
-
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
-
+    public void setId(String id) {
         this.id = id;
     }
 
     public Material getMaterial() {
-
         return material;
     }
 
     public void setMaterial(Material material) {
-
         this.material = material;
     }
 
@@ -58,8 +52,20 @@ public class Decoration extends Product {
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return Objects.hash(super.hashCode(), material);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Nombre: %s, Material: %s, Precio: %.2f, Stock: %d",
+                getName(), getMaterial(), getPrice(), getStock());
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Nombre: %s, Color: %s, Precio: %.2f, Stock: %d",
+                getName(), getColor(), getPrice(), getStock());
     }
 
 }
