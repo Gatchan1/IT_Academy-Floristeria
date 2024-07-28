@@ -47,10 +47,8 @@ public class TicketController {
         } while (control != 0);
 
         Ticket newTicket = new Ticket(saleProductsAdd, saleTotal);
-        ticketDao.create(newTicket);
+        TicketDao.create(newTicket);
             System.out.println("Nuevo ticket de venta añadido correctamente. \n" +  Ticket.toString());
-
-
 
     }
 
