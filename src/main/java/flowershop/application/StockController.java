@@ -57,6 +57,16 @@ public class StockController{
     }
 
     public static stockTotalValue(){
+        System.out.println("Ha seleccionado mostrar stock por producto. ");
+        List<Product> productList = ProductReaderDao.findAll();
+        double stockValue;
+
+        if (productList.size() != 0) {
+            for (Product product : productList){
+                stockValue += product.getStock*product.getPrice();
+            }
+        }
+        System.out.println("El valor del stock es: "+ stockValue + "€.")
 
     }
 
