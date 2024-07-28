@@ -2,7 +2,6 @@ package entities;
 
 public class Decoration extends Product {
 
-   private int id;
    private Material material;
 
     public Decoration() {
@@ -58,8 +57,21 @@ public class Decoration extends Product {
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
+
         return Objects.hash(super.hashCode(), material);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Nombre: %s, Material: %s, Precio: %.2f, Stock: %d",
+                getName(), getMaterial(), getPrice(), getStock());
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Nombre: %s, Color: %s, Precio: %.2f, Stock: %d",
+                getName(), getColor(), getPrice(), getStock());
     }
 
 }

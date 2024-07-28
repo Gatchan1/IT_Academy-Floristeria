@@ -2,7 +2,6 @@ package entities;
 
 public class Tree extends Product {
 
-    private int id;
     private double height;
 
     public Tree() {
@@ -51,8 +50,15 @@ public class Tree extends Product {
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
+
         return Objects.hash(super.hashCode(), height);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Nombre: %s, Altura: %.2f, Precio: %.2f, Stock: %d",
+                getName(), getHeight(), getPrice(), getStock());
     }
 
 

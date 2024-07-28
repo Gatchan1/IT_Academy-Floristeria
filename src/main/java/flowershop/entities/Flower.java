@@ -2,7 +2,6 @@ package entities;
 
 public class Flower extends Product{
 
-    private int id;
     private String color;
 
     public Flower() {
