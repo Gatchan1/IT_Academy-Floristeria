@@ -66,7 +66,9 @@ public class StockController{
                 stockValue += product.getStock*product.getPrice();
             }
         }
-        System.out.println("El valor del stock es: "+ stockValue + "€.")
+        System.out.println("El valor del stock es: "+ stockValue + "€.");
+
+        //test productDaoMethods.getTotalValue;
 
     }
 
