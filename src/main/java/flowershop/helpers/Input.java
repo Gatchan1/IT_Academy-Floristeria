@@ -56,7 +56,7 @@ public class Input {
 
         while (!correctData) {
             try {
-                System.out.println(message);
+                System.out.print(message);
                 inputValue = scanner.nextInt();
 
                 if (inputValue >= min && inputValue <= max) {

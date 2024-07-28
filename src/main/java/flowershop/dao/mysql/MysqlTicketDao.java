@@ -92,13 +92,11 @@ public class MysqlTicketDao implements TicketDao {
                     int quantity = rs.getInt(4);
 
                     Product product = productReader.read(Integer.toString(productId));
-                    // AQUI ESTAMOS USANDO LA MISMA CONNECTION PARA HACER UNA CONSULTA MIENTRAS ITERAMOS OTRA CONSULTA.
-                    // OJALÁ NO DÉ PROBLEMAS
                     saleProducts.put(product, quantity);
                 }
 
-                ticket = new Ticket(saleProducts, saleTotal);     //check
-                ticket.setSaleDate(saleDate);                     //check
+                ticket = new Ticket(saleProducts, saleTotal);
+                ticket.setSaleDate(saleDate);
                 ticket.setId(id);
             }
         } catch (SQLException e) {
