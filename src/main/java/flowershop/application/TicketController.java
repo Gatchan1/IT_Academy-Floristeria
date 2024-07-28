@@ -55,43 +55,12 @@ public class TicketController {
 
     public void showOldTickets(){
             System.out.println("Ha seleccionado mostrar tickets antiguos. ");
-            int option = selectSort();
-            switch (option){
-                case 1:
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    break;
-                case 6:
-                    break;
-
-
-            }
-
+            List<Ticket> tickets = ticketDao.findAll();
+           for (Ticket ticketPrint : tickets){
+               System.out.println(ticketPrint.toString);
+           }
 
     }
-
-    public int selectSort() {
-
-            int option = Input.readInt("Indica el tipo de orden que quieres darle a la búsqueda: \n" +
-                    "1. Por el total de la venta (DESC) \n" +
-                    "2. Por total de venta (ASC) \n" +
-                    "3. Por fecha (DESC) \n" +
-                    "4. por fecha (ASC) \n" +
-                    "5. Por ID (DESC) \n" +
-                    "6. Por ID (ASC) \n");
-            return option;
-
-
-    }
-
-
-
 
 
 }
