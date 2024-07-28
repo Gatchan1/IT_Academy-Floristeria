@@ -1,28 +1,30 @@
 package flowershop.application;
 
-import flowershop.helpers.Input;
 import flowershop.dao.*;
 import flowershop.entities.*;
+import flowershop.helpers.Input;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 
 public class ProductController {
 
     private static ProductController instance;
-
-    //private final ProductDao<ID> productDao;
-    private final FlowerDao<ID> flowerDao;
-    private final DecorationDao<ID> decorationDao;
-    private final TreeDao<ID> treeDao;
-
-    //Falta revisar el tema de las excepciones, y si son necesarios bloques try catch
-    //private static final Logger logger = Logger.getLogger(ProductController.class.getName());
+    private final FlowerDao flowerDao;
+    private final DecorationDao decorationDao;
+    private final TreeDao treeDao;
+    private final ProductReaderDao productReaderDao;
+    private static final Logger logger = Logger.getLogger(ProductController.class.getName());
 
     public ProductController(DaoManager daoManager) {
-        //this.productDao = daoManager.getProductDao();
         this.flowerDao = daoManager.getFlowerDao();
         this.decorationDao = daoManager.getDecorationDao();
         this.treeDao = daoManager.getTreeDao();
+        this.productReaderDao = daoManager.getProductReaderDao();
     }
 
     public static ProductController getInstance(DaoManager daoManager) {
@@ -33,203 +35,169 @@ public class ProductController {
     }
 
     public void addProduct() {
-
         int category = selectCategory();
-
         String name = Input.readString("Introduce el nombre del producto a añadir: ");
         double price = Input.readDouble("Introduce precio del producto: ");
         int stock = Input.readInt("Introduce stock del producto: ");
-
-        switch (category) {
-            case 1:
-                double height = Input.readDouble("Introduce altura del árbol: ");
-                Tree<ID> newTree = new Tree<>(name, price, stock, height);
-                List<Tree<ID>> existingTrees = treeDao.findAll();
-                if (existingTrees.contains(newTree)) {
-                    System.out.println("El árbol ya existe y no se añadirá.");
-                } else {
-                    treeDao.create(newTree);
-                    System.out.println("Árbol añadido correctamente.");
-                }
-                break;
-            case 2:
-                String color = Input.readString("Introduce color de la flor: ");
-                Flower<ID> newFlower = new Flower<>(name, price, stock, color);
-                List<Flower<ID>> existingFlowers = flowerDao.findAll();
-                if (existingFlowers.contains(newFlower)) {
-                    System.out.println("La flor ya existe y no se añadirá.");
-                } else {
-                    flowerDao.create(newFlower);
-                    System.out.println("Flor añadida correctamente.");
-                }
-                break;
-            case 3:
-                Decoration.Material material = selectMaterial();
-                Decoration<ID> newDecoration = new Decoration<>(name, price, stock, material);
-                List<Decoration<ID>> existingDecorations = decorationDao.findAll();
-                if (existingDecorations.contains(newDecoration)) {
-                    System.out.println("El producto de decoración ya existe y no se añadirá.");
-                } else {
-                    decorationDao.create(newDecoration);
-                    System.out.println("Producto de decoración añadido correctamente.");
-                }
-                break;
+        try {
+            switch (category) {
+                case 1 -> addTree(name, price, stock);
+                case 2 -> addFlower(name, price, stock);
+                case 3 -> addDecoration(name, price, stock);
+            }
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error al añadir producto: ", e);
         }
     }
 
     public void deleteProduct() {
-
-        Map<Integer, Product<ID>> productMap = getAllProductsMap();
-
-        if (productMap.isEmpty()) {
-            System.out.println("No hay productos disponibles.");
-        } else {
-            //Es necesario mostrar todos los productos antes de eliminar uno??
-            showAllProducts(productMap);
-
-            int userIndex = Input.readIntInRange(
-                    "Introduce el índice del producto que deseas eliminar: ",
-                    1,
-                    productMap.size()
-            );
-
-            Product<ID> productToDelete = productMap.get(userIndex);
-
-            if (productToDelete instanceof Flower) {
-                flowerDao.deleteById(productToDelete.getId());
-            } else if (productToDelete instanceof Tree) {
-                treeDao.deleteById(productToDelete.getId());
-            } else if (productToDelete instanceof Decoration) {
-                decorationDao.deleteById(productToDelete.getId());
+        System.out.println("\n-> Ha seleccionado eliminar un producto.");
+        Product productToDelete = getSelectedProduct();
+        if (productToDelete != null) {
+            try {
+                if (productToDelete instanceof Flower) {
+                    flowerDao.deleteById(productToDelete.getId());
+                } else if (productToDelete instanceof Tree) {
+                    treeDao.deleteById(productToDelete.getId());
+                } else if (productToDelete instanceof Decoration) {
+                    decorationDao.deleteById(productToDelete.getId());
+                }
+                System.out.println("Producto eliminado correctamente: " + productToDelete);
+            } catch (Exception e) {
+                logger.log(Level.SEVERE, "Error al eliminar producto: ", e);
             }
-            System.out.println("Producto eliminado correctamente.");
         }
     }
 
     public void updateProductStock() {
+        System.out.println("\n-> Ha seleccionado actualizar stock de un producto.");
+        Product productToUpdate = getSelectedProduct();
+        if (productToUpdate != null) {
+            int stockDiff = Input.readInt("Introduce la cantidad de stock a actualizar (puede ser positiva o negativa): ");
+            try {
+                if (productToUpdate instanceof Flower) {
+                    flowerDao.updateStock(productToUpdate.getId(), stockDiff);
+                } else if (productToUpdate instanceof Tree) {
+                    treeDao.updateStock(productToUpdate.getId(), stockDiff);
+                } else if (productToUpdate instanceof Decoration) {
+                    decorationDao.updateStock(productToUpdate.getId(), stockDiff);
+                }
+                Product productNewStock = (Product) productReaderDao.read(productToUpdate.getId());
+                System.out.println("Stock actualizado correctamente: " + productNewStock);
+            } catch (Exception e) {
+                logger.log(Level.SEVERE, "Error al actualizar stock del producto: ", e);
+            }
+        }
+    }
 
-        Map<Integer, Product<ID>> productMap = getAllProductsMap();
-
+    public Product getSelectedProduct() {
+        Map<Integer, Product> productMap = getAllProductsMap();
         if (productMap.isEmpty()) {
             System.out.println("No hay productos disponibles.");
+            return null;
         } else {
-            //Es necesario mostrar todos los productos antes de eliminar uno??
             showAllProducts(productMap);
-
             int userIndex = Input.readIntInRange(
-                    "Introduce el índice del producto cuyo stock deseas actualizar: ",
+                    "Introduce el índice del producto: ",
                     1,
                     productMap.size()
             );
-
-            Product<ID> productToUpdate = productMap.get(userIndex);
-
-            int stockDiff = Input.readInt("Introduce la cantidad de stock a actualizar (puede ser positiva o negativa): ");
-
-            if (productToUpdate instanceof Flower) {
-                flowerDao.updateStock(productToUpdate.getId(), stockDiff);
-            } else if (productToUpdate instanceof Tree) {
-                treeDao.updateStock(productToUpdate.getId(), stockDiff);
-            } else if (productToUpdate instanceof Decoration) {
-                decorationDao.updateStock(productToUpdate.getId(), stockDiff);
-            }
-            System.out.println("Stock actualizado correctamente.");
+            return productMap.get(userIndex);
         }
     }
 
-    //Si la lista es muy larga, se puede investigar o quien lo conozca implemetar lo de la paginación
-    public void showAllProducts(Map<Integer, Product<ID>> productMap) {
-
-        final String HEADER_FORMAT = "%-7s %-15s %-10s %-10s %-10s %-20s %n";
-        final String PRODUCT_FORMAT = "%-7d %-15s %-10.2f %-10d %-10s %-20s %n";
-
+    public void showAllProducts(Map<Integer, Product> productMap) {
+        final String HEADER_FORMAT = "%-7s %-17s %-10s %-10s %-12s %-24s %n";
+        final String PRODUCT_FORMAT = "%-7d %-17s %-10.2f %-10d %-12s %-24s %n";
         if (productMap.isEmpty()) {
             System.out.println("No hay productos disponibles");
         } else {
-            System.out.println("***** Productos en stock *****");
-            System.out.printf(HEADER_FORMAT, "ÍNDICE", "NOMBRE", "PRECIO", "STOCK", "DETALLE", "ID");
-            System.out.println("-----------------------------------------------------------------");
-
-            for (Map.Entry<Integer, Product<ID>> entry : productMap.entrySet()) {
-                int index = entry.getKey();
-                Product<ID> product = entry.getValue();
-
-                if (product instanceof Flower) {
-                    Flower<ID> flower = (Flower<ID>) product;
-                    System.out.printf(PRODUCT_FORMAT, index, flower.getName(), flower.getPrice(), flower.getStock(), flower.getColor(), flower.getId().toString());
-                } else if (product instanceof Tree) {
-                    Tree<ID> tree = (Tree<ID>) product;
-                    System.out.printf(PRODUCT_FORMAT, index, tree.getName(), tree.getPrice(), tree.getStock(), String.valueOf(tree.getHeight()), tree.getId().toString());
-                } else if (product instanceof Decoration) {
-                    Decoration<ID> decoration = (Decoration<ID>) product;
-                    System.out.printf(PRODUCT_FORMAT, index, decoration.getName(), decoration.getPrice(), decoration.getStock(), decoration.getMaterial().toString, decoration.getId().toString());
+            System.out.println("-------------------------------------------------------------------------");
+            System.out.printf(HEADER_FORMAT, "ÍNDICE", "NOMBRE", "PRECIO", "STOCK", "DETALLE*", "ID");
+            System.out.println("-------------------------------------------------------------------------");
+            productMap.forEach((index, product) -> {
+                if (product instanceof Flower flower) {
+                    System.out.printf(PRODUCT_FORMAT, index, flower.getName(), flower.getPrice(), flower.getStock(), flower.getColor(), flower.getId());
+                } else if (product instanceof Tree tree) {
+                    System.out.printf(PRODUCT_FORMAT, index, tree.getName(), tree.getPrice(), tree.getStock(), String.valueOf(tree.getHeight()), tree.getId());
+                } else if (product instanceof Decoration decoration) {
+                    System.out.printf(PRODUCT_FORMAT, index, decoration.getName(), decoration.getPrice(), decoration.getStock(), decoration.getMaterial().toString(), decoration.getId());
                 }
-            }
+            });
+            System.out.println("* color/altura(m)/material");
+            System.out.println("-------------------------------------------------------------------------");
         }
     }
 
-    private int selectCategory() {
+    public Map<Integer, Product> getAllProductsMap() {
+        List<Flower> flowers = flowerDao.findAll();
+        List<Tree> trees = treeDao.findAll();
+        List<Decoration> decorations = decorationDao.findAll();
+        Map<Integer, Product> productMap = new HashMap<>();
+        Stream.of(flowers, trees, decorations)
+                .flatMap(list -> (list != null ? list.stream() : Stream.empty()))
+                .forEach(product -> productMap.put(productMap.size() + 1, product));
+        return productMap;
+    }
 
+    private int selectCategory() {
         final int MIN_OPTION = 1;
         final int MAX_OPTION = 3;
-
-        int category = Input.readIntInRange(
-                "***Categorias de productos***\n" +
+        return Input.readIntInRange(
+                "---Categorias de productos---\n" +
                         "1. Árbol\n" +
                         "2. Flor\n" +
                         "3. Decoración\n" +
                         "Introduce un número para seleccionar categoría: ",
                 MIN_OPTION, MAX_OPTION);
-
-        return category;
     }
 
-    private Decoration.Material materialDecoration() {
+    private Decoration.Material selectMaterial() {
         final int MIN_OPTION = 1;
         final int MAX_OPTION = 2;
-
         int option = Input.readIntInRange(
-                "***Materiales de decoracion***\n" +
+                "---Materiales de decoracion---\n" +
                         "1. Madera\n" +
                         "2. Plástico\n" +
                         "Introduce un número para seleccionar material de decoracion: ",
                 MIN_OPTION, MAX_OPTION);
+        return switch (option) {
+            case 1 -> Decoration.Material.WOOD;
+            case 2 -> Decoration.Material.PLASTIC;
+            default -> null;
+        };
+    }
 
-        switch (option) {
-            case 1:
-                return Decoration.Material.FUSTA;
-            case 2:
-                return Decoration.Material.PLASTIC;;
-            default:
-                return null;
+    private void addTree(String name, double price, int stock) throws Exception {
+        double height = Input.readDouble("Introduce altura del árbol (m.cm): ");
+        Tree newTree = new Tree(name, price, stock, height);
+        if (treeDao.exists(newTree)) {
+            System.out.println("El árbol ya existe y no se añadirá.");
+        } else {
+            treeDao.create(newTree);
+            System.out.println("Árbol añadido correctamente: " + newTree);
         }
     }
 
-    public Map<Integer, Product<ID>> getAllProductsMap() {
-
-        List<Flower<ID>> flowers = flowerDao.findAll();
-        List<Tree<ID>> trees = treeDao.findAll();
-        List<Decoration<ID>> decorations = decorationDao.findAll();
-
-        Map<Integer, Product<ID>> productMap = new HashMap<>();
-        int index = 1;
-
-        if (flowers != null && !flowers.isEmpty()) {
-            for (Flower<ID> flower : flowers) {
-                productMap.put(index++, flower);
-            }
+    private void addFlower(String name, double price, int stock) throws Exception {
+        String color = Input.readString("Introduce color de la flor: ");
+        Flower newFlower = new Flower(name, price, stock, color);
+        if (flowerDao.exists(newFlower)) {
+            System.out.println("La flor ya existe y no se añadirá.");
+        } else {
+            flowerDao.create(newFlower);
+            System.out.println("Flor añadida correctamente: " + newFlower);
         }
-        if (trees != null && !trees.isEmpty()) {
-            for (Tree<ID> tree : trees) {
-                productMap.put(index++, tree);
-            }
+    }
+
+    private void addDecoration(String name, double price, int stock) throws Exception {
+        Decoration.Material material = selectMaterial();
+        Decoration newDecoration = new Decoration(name, price, stock, material);
+        if (decorationDao.exists(newDecoration)) {
+            System.out.println("El producto de decoración ya existe y no se añadirá.");
+        } else {
+            decorationDao.create(newDecoration);
+            System.out.println("Producto de decoración añadido correctamente: " + newDecoration);
         }
-        if (decorations != null && !decorations.isEmpty()) {
-            for (Decoration<ID> decoration : decorations) {
-                productMap.put(index++, decoration);
-            }
-        }
-        return productMap;
     }
 }
-

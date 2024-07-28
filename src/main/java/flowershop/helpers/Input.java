@@ -38,7 +38,7 @@ public class Input {
 
         while (!correctData) {
             try {
-                System.out.println(message);
+                System.out.print(message);
                 inputValue = scanner.nextInt();
                 correctData = true;
             } catch (InputMismatchException e) {
@@ -62,7 +62,7 @@ public class Input {
                 if (inputValue >= min && inputValue <= max) {
                     correctData = true;
                 } else {
-                    System.out.println("Error: Introduce un valor entre " + min + " y " + max);
+                    System.out.print("Error: Introduce un valor entre " + min + " y " + max);
                 }
             } catch (InputMismatchException e) {
                 System.out.println(ERROR_INT);
@@ -97,7 +97,7 @@ public class Input {
 
         while (!correctData) {
             try {
-                System.out.println(message);
+                System.out.print(message);
                 inputValue = scanner.nextDouble();
                 correctData = true;
             } catch (InputMismatchException e) {
