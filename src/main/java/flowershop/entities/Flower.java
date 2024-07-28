@@ -1,4 +1,4 @@
-package entities;
+package flowershop.entities;
 
 public class Flower extends Product{
 
@@ -52,5 +52,10 @@ public class Flower extends Product{
 
         return Objects.hash(super.hashCode(), color);
     }
+
+    @Override
+    public String toString() {
+    return String.format("Nombre: %s, Color: %s, Precio: %.2f, Stock: %d",
+            getName(), getColor(), getPrice(), getStock());
 
 }

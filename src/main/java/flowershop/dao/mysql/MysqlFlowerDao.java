@@ -1,7 +1,9 @@
 package flowershop.dao.mysql;
 
 import flowershop.dao.FlowerDao;
-//TODO: import Flower
+import flowershop.entities.Flower;
+import flowershop.exceptions.NothingDeletedException;
+import flowershop.exceptions.WrongIdException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -112,7 +114,7 @@ public class MysqlFlowerDao implements FlowerDao {
     public void updateStock(String id, int stockDiff) throws Exception {
         Flower flower = read(id);
         if (flower == null) {
-            throw new Exception("La id introducida no corresponde a ningún elemento"); //TODO: usar excepción personalizada!
+            throw new WrongIdException("La id introducida no corresponde a ninguna flor");
         }
         int stock = flower.getStock();
         int newStock = stock + stockDiff;
@@ -120,10 +122,7 @@ public class MysqlFlowerDao implements FlowerDao {
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, newStock);
             stmt.setInt(2, Integer.parseInt(id));
-            int affectedRows = stmt.executeUpdate();
-            if (affectedRows == 0) {
-                throw new Exception("No se ha producido ninguna modificación"); //TODO: usar excepción personalizada;
-            }
+            stmt.executeUpdate();
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Error al modificar el stock del producto en la base de datos", e);
         }
@@ -136,7 +135,7 @@ public class MysqlFlowerDao implements FlowerDao {
             stmt.setInt(1, Integer.parseInt(id));
             int affectedRows = stmt.executeUpdate();
             if (affectedRows == 0) {
-                throw new Exception("No se ha producido ningún borrado"); //TODO: usar excepción personalizada;
+                throw new NothingDeletedException("No se ha producido ningún borrado");
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Error al borrar el producto en la base de datos", e);

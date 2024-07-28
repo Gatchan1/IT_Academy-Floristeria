@@ -1,7 +1,10 @@
 package flowershop.dao.mysql;
 
 import flowershop.dao.TreeDao;
-//TODO: import Tree
+import flowershop.entities.Tree;
+import flowershop.exceptions.NothingDeletedException;
+import flowershop.exceptions.WrongIdException;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -107,7 +110,7 @@ public class MysqlTreeDao implements TreeDao {
     public void updateStock(String id, int stockDiff) throws Exception {
         Tree tree = read(id);
         if (tree == null) {
-            throw new Exception("La id introducida no corresponde a ningún elemento"); //TODO: usar excepción personalizada!
+            throw new WrongIdException("La id introducida no corresponde a ningún árbol");
         }
         int stock = tree.getStock();
         int newStock = stock + stockDiff;
@@ -115,10 +118,7 @@ public class MysqlTreeDao implements TreeDao {
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, newStock);
             stmt.setInt(2, Integer.parseInt(id));
-            int affectedRows = stmt.executeUpdate();
-            if (affectedRows == 0) {
-                throw new Exception("No se ha producido ninguna modificación"); //TODO: usar excepción personalizada;
-            }
+            stmt.executeUpdate();
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Error al modificar el stock del producto en la base de datos", e);
         }
@@ -131,7 +131,7 @@ public class MysqlTreeDao implements TreeDao {
             stmt.setInt(1, Integer.parseInt(id));
             int affectedRows = stmt.executeUpdate();
             if (affectedRows == 0) {
-                throw new Exception("No se ha producido ningún borrado"); //TODO: usar excepción personalizada;
+                throw new NothingDeletedException("No se ha producido ningún borrado");
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Error al borrar el producto en la base de datos", e);
