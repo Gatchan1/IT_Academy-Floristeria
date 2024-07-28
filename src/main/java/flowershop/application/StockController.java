@@ -14,11 +14,54 @@ import java.util.stream.Stream;
 public class StockController{
 
     private static StockController instance;
+    private final FlowerDao flowerDao;
+    private final DecorationDao decorationDao;
+    private final TreeDao treeDao;
     private final ProductReaderDao productReaderDao;
     private static final Logger logger = Logger.getLogger(ProductController.class.getName());
 
+    public StockController(DaoManager daoManager){
+        this.productReaderDao = daoManager.getProductReaderDao();
+    }
+
+    public static stockCategory(){
+        System.out.println("Ha seleccionado mostrar el stock por categoría: ");
+        try {
+            int treeStock = treeDao.getTotalStock();
+            int flowerStock = flowerDao.getTotalStock();
+            int decorationStock = decorationDao.getTotalStock();
+            System.out.println("Stock árboles: " + treeStock +
+                    "\nStock flores: " flowerStock +
+                    "\nStock deocración " + decorationStock ". ")
+        } catch (Exception e){
+            System.out.println("Error al tratar de recuperar las unidades de stock. ")
+        }
+
+    }
+
+    public static stockProducts(){
+        System.out.println("Ha seleccionado mostrar stock por producto. ");
+        List<Product> productList = ProductReaderDao.findAll();
+
+        if (productList.size() != 0) {
+            for (Product product : productList) {
+                if (product instanceof Flower) {
+                    System.out.println(product.getId() + ". " + product.getName() + " " + product.getColor() + ": " + product.getStock());
+                } else if (productToDelete instanceof Tree) {
+                    System.out.println(product.getId() + ". " + product.getName() + " " + product.getHeight() + ": " + product.getStock);
+                } else if (productToDelete instanceof Decoration) {
+                    System.out.println(product.getId() + ". " + product.getName() + " " + product.getMaterial() + ": " + product.getStock());
+                }
+            }
+        }
+    }
+
+    public static stockTotalValue(){
+
+    }
+
+
+
+
 }
 
-public StockController(DaoManager daoManager){
-    this.productReaderDao = daoManager.getProductReaderDao();
-}
