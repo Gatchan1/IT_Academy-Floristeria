@@ -1,7 +1,7 @@
 package flowershop.dao.mysql;
 
 import flowershop.dao.FlowerDao;
-//TODO: import Flower
+import flowershop.entities.Flower;
 
 import java.sql.*;
 import java.util.ArrayList;

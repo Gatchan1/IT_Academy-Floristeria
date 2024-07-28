@@ -2,12 +2,12 @@ package flowershop.dao.mysql;
 
 import flowershop.configdb.mysql.ConnectionMysql;
 import flowershop.dao.*;
+import flowershop.entities.Product;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-//TODO: import Product
 
 public class MysqlDaoManager extends DaoManager {
 

@@ -1,8 +1,8 @@
 package flowershop.dao.mysql;
 
 import flowershop.dao.TicketDao;
-//TODO: import Ticket
-//TODO: import Product
+import flowershop.entities.Product;
+import flowershop.entities.Ticket;
 
 import java.sql.*;
 import java.time.LocalDate;

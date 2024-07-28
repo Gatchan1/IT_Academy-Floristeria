@@ -1,4 +1,4 @@
-package entities;
+package flowershop.entities;
 
 import java.time.LocalDate;
 import java.util.HashMap;
