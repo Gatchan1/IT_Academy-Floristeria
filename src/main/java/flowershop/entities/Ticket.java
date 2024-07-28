@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public class Ticket {
 
-    private int idTicket;
+    private String idTicket;
     private HashMap<Product, Integer> saleProducts;
     private LocalDate saleDate;
     private double saleTotal;
@@ -18,42 +18,36 @@ public class Ticket {
         this.saleTotal = saleTotal;
     }
 
-    public int getIdTicket() {
-
+    public String getIdTicket() {
         return idTicket;
     }
 
-    public void setIdTicket(int idTicket) {
-
+    public void setIdTicket(String idTicket) {
         this.idTicket = idTicket;
     }
 
     public HashMap<Product, Integer> getSaleProducts() {
-
         return saleProducts;
     }
 
     public void setSaleProducts(HashMap<Product, Integer> saleProducts) {
-
         this.saleProducts = saleProducts;
     }
 
     public double getSaleTotal() {
-
         return saleTotal;
     }
 
     public void setSaleTotal(double saleTotal) {
-
         this.saleTotal = saleTotal;
     }
 
     public LocalDate getSaleDate() {
-
         return saleDate;
     }
 
     public void setSaleDate(LocalDate saleDate) {
+
         this.saleDate = LocalDate.now;
     }
 
