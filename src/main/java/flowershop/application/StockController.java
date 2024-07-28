@@ -20,6 +20,15 @@ public class StockController{
     private final ProductReaderDao productReaderDao;
     private static final Logger logger = Logger.getLogger(ProductController.class.getName());
 
+
+
+    public StockController(DaoManager daoManager){
+        this.flowerDao = daoManager.getFlowerDao();
+        this.decorationDao = daoManager.getDecorationDao();
+        this.treeDao = daoManager.getTreeDao();
+        this.productReaderDao = daoManager.getProductReaderDao();
+    }
+
     public static StockController getInstance(DaoManager daoManager) {
         if (instance == null) {
             instance = new StockController(daoManager);
@@ -27,26 +36,22 @@ public class StockController{
         return instance;
     }
 
-    public StockController(DaoManager daoManager){
-        this.productReaderDao = daoManager.getProductReaderDao();
-    }
-
-    public static stockCategory(){
+    public void stockCategory(){
         System.out.println("Ha seleccionado mostrar el stock por categoría: ");
         try {
             int treeStock = treeDao.getTotalStock();
             int flowerStock = flowerDao.getTotalStock();
             int decorationStock = decorationDao.getTotalStock();
             System.out.println("Stock árboles: " + treeStock +
-                    "\nStock flores: " flowerStock +
-                    "\nStock deocración " + decorationStock ". ")
+                    "\nStock flores: " + flowerStock +
+                    "\nStock deocración " + decorationStock + ". ")
         } catch (Exception e){
             System.out.println("Error al tratar de recuperar las unidades de stock. ")
         }
 
     }
 
-    public static stockProducts(){
+    public void stockProducts(){
         System.out.println("Ha seleccionado mostrar stock por producto. ");
         List<Product> productList = ProductReaderDao.findAll();
 
@@ -63,7 +68,7 @@ public class StockController{
         }
     }
 
-    public static stockTotalValue(){
+    public  void stockTotalValue(){
         System.out.println("Ha seleccionado mostrar stock por producto. ");
         List<Product> productList = ProductReaderDao.findAll();
         double stockValue;
