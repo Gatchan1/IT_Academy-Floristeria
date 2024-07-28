@@ -57,5 +57,6 @@ public class Flower extends Product{
     public String toString() {
     return String.format("Nombre: %s, Color: %s, Precio: %.2f, Stock: %d",
             getName(), getColor(), getPrice(), getStock());
+    }
 
 }
