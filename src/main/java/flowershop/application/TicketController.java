@@ -31,10 +31,25 @@ public class TicketController {
 
     public void addTicket(){
 
-        String id = Input.readString("Introduce el id del producto: ");
-        int amount = Input.readInt("Introduce la cantidad de este producto: ");
+        int control = -1;
+        double saleTotal;
+        HashMap<Product, Integer> saleProductsAdd = new HashMap<Product, Integer>();
 
-       // Product productAdd = getProduct.
+        do{
+        Product productAdd = ProductController.getSelectedProduct();
+            try {
+                int amount = Input.readInt("Introduce la cantidad de ventas para este producto: ");
+                saleTotal += productAdd.getPrice() * amount;
+                saleProductsAdd.add(productAdd, amount);
+                control = Input.readInt("Pulsa \'0\' si has terminado de añadir productos en el ticket. ")
+            }catch (InputMismatchException e){
+                 System.out.println("El tipo de dato introducido no es correcto. ")
+        } while (control != 0);
+
+        Ticket newTicket = new Ticket(saleProductsAdd, saleTotal);
+        ticketDao.create(newTicket);
+            System.out.println("Nuevo ticket de venta añadido correctamente. " + \n Ticket.toString());
+
 
 
     }
