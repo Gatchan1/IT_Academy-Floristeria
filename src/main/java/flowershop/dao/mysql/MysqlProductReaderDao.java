@@ -21,10 +21,13 @@ public class MysqlProductReaderDao implements ProductReaderDao<Product> {
     public Product read(String id) {
         Product product = null;
         String type = null;
-        try (Statement stmtType = connection.createStatement()) {
-            ResultSet rs = stmtType.executeQuery("SELECT type FROM product WHERE id_product = id");
-            if (rs.next()) {
-                type = rs.getString(1).toLowerCase();
+        String typeQuery = "SELECT type FROM product WHERE id_product = ?";
+        try (PreparedStatement stmtType = connection.prepareStatement(typeQuery)) {
+            stmtType.setInt(1, Integer.parseInt(id));
+            try (ResultSet rs = stmtType.executeQuery()) {
+                if (rs.next()) {
+                    type = rs.getString(1).toLowerCase();
+                }
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Error al buscar elemento en la base de datos", e);
