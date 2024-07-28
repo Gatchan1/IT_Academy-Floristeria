@@ -7,13 +7,7 @@
     <list default="true" id="846724b4-8d97-491b-82d5-4b7ba2816fc9" name="Changes" comment="modification menu">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/dao/DaoManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/dao/DaoManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/entities/Decoration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/entities/Decoration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/entities/Flower.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/entities/Flower.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/entities/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/entities/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/entities/Ticket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/entities/Ticket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/entities/Tree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/entities/Tree.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/configdb/mysql/ConnectionMysql.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/configdb/mysql/ConnectionMysql.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,19 +41,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "test",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/PC/IdeaProjects/IT_Academy-Floristeria/src/main/java/flowershop/configdb/mysql",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;test&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/PC/IdeaProjects/IT_Academy-Floristeria/src/main/java/flowershop/configdb/mysql&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.javacompiler&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\PC\IdeaProjects\IT_Academy-Floristeria\src\main\java\flowershop\configdb\mysql" />
