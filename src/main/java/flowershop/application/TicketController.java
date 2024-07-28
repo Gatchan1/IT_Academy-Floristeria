@@ -70,7 +70,9 @@ public class TicketController {
             for (Ticket ticket : tickets){
                 income += ticket.getSaleTotal();
             }
+
             System.out.println("El total de ingresos es " + income + "€. ");
+            //test TicketDao.getTotalRevenue();
         }
 
 
