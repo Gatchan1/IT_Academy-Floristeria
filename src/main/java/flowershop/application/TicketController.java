@@ -50,6 +50,11 @@ public class TicketController {
         Ticket newTicket = new Ticket(saleProductsAdd, saleTotal);
         try {
             ticketDao.create(newTicket);
+            for (Product product : saleProductsAdd.keySet()) {
+                int amount = saleProductsAdd.get(product);
+                //TODO: add reducteStock to ProductDao
+                productDao.reduceStock(product.getId(), amount);
+            }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Error al crear ticket: ", e);
         }
