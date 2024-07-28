@@ -64,4 +64,25 @@ public class Ticket {
     @Override
     public int hashCode() {
         return Objects.hash(saleProducts, saleDate, saleTotal);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder productsString = new StringBuilder();
+        for (Map.Entry<Product, Integer> entry : saleProducts.entrySet()) {
+            productsString.append(entry.getKey().toString())
+                    .append(" Quantity: ")
+                    .append(entry.getValue())
+                    .append(" ");
+        }
+
+        if (productsString.length() > 0) {
+            productsString.setLength(productsString.length() - 2);
+        }
+        return "Ticket ID:" + idTicket +
+                "\n saleProducts: " + productsString.toString() + " " +
+                "\n saleDate :" + saleDate +
+                "\n saleTotal=" + saleTotal +
+                "\n";
+    }
 }
