@@ -19,7 +19,7 @@ public class MysqlDaoManager extends DaoManager {
     private FlowerDao flowerDao;
     private DecorationDao decorationDao;
     private TicketDao ticketDao;
-    private ProductReaderDao<Product> productReaderDao;
+    private ProductReaderDao productReaderDao;
 
     private MysqlDaoManager() {
         try {
