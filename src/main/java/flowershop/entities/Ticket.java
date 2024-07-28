@@ -48,20 +48,21 @@ public class Ticket {
 
     public void setSaleDate(LocalDate saleDate) {
 
-        this.saleDate = LocalDate.now;
+        this.saleDate = saleDate;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Ticket ticket = (Ticket) o;
-        return Double.compare(ticket.saleTotal, saleTotal) == 0 &&
-                Objects.equals(saleProducts, ticket.saleProducts) &&
-                Objects.equals(saleDate, ticket.saleDate);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(saleProducts, saleDate, saleTotal);
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        Ticket ticket = (Ticket) o;
+//        return Double.compare(ticket.saleTotal, saleTotal) == 0 &&
+//                Objects.equals(saleProducts, ticket.saleProducts) &&
+//                Objects.equals(saleDate, ticket.saleDate);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(saleProducts, saleDate, saleTotal);
+//    }
 }

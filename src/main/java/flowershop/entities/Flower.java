@@ -32,30 +32,30 @@ public class Flower extends Product{
     }
 
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-           return true;
-        }
-        if (!(o instanceof Flower)){
-           return false;
-        }
-        if (!super.equals(o)){
-           return false;
-        }
-        Flower flower = (Flower) o;
-        return Objects.equals(color, flower.color);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(super.hashCode(), color);
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) {
+//           return true;
+//        }
+//        if (!(o instanceof Flower)){
+//           return false;
+//        }
+//        if (!super.equals(o)){
+//           return false;
+//        }
+//        Flower flower = (Flower) o;
+//        return Objects.equals(color, flower.color);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//
+//        return Objects.hash(super.hashCode(), color);
+//    }
 
     @Override
     public String toString() {
     return String.format("Nombre: %s, Color: %s, Precio: %.2f, Stock: %d",
             getName(), getColor(), getPrice(), getStock());
-
+    }
 }
