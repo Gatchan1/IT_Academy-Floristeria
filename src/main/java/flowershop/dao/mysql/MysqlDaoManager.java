@@ -1,13 +1,13 @@
 package flowershop.dao.mysql;
 
+import flowershop.configdb.mysql.ConnectionMysql;
 import flowershop.dao.*;
+import flowershop.entities.Product;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-//TODO: import MysqlConnection
-//TODO: import Product
 
 public class MysqlDaoManager extends DaoManager {
 
@@ -28,7 +28,7 @@ public class MysqlDaoManager extends DaoManager {
             //se me olvido comentarlo pero estaria bien crear un paquete mysql
             //para la conexion o conexiones y tb cargar la bbdd desde el ide
 
-            this.connection = MysqlConnection.getDbConnection();
+            this.connection = ConnectionMysql.getDbConnection();
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Error al obtener la conexión a la base de datos.", e);
         }

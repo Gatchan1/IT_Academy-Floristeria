@@ -1,6 +1,7 @@
 package flowershop.dao;
 
-//SI LA ENTIDAD O MODELO NO TIENE ID GENERICO(SERVIRA O NO?):
+import flowershop.entities.Ticket;
+
 public interface TicketDao extends GenericDao<Ticket>{
     double getTotalRevenue();
 }

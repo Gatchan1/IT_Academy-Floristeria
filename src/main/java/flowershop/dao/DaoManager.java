@@ -1,6 +1,7 @@
 package flowershop.dao;
 
 import flowershop.dao.mysql.MysqlDaoManager;
+import flowershop.entities.Product;
 
 public abstract class DaoManager {
 
@@ -30,7 +31,7 @@ public abstract class DaoManager {
     public abstract DecorationDao getDecorationDao();
     public abstract TicketDao getTicketDao();
 
-    public abstract ProductReaderDao getProductReaderDao();
+    public abstract ProductReaderDao<Product> getProductReaderDao();
 }
 /*EN EL MAIN se puede usar setManager para establecer si queremos la fabrica de mysql o la de mongo.
 Y despues podemos ya podemos usar el mas abstracto DaoManager.getFactory para obtener los daos
@@ -46,3 +47,4 @@ public static void main(String[] args) {
 
         System.out.println(flower.toString());
     }
+ */
