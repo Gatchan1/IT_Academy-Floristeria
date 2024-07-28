@@ -5,7 +5,6 @@ public class Decoration extends Product {
    private Material material;
 
     public Decoration() {
-
         super();
     }
 
@@ -14,23 +13,19 @@ public class Decoration extends Product {
         this.material = material;
     }
 
-    public int getId() {
-
-        return idn;
+    public String getId() {
+        return id;
     }
 
-    public void setId(int id) {
-
+    public void setId(String id) {
         this.idDecoration = id;
     }
 
     public Material getMaterial() {
-
         return material;
     }
 
     public void setMaterial(Material material) {
-
         this.material = material;
     }
 
@@ -58,7 +53,6 @@ public class Decoration extends Product {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(super.hashCode(), material);
     }
 
