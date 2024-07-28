@@ -1,5 +1,7 @@
 package flowershop.entities;
 
+import java.util.Objects;
+
 public class Product{
 
     protected String id;
@@ -68,9 +70,5 @@ public class Product{
     @Override
     public int hashCode() {
         return Objects.hash(name);
-    }
-
-    public void toString(){
-        System.out.println(getClass().toString);
     }
 }
