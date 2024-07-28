@@ -107,7 +107,7 @@ public class MysqlTreeDao implements TreeDao {
     }
 
     @Override
-    public void updateStock(String id, int stockDiff) throws Exception {
+    public void updateStock(String id, int stockDiff) throws WrongIdException {
         Tree tree = read(id);
         if (tree == null) {
             throw new WrongIdException("La id introducida no corresponde a ningún árbol");
@@ -125,7 +125,7 @@ public class MysqlTreeDao implements TreeDao {
     }
 
     @Override
-    public void deleteById(String id) throws Exception {
+    public void deleteById(String id) throws NothingDeletedException {
         String sql = "DELETE FROM product WHERE id_product = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, Integer.parseInt(id));
@@ -139,7 +139,7 @@ public class MysqlTreeDao implements TreeDao {
     }
 
     @Override
-    public boolean exists(Tree tree) throws SQLException {
+    public boolean exists(Tree tree) {
         String sql = "SELECT COUNT(*) FROM product p JOIN tree t " +
                 "ON p.id_product=t.id_product WHERE p.name = ? AND t.height = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -150,6 +150,8 @@ public class MysqlTreeDao implements TreeDao {
                     return rs.getInt(1) > 0;
                 }
             }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Error al buscar el producto en la base de datos", e);
         }
         return false;
     }
@@ -179,7 +181,7 @@ public class MysqlTreeDao implements TreeDao {
                 totalValue = rs.getInt(1);
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Error al leer stock en la base de datos", e);
+            logger.log(Level.SEVERE, "Error al leer valor económico en la base de datos", e);
         }
         return totalValue;
     }
