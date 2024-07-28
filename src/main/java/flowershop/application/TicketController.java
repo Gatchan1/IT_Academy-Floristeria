@@ -32,7 +32,7 @@ public class TicketController {
 
     }
 
-    public void deleteTicker(){
+    public void deleteTicket(){
 
     }
 
