@@ -13,23 +13,19 @@ public class Tree extends Product {
         this.height = height;
     }
 
-    public int getId() {
-
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
-
+    public void setId(String id) {
         this.id = id;
     }
 
     public double getHeight() {
-
         return height;
     }
 
     public void setHeight(double height) {
-
         this.height = height;
     }
 
@@ -60,7 +56,6 @@ public class Tree extends Product {
         return String.format("Nombre: %s, Altura: %.2f, Precio: %.2f, Stock: %d",
                 getName(), getHeight(), getPrice(), getStock());
     }
-
 
 
 }

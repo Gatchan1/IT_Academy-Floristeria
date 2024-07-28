@@ -5,7 +5,6 @@ public class Flower extends Product{
     private String color;
 
     public Flower() {
-
         super();
     }
 
@@ -14,13 +13,11 @@ public class Flower extends Product{
         this.color = color;
     }
 
-    public int getId() {
-
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
-
+    public void setId(String id) {
         this.id = id;
     }
 
