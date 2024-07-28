@@ -20,6 +20,13 @@ public class StockController{
     private final ProductReaderDao productReaderDao;
     private static final Logger logger = Logger.getLogger(ProductController.class.getName());
 
+    public static StockController getInstance(DaoManager daoManager) {
+        if (instance == null) {
+            instance = new StockController(daoManager);
+        }
+        return instance;
+    }
+
     public StockController(DaoManager daoManager){
         this.productReaderDao = daoManager.getProductReaderDao();
     }
