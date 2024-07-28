@@ -69,4 +69,8 @@ public class Product{
     public int hashCode() {
         return Objects.hash(name);
     }
+
+    public void toString(){
+        System.out.println(getClass().toString);
+    }
 }
