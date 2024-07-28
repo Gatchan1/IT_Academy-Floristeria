@@ -1,0 +1,48 @@
+CREATE DATABASE IF NOT EXISTS floristeria DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+USE floristeria;
+
+SET FOREIGN_KEY_CHECKS = 0;
+
+CREATE TABLE IF NOT EXISTS product (
+    id_product INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    stock INT NOT NULL DEFAULT 0,
+    price DECIMAL(10, 2) NOT NULL,
+    type ENUM('TREE', 'FLOWER', 'DECORATION') NULL DEFAULT NULL
+) ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS tree (
+    id_product INT NOT NULL PRIMARY KEY,
+    height DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (id_product) REFERENCES product(id_product) ON UPDATE CASCADE ON DELETE CASCADE
+) ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS flower (
+    id_product INT NOT NULL PRIMARY KEY,
+    color VARCHAR(50) NOT NULL,
+    FOREIGN KEY (id_product) REFERENCES product(id_product) ON UPDATE CASCADE ON DELETE CASCADE
+) ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS decoration (
+    id_product INT NOT NULL PRIMARY KEY,
+    material ENUM('WOOD', 'PLASTIC') NOT NULL,
+    FOREIGN KEY (id_product) REFERENCES product(id_product) ON UPDATE CASCADE ON DELETE CASCADE
+) ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS ticket (
+    id_ticket INT AUTO_INCREMENT PRIMARY KEY,
+    sale_date DATE NOT NULL,   
+    total_price DECIMAL(10, 2) NOT NULL
+) ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS ticket_detail (
+    id_ticket_detail INT AUTO_INCREMENT PRIMARY KEY,
+    id_ticket INT NOT NULL,
+    id_product INT,
+    quantity INT NOT NULL,
+    FOREIGN KEY (id_ticket) REFERENCES ticket(id_ticket) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (id_product) REFERENCES product(id_product) ON UPDATE SET NULL ON  DELETE SET NULL
+) ENGINE = InnoDB;
+
+SET FOREIGN_KEY_CHECKS = 1;

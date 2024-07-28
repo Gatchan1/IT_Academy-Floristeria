@@ -1,8 +1,8 @@
 package flowershop.dao.mysql;
 
 import flowershop.dao.TicketDao;
-//TODO: import Ticket
-//TODO: import Product
+import flowershop.entities.Product;
+import flowershop.entities.Ticket;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -23,8 +23,8 @@ public class MysqlTicketDao implements TicketDao {
 
     @Override
     public void create(Ticket ticket) throws SQLException {
-        // primero crear el elemento de la tabla ticket, y sacar esa id, y
-        // luego crear los elementos de la tabla ticket_detail.
+        // first create the ticket table item, and retrieve its id, and
+        // then create the items in table ticket_detail.
         connection.setAutoCommit(false);
 
         String sqlTicket = "INSERT INTO ticket (total_price) VALUES (?)";
@@ -51,7 +51,7 @@ public class MysqlTicketDao implements TicketDao {
             Map<Product, Integer> products = ticket.getSaleProducts();
             for (Map.Entry<Product, Integer> entry : products.entrySet()) {
                 stmtDetail.setInt(1, ticketId);
-                stmtDetail.setInt(2, entry.getKey().getId());      //check
+                stmtDetail.setInt(2, Integer.parseInt(entry.getKey().getId()));
                 stmtDetail.setInt(3, entry.getValue());
                 affectedRows = stmtDetail.executeUpdate();
                 if (affectedRows == 0) {
@@ -133,7 +133,7 @@ public class MysqlTicketDao implements TicketDao {
                 totalRevenue = rs.getInt(1);
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Error al leer stock en la base de datos", e);
+            logger.log(Level.SEVERE, "Error al leer ganancias en la base de datos", e);
         }
 
         return totalRevenue;
