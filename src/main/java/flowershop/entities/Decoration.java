@@ -2,10 +2,11 @@ package entities;
 
 public class Decoration extends Product {
 
-   private int idDecoration;
+   private int id;
    private Material material;
 
-    public Decoration(){
+    public Decoration() {
+
         super();
     }
 
@@ -14,19 +15,23 @@ public class Decoration extends Product {
         this.material = material;
     }
 
-    public int getIdDecoration() {
-        return idDecoration;
+    public int getId() {
+
+        return idn;
     }
 
-    public void setIdDecoration(int idDecoration) {
-        this.idDecoration = idDecoration;
+    public void setId(int id) {
+
+        this.idDecoration = id;
     }
 
     public Material getMaterial() {
+
         return material;
     }
 
     public void setMaterial(Material material) {
+
         this.material = material;
     }
 
@@ -53,9 +58,8 @@ public class Decoration extends Product {
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode(){
         return Objects.hash(super.hashCode(), material);
     }
-
 
 }

@@ -2,10 +2,10 @@ package entities;
 
 public class Tree extends Product {
 
-    private int idTree;
+    private int id;
     private double height;
 
-    public Tree(){
+    public Tree() {
         super();
     }
 
@@ -14,23 +14,25 @@ public class Tree extends Product {
         this.height = height;
     }
 
-    public int getIdTree() {
-        return idTree;
+    public int getId() {
+
+        return id;
     }
 
-    public void setIdTree(int idTree) {
-        this.idTree = idTree;
+    public void setId(int id) {
+
+        this.id = id;
     }
 
     public double getHeight() {
+
         return height;
     }
 
     public void setHeight(double height) {
+
         this.height = height;
     }
-
-    //hash&equals
 
 
     @Override
@@ -49,7 +51,7 @@ public class Tree extends Product {
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode(){
         return Objects.hash(super.hashCode(), height);
     }
 

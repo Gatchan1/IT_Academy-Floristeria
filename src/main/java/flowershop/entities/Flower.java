@@ -2,10 +2,11 @@ package entities;
 
 public class Flower extends Product{
 
-    private int idFlower;
+    private int id;
     private String color;
 
-    public Flower(){
+    public Flower() {
+
         super();
     }
 
@@ -14,19 +15,23 @@ public class Flower extends Product{
         this.color = color;
     }
 
-    public int getIdFlower() {
-        return idFlower;
+    public int getId() {
+
+        return id;
     }
 
-    public void setIdFlower(int idFlower) {
-        this.idFlower = idFlower;
+    public void setId(int id) {
+
+        this.id = id;
     }
 
     public String getColor() {
+
         return color;
     }
 
     public void setColor(String color) {
+
         this.color = color;
     }
 
@@ -48,8 +53,8 @@ public class Flower extends Product{
 
     @Override
     public int hashCode() {
+
         return Objects.hash(super.hashCode(), color);
     }
-
 
 }
