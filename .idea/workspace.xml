@@ -4,54 +4,76 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9dc0198c-934f-4fab-a1cf-b96207294fb1" name="Changes" comment="" />
+<<<<<<< HEAD
+    <list default="true" id="846724b4-8d97-491b-82d5-4b7ba2816fc9" name="Changes" comment="modification menu">
+      <change afterPath="$PROJECT_DIR$/src/main/java/flowershop/configdb/mysql/ConnectionMysql.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/flowershop/configdb/mysql/CreateDatabaseMysql.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/flowershop/configdb/mysql/InitialStockMysql.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/flowershop/configdb/mysql/QueriesMysql.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+=======
+    <list default="true" id="846724b4-8d97-491b-82d5-4b7ba2816fc9" name="Changes" comment="modification menu" />
+>>>>>>> dev
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Interface" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="dev" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 2
+  &quot;associatedIndex&quot;: 5
 }</component>
-  <component name="ProjectId" id="2jMykvYim3aDATTB4wn8lDBMd2N" />
+  <component name="ProjectId" id="2jeSI5S3B4v52q7f5JSVUsTmky5" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "docs",
+<<<<<<< HEAD
+    "git-widget-placeholder": "feature/configdbmysql",
+=======
+    "git-widget-placeholder": "dev",
+>>>>>>> dev
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/PC/IdeaProjects/IT_Academy-Floristeria"
+    "last_opened_file_path": "C:/Users/PC/IdeaProjects/IT_Academy-Floristeria/src/main/java/flowershop/configdb/mysql",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
 }]]></component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="IT_Academy-Floristeria" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="IT_Academy-Floristeria" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\PC\IdeaProjects\IT_Academy-Floristeria\src\main\java\flowershop\configdb\mysql" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="9dc0198c-934f-4fab-a1cf-b96207294fb1" name="Changes" comment="" />
-      <created>1721211386607</created>
+      <changelist id="846724b4-8d97-491b-82d5-4b7ba2816fc9" name="Changes" comment="" />
+      <created>1721745966437</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1721211386607</updated>
+      <updated>1721745966437</updated>
     </task>
     <servers />
   </component>
@@ -65,5 +87,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="modification menu" />
+    <option name="LAST_COMMIT_MESSAGE" value="modification menu" />
   </component>
 </project>
