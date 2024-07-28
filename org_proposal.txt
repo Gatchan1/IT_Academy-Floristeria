@@ -1,0 +1,43 @@
++ flowershop
+       - Main.java (el método main podría contener solo dos líneas: 1º instanciar una Flowershop y 2º flowershop.start() )
+       + application
+             - Flowershop.java (constructor tipo Singleton. El método start sirve para arrancar la aplicación en sí)
+             - Menu.java (el menú de la aplicación en sí. Otra opción es llamarlo "Application")
+       + helpers
+             - Input
+       + configdb (es una propuesta, paquete con conexiones, consultas de creacion y metodos para crear bd. tb insertar stock inicial)
+              + mysql
+                     - MysqlConnection
+                     - QueriesMysql
+                     - CreateDatabase
+                     - InitialStock
+              + mongo (lo mismo en mongo)
+       + exceptions
+       + entities
+             - Product.java
+             - Tree.java
+             - Flower.java
+             - Decoration.java
+             - Ticket.java
+       + dao
+             - DAOManager.java (interfaz)
+             - GenericDAO.java (interfaz)
+             - ProductDAO.java (interfaz)
+             - TreeDAO.java (interfaz)
+             - FlowerDAO.java (interfaz)
+             - DecorationDAO.java (interfaz)
+             - TicketDAO.java (interfaz)
+             + mysql
+                    - MySQLDaoManager.java
+                    - MySQLProductDAO.java (de momento no trabajaremos con este archivo, no hace falta crearlo por ahora)
+                    - MySQLTreeDAO.java
+                    - MySQLFlowerDAO.java
+                    - MySQLDecorationDAO.java
+                    - MySQLTicketDAO.java
+             + mongodb
+                    - MongoDaoManager.java
+                    - MongoProductDAO.java (de momento no trabajaremos con este archivo, no hace falta crearlo por ahora)
+                    - MongoTreeDAO.java
+                    - MongoFlowerDAO.java
+                    - MongoDecorationDAO.java
+                    - MongoTicketDAO.java

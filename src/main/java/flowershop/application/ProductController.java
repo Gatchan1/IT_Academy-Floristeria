@@ -62,8 +62,7 @@ public class ProductController {
                 } else if (productToDelete instanceof Decoration) {
                     decorationDao.deleteById(productToDelete.getId());
                 }
-                System.out.println(productToDelete);
-                System.out.println("Producto eliminado correctamente.");
+                System.out.println("Producto eliminado correctamente: " + productToDelete);
             } catch (Exception e) {
                 logger.log(Level.SEVERE, "Error al eliminar producto: ", e);
             }
