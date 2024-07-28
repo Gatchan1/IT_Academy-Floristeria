@@ -50,7 +50,6 @@ public class TicketController {
         Ticket newTicket = new Ticket(saleProductsAdd, saleTotal);
         try {
             ticketDao.create(newTicket);
-
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Error al crear ticket: ", e);
         }
