@@ -18,7 +18,7 @@ public class Decoration extends Product {
     }
 
     public void setId(String id) {
-        this.idDecoration = id;
+        this.id = id;
     }
 
     public Material getMaterial() {
