@@ -17,12 +17,12 @@ public class Decoration extends Product {
 
     public int getId() {
 
-        return idn;
+        return id;
     }
 
     public void setId(int id) {
 
-        this.idDecoration = id;
+        this.id = id;
     }
 
     public Material getMaterial() {

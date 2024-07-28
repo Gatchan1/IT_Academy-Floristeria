@@ -16,7 +16,7 @@ public class Product{
         this.stock = stock;
     }
 
-    public getId() {
+    public int getId() {
 
         return id;
     }
