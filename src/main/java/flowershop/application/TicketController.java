@@ -40,7 +40,7 @@ public class TicketController {
                 int amount = Input.readInt("Introduce la cantidad de ventas para este producto: ");
                 saleTotal += productAdd.getPrice() * amount;
                 saleProductsAdd.put(productAdd, amount);
-                control = Input.readInt("Introduce un nuevo ID, o pulsa \'0\' si has terminado de añadir productos en el ticket. ");
+                control = Input.readInt("Introduce un nuevo ID, o Pulsa \'0\' si has terminado de añadir productos en el ticket. ");
             } catch (InputMismatchException e) {
                 System.out.println("El tipo de dato introducido no es correcto. ");
             }
@@ -64,6 +64,18 @@ public class TicketController {
         }
         System.out.println("Nuevo ticket de venta añadido correctamente. \n" + newTicket.toString());
 
+    }
+
+    public void showOldTickets() {
+        System.out.println("Ha seleccionado mostrar tickets antiguos. ");
+        List<Ticket> tickets = ticketDao.findAll();
+        tickets.forEach(System.out::println);
+    }
+
+    public void totalIncome() {
+        System.out.println("Ha seleccionado mostrar el total de ingresos: ");
+        double income = ticketDao.getTotalRevenue();
+        System.out.println("El total de ingresos es " + income + "€. ");
     }
 
 
