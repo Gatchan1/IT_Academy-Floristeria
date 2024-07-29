@@ -1,8 +1,9 @@
 package flowershop.application;
 
 import flowershop.dao.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import flowershop.entities.Product;
+
+import java.util.Map;
 
 public class StockController{
 
@@ -10,7 +11,6 @@ public class StockController{
     private final FlowerDao flowerDao;
     private final DecorationDao decorationDao;
     private final TreeDao treeDao;
-    private static final Logger logger = Logger.getLogger(ProductController.class.getName());
 
     public StockController(DaoManager daoManager){
         this.flowerDao = daoManager.getFlowerDao();
@@ -25,22 +25,30 @@ public class StockController{
         return instance;
     }
 
-    public void stockCategory(){
-        System.out.println("\n-> Ha seleccionado mostrar el stock por categoría: ");
-        try {
-            int treeStock = treeDao.getTotalStock();
-            int flowerStock = flowerDao.getTotalStock();
-            int decorationStock = decorationDao.getTotalStock();
-            System.out.println("\nStock árboles: " + treeStock +
-                    "\nStock flores: " + flowerStock +
-                    "\nStock deocración " + decorationStock + ". ");
-        } catch (Exception e){
-            logger.log(Level.SEVERE,"Error al tratar de recuperar las unidades de stock.", e );
-        }
+    public void stockCategory() {
+        int treeStock = treeDao.getTotalStock();
+        int flowerStock = flowerDao.getTotalStock();
+        int decorationStock = decorationDao.getTotalStock();
+        System.out.println("-----------------------------------------");
+        System.out.println("           Stock por categoría           ");
+        System.out.println("-----------------------------------------");
+        System.out.printf(" %-25s %7d \n", "Stock de árboles:", treeStock);
+        System.out.printf(" %-25s %7d \n", "Stock de flores:", flowerStock);
+        System.out.printf(" %-25s %7d \n", "Stock de decoración:", decorationStock);
+        System.out.println("-----------------------------------------");
     }
 
-    public  void stockTotalValue(){
+    public void stockTotalValue() {
         double totalValue = flowerDao.getTotalValue() + treeDao.getTotalValue() + decorationDao.getTotalValue();
-        System.out.println("\n->El valor del stock es: "+ totalValue + "€.");
+        System.out.println("\n->El valor total del stock es: " + totalValue + "€.");
+    }
+
+    public void showStockProducts(ProductController productController) {
+        Map<Integer, Product> productMap = productController.getAllProductsMap();
+        if (productMap.isEmpty()) {
+            System.out.println("No hay productos disponibles.");
+        } else {
+            productController.showAllProducts(productMap);
+        }
     }
 }
