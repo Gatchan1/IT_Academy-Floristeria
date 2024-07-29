@@ -40,7 +40,7 @@ public class StockController{
 
     public void stockTotalValue() {
         double totalValue = flowerDao.getTotalValue() + treeDao.getTotalValue() + decorationDao.getTotalValue();
-        System.out.println("\n->El valor total del stock es: " + totalValue + "€.");
+        System.out.printf("\n-> El valor total del stock es: %.2f€.\n", totalValue);
     }
 
     public void showStockProducts(ProductController productController) {
