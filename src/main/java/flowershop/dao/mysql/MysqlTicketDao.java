@@ -49,15 +49,6 @@ public class MysqlTicketDao implements TicketDao {
                 throw new SQLException();
             }
             Map<Product, Integer> products = ticket.getSaleProducts();
-//            for (Map.Entry<Product, Integer> entry : products.entrySet()) {
-//                stmtDetail.setInt(1, ticketId);
-//                stmtDetail.setInt(2, Integer.parseInt(entry.getKey().getId()));
-//                stmtDetail.setInt(3, entry.getValue());
-//                affectedRows = stmtDetail.executeUpdate();
-//                if (affectedRows == 0) {
-//                    throw new SQLException("Error al introducir elemento en la base de datos");
-//                }
-//            }
             for (Map.Entry<Product, Integer> entry : products.entrySet()) {
                 int productId = Integer.parseInt(entry.getKey().getId());
                 int quantity = entry.getValue();

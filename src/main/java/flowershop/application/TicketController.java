@@ -59,16 +59,16 @@ public class TicketController {
         Ticket newTicket = new Ticket(saleProductsAdd, saleTotal);
         try {
             ticketDao.create(newTicket);
-            for (Product product : saleProductsAdd.keySet()) {
-                int amount = -(saleProductsAdd.get(product));
-                if (product instanceof Flower) {
-                    flowerDao.updateStock(product.getId(), amount);
-                } else if (product instanceof Tree) {
-                    treeDao.updateStock(product.getId(), amount);
-                } else if (product instanceof Decoration) {
-                    decorationDao.updateStock(product.getId(), amount);
-                }
-            }
+//            for (Product product : saleProductsAdd.keySet()) {
+//                int amount = -(saleProductsAdd.get(product));
+//                if (product instanceof Flower) {
+//                    flowerDao.updateStock(product.getId(), amount);
+//                } else if (product instanceof Tree) {
+//                    treeDao.updateStock(product.getId(), amount);
+//                } else if (product instanceof Decoration) {
+//                    decorationDao.updateStock(product.getId(), amount);
+//                }
+//            }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Error al crear ticket: ", e);
         }

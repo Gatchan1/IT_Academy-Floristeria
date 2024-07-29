@@ -67,7 +67,6 @@ public class Menu {
                     //stockController.;
                     break;
                 case 7:
-                    //ticketController.;
                     ticketController.addTicket(productController);
                     break;
                 case 8:
