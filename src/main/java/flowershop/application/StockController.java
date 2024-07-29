@@ -4,8 +4,6 @@ import flowershop.dao.*;
 import flowershop.entities.Product;
 
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class StockController{
 
@@ -45,7 +43,7 @@ public class StockController{
         System.out.println("\n->El valor total del stock es: " + totalValue + "€.");
     }
 
-    public void showStockProducts(ProductController ProductController) {
+    public void showStockProducts(ProductController productController) {
         Map<Integer, Product> productMap = productController.getAllProductsMap();
         if (productMap.isEmpty()) {
             System.out.println("No hay productos disponibles.");
