@@ -1,14 +1,8 @@
 package flowershop.application;
 
 import flowershop.dao.*;
-import flowershop.entities.*;
-import flowershop.helpers.Input;
-
-import java.util.HashMap;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Stream;
 
 public class StockController{
 
@@ -16,16 +10,12 @@ public class StockController{
     private final FlowerDao flowerDao;
     private final DecorationDao decorationDao;
     private final TreeDao treeDao;
-    private final ProductReaderDao productReaderDao;
     private static final Logger logger = Logger.getLogger(ProductController.class.getName());
-
-
 
     public StockController(DaoManager daoManager){
         this.flowerDao = daoManager.getFlowerDao();
         this.decorationDao = daoManager.getDecorationDao();
         this.treeDao = daoManager.getTreeDao();
-        this.productReaderDao = daoManager.getProductReaderDao();
     }
 
     public static StockController getInstance(DaoManager daoManager) {
@@ -36,67 +26,21 @@ public class StockController{
     }
 
     public void stockCategory(){
-        System.out.println("Ha seleccionado mostrar el stock por categoría: ");
+        System.out.println("\n-> Ha seleccionado mostrar el stock por categoría: ");
         try {
             int treeStock = treeDao.getTotalStock();
             int flowerStock = flowerDao.getTotalStock();
             int decorationStock = decorationDao.getTotalStock();
-            System.out.println("Stock árboles: " + treeStock +
+            System.out.println("\nStock árboles: " + treeStock +
                     "\nStock flores: " + flowerStock +
-                    "\nStock deocración " + decorationStock + ". ")
+                    "\nStock deocración " + decorationStock + ". ");
         } catch (Exception e){
-            System.out.println("Error al tratar de recuperar las unidades de stock. ")
-        }
-
-    }
-
-    public void stockProducts(){
-        System.out.println("Ha seleccionado mostrar stock por producto. ");
-        List<Product> productList = productList();
-
-        if (productList.size() != 0) {
-            for (Product product : productList) {
-                if (product instanceof Flower) {
-                    System.out.println(product.getId() + ". " + product.getName() + " " + product.getColor() + ": " + product.getStock());
-                } else if (productToDelete instanceof Tree) {
-                    System.out.println(product.getId() + ". " + product.getName() + " " + product.getHeight() + ": " + product.getStock);
-                } else if (productToDelete instanceof Decoration) {
-                    System.out.println(product.getId() + ". " + product.getName() + " " + product.getMaterial() + ": " + product.getStock());
-                }
-            }
+            logger.log(Level.SEVERE,"Error al tratar de recuperar las unidades de stock.", e );
         }
     }
 
     public  void stockTotalValue(){
-        System.out.println("Ha seleccionado mostrar stock por producto. ");
-        List<Product> productList = productList();
-        double stockValue = 0;
-
-        if (productList.size() != 0) {
-            for (Product product : productList){
-                stockValue += product.getStock*product.getPrice();
-            }
-        }
-        System.out.println("El valor del stock es: "+ stockValue + "€.");
-
-        //test productDaoMethods.getTotalValue;
-
+        double totalValue = flowerDao.getTotalValue() + treeDao.getTotalValue() + decorationDao.getTotalValue();
+        System.out.println("\n->El valor del stock es: "+ totalValue + "€.");
     }
-
-    public List<Product> productList(){
-        List<Product> productList = new List<Product>();
-        List<Product> productListTree = TreeDao.findAll();
-        List<Product> productListFlower = FlorwerDao.findAll();
-        List<Product> productListDecoration = DecorationDao.findAll();
-        List<Product> productList.addAll(productListTree);
-        List<Product> productList.addAll(productListFlower);
-        List<Product> productList.addAll(productListDecoration);
-        return productList;
-
-    }
-
-
-
-
 }
-
