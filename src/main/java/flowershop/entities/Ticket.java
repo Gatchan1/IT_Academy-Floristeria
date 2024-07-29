@@ -87,4 +87,23 @@ public class Ticket {
                 "\n saleTotal=" + saleTotal +
                 "\n";
     }
+
+    public String toStringAlt() {
+        StringBuilder productsString = new StringBuilder();
+        for (Map.Entry<Product, Integer> entry : saleProducts.entrySet()) {
+            productsString.append(entry.getKey().toString())
+                    .append(" Quantity: ")
+                    .append(entry.getValue())
+                    .append(" ");
+        }
+
+        if (productsString.length() > 0) {
+            productsString.setLength(productsString.length() - 2);
+        }
+        return "Ticket:" +
+                "\n saleProducts: " + productsString.toString() + " " +
+                "\n saleDate :" + LocalDate.now() +
+                "\n saleTotal=" + saleTotal +
+                "\n";
+    }
 }

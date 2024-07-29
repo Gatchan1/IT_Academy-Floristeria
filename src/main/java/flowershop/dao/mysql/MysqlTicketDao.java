@@ -125,11 +125,11 @@ public class MysqlTicketDao implements TicketDao {
 
     @Override
     public double getTotalRevenue() {
-        int totalRevenue = 0;
+        double totalRevenue = 0;
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT SUM(total_price) FROM ticket")) {
             if (rs.next()) {
-                totalRevenue = rs.getInt(1);
+                totalRevenue = rs.getDouble(1);
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Error al leer ganancias en la base de datos", e);
