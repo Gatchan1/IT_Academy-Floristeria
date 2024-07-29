@@ -1,12 +1,12 @@
-package entities;
+package flowershop.entities;
+
+import java.util.Objects;
 
 public class Flower extends Product{
 
-    private int id;
     private String color;
 
     public Flower() {
-
         super();
     }
 
@@ -15,13 +15,11 @@ public class Flower extends Product{
         this.color = color;
     }
 
-    public int getId() {
-
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
-
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -55,6 +53,12 @@ public class Flower extends Product{
     public int hashCode() {
 
         return Objects.hash(super.hashCode(), color);
+    }
+
+    @Override
+    public String toString() {
+    return String.format("Nombre: %s, Color: %s, Precio: %.2f, Stock: %d",
+            getName(), getColor(), getPrice(), getStock());
     }
 
 }

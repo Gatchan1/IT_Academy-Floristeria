@@ -1,11 +1,13 @@
-package entities;
+package flowershop.entities;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class Ticket {
 
-    private int idTicket;
+    private String id;
     private HashMap<Product, Integer> saleProducts;
     private LocalDate saleDate;
     private double saleTotal;
@@ -18,43 +20,37 @@ public class Ticket {
         this.saleTotal = saleTotal;
     }
 
-    public int getIdTicket() {
-
-        return idTicket;
+    public String getId() {
+        return id;
     }
 
-    public void setIdTicket(int idTicket) {
-
-        this.idTicket = idTicket;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public HashMap<Product, Integer> getSaleProducts() {
-
         return saleProducts;
     }
 
     public void setSaleProducts(HashMap<Product, Integer> saleProducts) {
-
         this.saleProducts = saleProducts;
     }
 
     public double getSaleTotal() {
-
         return saleTotal;
     }
 
     public void setSaleTotal(double saleTotal) {
-
         this.saleTotal = saleTotal;
     }
 
     public LocalDate getSaleDate() {
-
         return saleDate;
     }
 
     public void setSaleDate(LocalDate saleDate) {
-        this.saleDate = LocalDate.now;
+
+        this.saleDate = saleDate;
     }
 
     @Override
@@ -70,4 +66,44 @@ public class Ticket {
     @Override
     public int hashCode() {
         return Objects.hash(saleProducts, saleDate, saleTotal);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder productsString = new StringBuilder();
+        for (Map.Entry<Product, Integer> entry : saleProducts.entrySet()) {
+            productsString.append(entry.getKey().toString())
+                    .append(" Quantity: ")
+                    .append(entry.getValue())
+                    .append(" ");
+        }
+
+        if (productsString.length() > 0) {
+            productsString.setLength(productsString.length() - 2);
+        }
+        return "Ticket ID:" + id +
+                "\n saleProducts: " + productsString.toString() + " " +
+                "\n saleDate :" + saleDate +
+                "\n saleTotal=" + saleTotal +
+                "\n";
+    }
+
+    public String toStringAlt() {
+        StringBuilder productsString = new StringBuilder();
+        for (Map.Entry<Product, Integer> entry : saleProducts.entrySet()) {
+            productsString.append(entry.getKey().toString())
+                    .append(" Quantity: ")
+                    .append(entry.getValue())
+                    .append(" \n");
+        }
+
+        if (productsString.length() > 0) {
+            productsString.setLength(productsString.length() - 2);
+        }
+        return "Ticket:" +
+                "\n saleProducts: " + productsString.toString() + " " +
+                "\n saleDate :" + LocalDate.now() +
+                "\n saleTotal=" + saleTotal +
+                "\n";
+    }
 }

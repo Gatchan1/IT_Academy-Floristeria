@@ -1,8 +1,8 @@
 package flowershop.dao.mysql;
 
 import flowershop.dao.TicketDao;
-//TODO: import Ticket
-//TODO: import Product
+import flowershop.entities.Product;
+import flowershop.entities.Ticket;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -23,8 +23,8 @@ public class MysqlTicketDao implements TicketDao {
 
     @Override
     public void create(Ticket ticket) throws SQLException {
-        // primero crear el elemento de la tabla ticket, y sacar esa id, y
-        // luego crear los elementos de la tabla ticket_detail.
+        // first create the ticket table item, and retrieve its id, and
+        // then create the items in table ticket_detail.
         connection.setAutoCommit(false);
 
         String sqlTicket = "INSERT INTO ticket (total_price) VALUES (?)";
@@ -51,7 +51,7 @@ public class MysqlTicketDao implements TicketDao {
             Map<Product, Integer> products = ticket.getSaleProducts();
             for (Map.Entry<Product, Integer> entry : products.entrySet()) {
                 stmtDetail.setInt(1, ticketId);
-                stmtDetail.setInt(2, entry.getKey().getId());      //check
+                stmtDetail.setInt(2, Integer.parseInt(entry.getKey().getId()));
                 stmtDetail.setInt(3, entry.getValue());
                 affectedRows = stmtDetail.executeUpdate();
                 if (affectedRows == 0) {
@@ -68,7 +68,7 @@ public class MysqlTicketDao implements TicketDao {
     @Override
     public Ticket read(String id) {
         Ticket ticket = null;
-        String sql = "SELECT sale_date, total_price, id_product, quantity " +
+        String sql = "SELECT DATE(sale_date), total_price, id_product, quantity " +
                 "FROM ticket t JOIN ticket_detail td ON t.id_ticket=td.id_ticket WHERE t.id_ticket = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, Integer.parseInt(id));
@@ -92,13 +92,12 @@ public class MysqlTicketDao implements TicketDao {
                     int quantity = rs.getInt(4);
 
                     Product product = productReader.read(Integer.toString(productId));
-                    // AQUI ESTAMOS USANDO LA MISMA CONNECTION PARA HACER UNA CONSULTA MIENTRAS ITERAMOS OTRA CONSULTA.
-                    // OJALÁ NO DÉ PROBLEMAS
                     saleProducts.put(product, quantity);
                 }
 
-                ticket = new Ticket(saleProducts, saleTotal);     //check
-                ticket.setSaleDate(saleDate);                     //check
+                ticket = new Ticket(saleProducts, saleTotal);
+                ticket.setSaleDate(saleDate);
+                ticket.setId(id);
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Error al buscar elemento en la base de datos", e);
@@ -126,14 +125,14 @@ public class MysqlTicketDao implements TicketDao {
 
     @Override
     public double getTotalRevenue() {
-        int totalRevenue = 0;
+        double totalRevenue = 0;
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT SUM(total_price) FROM ticket")) {
             if (rs.next()) {
-                totalRevenue = rs.getInt(1);
+                totalRevenue = rs.getDouble(1);
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Error al leer stock en la base de datos", e);
+            logger.log(Level.SEVERE, "Error al leer ganancias en la base de datos", e);
         }
 
         return totalRevenue;

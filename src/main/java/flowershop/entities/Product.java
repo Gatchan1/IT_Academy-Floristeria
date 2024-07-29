@@ -1,8 +1,10 @@
-package entities;
+package flowershop.entities;
+
+import java.util.Objects;
 
 public class Product{
 
-    protected int id;
+    protected String id;
     protected String name;
     protected double price;
     protected int stock;
@@ -16,18 +18,15 @@ public class Product{
         this.stock = stock;
     }
 
-    public getId() {
-
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
-
+    public void setId(String id) {
         this.id = id;
     }
 
     public String getName() {
-
         return name;
     }
 

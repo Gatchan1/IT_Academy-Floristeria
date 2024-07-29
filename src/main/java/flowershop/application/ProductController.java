@@ -3,7 +3,6 @@ package flowershop.application;
 import flowershop.dao.*;
 import flowershop.entities.*;
 import flowershop.helpers.Input;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,8 +61,7 @@ public class ProductController {
                 } else if (productToDelete instanceof Decoration) {
                     decorationDao.deleteById(productToDelete.getId());
                 }
-                System.out.println(productToDelete);
-                System.out.println("Producto eliminado correctamente.");
+                System.out.println("Producto eliminado correctamente: " + productToDelete);
             } catch (Exception e) {
                 logger.log(Level.SEVERE, "Error al eliminar producto: ", e);
             }
@@ -88,6 +86,15 @@ public class ProductController {
             } catch (Exception e) {
                 logger.log(Level.SEVERE, "Error al actualizar stock del producto: ", e);
             }
+        }
+    }
+
+    public void showStockProducts() {
+        Map<Integer, Product> productMap = getAllProductsMap();
+        if (productMap.isEmpty()) {
+            System.out.println("No hay productos disponibles.");
+        } else {
+            showAllProducts(productMap);
         }
     }
 
