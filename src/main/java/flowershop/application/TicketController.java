@@ -40,7 +40,7 @@ public class TicketController {
                 int amount = Input.readInt("Introduce la cantidad de ventas para este producto: ");
                 saleTotal += productAdd.getPrice() * amount;
                 saleProductsAdd.put(productAdd, amount);
-                control = Input.readInt("Pulsa \'0\' si has terminado de añadir productos en el ticket. ");
+                control = Input.readInt("Introduce un nuevo ID, o pulsa \'0\' si has terminado de añadir productos en el ticket. ");
             } catch (InputMismatchException e) {
                 System.out.println("El tipo de dato introducido no es correcto. ");
             }
