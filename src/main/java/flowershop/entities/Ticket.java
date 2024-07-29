@@ -94,7 +94,7 @@ public class Ticket {
             productsString.append(entry.getKey().toString())
                     .append(" Quantity: ")
                     .append(entry.getValue())
-                    .append(" ");
+                    .append(" \n");
         }
 
         if (productsString.length() > 0) {
