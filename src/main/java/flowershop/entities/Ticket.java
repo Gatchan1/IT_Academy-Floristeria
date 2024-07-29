@@ -72,19 +72,23 @@ public class Ticket {
     public String toString() {
         StringBuilder productsString = new StringBuilder();
         for (Map.Entry<Product, Integer> entry : saleProducts.entrySet()) {
-            productsString.append(entry.getKey().toString())
-                    .append(", Quantity: ")
-                    .append(entry.getValue())
-                    .append("\n");
+            if (entry.getKey() == null) {
+                productsString.append("Producto desconocido descatalogado. Precio: ??, Cantidad: ??\n");
+            } else {
+                productsString.append(entry.getKey().toString())
+                        .append(", Cantidad: ")
+                        .append(entry.getValue())
+                        .append("\n");
+            }
         }
 
         if (!productsString.isEmpty()) {
             productsString.setLength(productsString.length() - 1);
         }
         return "Ticket ID:" + id +
-                "\n saleProducts: \n" + productsString + " " +
-                "\n saleDate :" + saleDate +
-                "\n saleTotal=" + saleTotal +
+                "\n Productos: \n" + productsString + " " +
+                "\n Fecha de venta: " + saleDate +
+                "\n Importe total: " + saleTotal +
                 "\n";
     }
 
@@ -92,7 +96,7 @@ public class Ticket {
         StringBuilder productsString = new StringBuilder();
         for (Map.Entry<Product, Integer> entry : saleProducts.entrySet()) {
             productsString.append(entry.getKey().toStringAlt())
-                    .append(", Quantity: ")
+                    .append(", Cantidad: ")
                     .append(entry.getValue())
                     .append("\n");
         }
@@ -101,9 +105,9 @@ public class Ticket {
             productsString.setLength(productsString.length() - 1);
         }
         return "Ticket:" +
-                "\n saleProducts: \n" + productsString + " " +
-                "\n saleDate :" + LocalDate.now() +
-                "\n saleTotal=" + saleTotal +
+                "\n Productos: \n" + productsString + " " +
+                "\n Fecha de venta: " + LocalDate.now() +
+                "\n Importe total: " + saleTotal +
                 "\n";
     }
 }
