@@ -1,16 +1,12 @@
 package flowershop.entities;
 
-public abstract class Product{
-
+public abstract class Product {
     protected String id;
     protected String name;
     protected double price;
     protected int stock;
 
-    public Product(){
-    }
-
-    public Product(String name, double price, int stock){
+    public Product(String name, double price, int stock) {
         this.name = name;
         this.price = price;
         this.stock = stock;
@@ -45,7 +41,6 @@ public abstract class Product{
     }
 
     public void setStock(int stock) {
-
         this.stock = stock;
     }
 

@@ -1,24 +1,11 @@
 package flowershop.entities;
 
-public class Flower extends Product{
-
+public class Flower extends Product {
     private String color;
-
-    public Flower() {
-        super();
-    }
 
     public Flower(String name, double price, int stock, String color) {
         super(name, price, stock);
         this.color = color;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getColor() {
@@ -31,8 +18,8 @@ public class Flower extends Product{
 
     @Override
     public String toString() {
-    return String.format("Nombre: %s, Color: %s, Precio: %.2f, Stock: %d",
-            getName(), getColor(), getPrice(), getStock());
+        return String.format("Nombre: %s, Color: %s, Precio: %.2f, Stock: %d",
+                getName(), getColor(), getPrice(), getStock());
     }
 
     @Override

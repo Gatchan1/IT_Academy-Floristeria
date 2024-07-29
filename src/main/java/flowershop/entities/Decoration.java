@@ -1,26 +1,11 @@
 package flowershop.entities;
 
-import java.util.Objects;
-
 public class Decoration extends Product {
-
-   private Material material;
-
-    public Decoration() {
-        super();
-    }
+    private Material material;
 
     public Decoration(String name, double price, int stock, Material material) {
         super(name, price, stock);
         this.material = material;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public Material getMaterial() {

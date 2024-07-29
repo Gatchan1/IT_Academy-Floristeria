@@ -1,24 +1,11 @@
 package flowershop.entities;
 
 public class Tree extends Product {
-
     private double height;
-
-    public Tree() {
-        super();
-    }
 
     public Tree(String name, double price, int stock, double height) {
         super(name, price, stock);
         this.height = height;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public double getHeight() {

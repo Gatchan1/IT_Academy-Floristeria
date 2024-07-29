@@ -73,16 +73,16 @@ public class Ticket {
         StringBuilder productsString = new StringBuilder();
         for (Map.Entry<Product, Integer> entry : saleProducts.entrySet()) {
             productsString.append(entry.getKey().toString())
-                    .append(" Quantity: ")
+                    .append(", Quantity: ")
                     .append(entry.getValue())
                     .append(" ");
         }
 
-        if (productsString.length() > 0) {
+        if (!productsString.isEmpty()) {
             productsString.setLength(productsString.length() - 2);
         }
         return "Ticket ID:" + id +
-                "\n saleProducts: " + productsString.toString() + " " +
+                "\n saleProducts: \n" + productsString + " " +
                 "\n saleDate :" + saleDate +
                 "\n saleTotal=" + saleTotal +
                 "\n";
@@ -92,16 +92,16 @@ public class Ticket {
         StringBuilder productsString = new StringBuilder();
         for (Map.Entry<Product, Integer> entry : saleProducts.entrySet()) {
             productsString.append(entry.getKey().toStringAlt())
-                    .append(" Quantity: ")
+                    .append(", Quantity: ")
                     .append(entry.getValue())
                     .append(" \n");
         }
 
-        if (productsString.length() > 0) {
+        if (!productsString.isEmpty()) {
             productsString.setLength(productsString.length() - 2);
         }
         return "Ticket:" +
-                "\n saleProducts: " + productsString.toString() + " " +
+                "\n saleProducts: \n" + productsString + " " +
                 "\n saleDate :" + LocalDate.now() +
                 "\n saleTotal=" + saleTotal +
                 "\n";
