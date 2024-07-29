@@ -50,7 +50,7 @@ public class TicketController {
                 System.out.println("El tipo de dato introducido no es correcto. ");
             }
             if (continueLoop){
-                productAdd = instance.getSelectedProductInLoop(productController);
+                productAdd = productController.getSelectedProductInLoop();
             }
         } while (continueLoop);
 
@@ -85,22 +85,6 @@ public class TicketController {
         double income = ticketDao.getTotalRevenue();
         System.out.println("El total de ingresos es " + income + "€. ");
     }
-
-    public Product getSelectedProductInLoop(ProductController productController) {
-        Map<Integer, Product> productMap = getAllProductsMap();
-        if (productMap.isEmpty()) {
-            System.out.println("No hay productos disponibles.");
-            return null;
-        } else {
-            int userIndex = Input.readIntInRange(
-                    "Introduce el índice del producto: ",
-                    1,
-                    productMap.size()
-            );
-            return productMap.get(userIndex);
-        }
-    }
-
 
 
 }
