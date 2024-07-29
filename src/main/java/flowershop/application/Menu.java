@@ -61,7 +61,7 @@ public class Menu {
                     stockController.stockCategory();
                     break;
                 case 5:
-                    productController.showStockProducts();
+                    stockController.showStockProducts(productController);
                     break;
                 case 6:
                     stockController.stockTotalValue();

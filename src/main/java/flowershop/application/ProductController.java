@@ -89,15 +89,6 @@ public class ProductController {
         }
     }
 
-    public void showStockProducts() {
-        Map<Integer, Product> productMap = getAllProductsMap();
-        if (productMap.isEmpty()) {
-            System.out.println("No hay productos disponibles.");
-        } else {
-            showAllProducts(productMap);
-        }
-    }
-
     public Product getSelectedProduct() {
         Map<Integer, Product> productMap = getAllProductsMap();
         if (productMap.isEmpty()) {
@@ -105,6 +96,21 @@ public class ProductController {
             return null;
         } else {
             showAllProducts(productMap);
+            int userIndex = Input.readIntInRange(
+                    "Introduce el índice del producto: ",
+                    1,
+                    productMap.size()
+            );
+            return productMap.get(userIndex);
+        }
+    }
+
+    public Product getSelectedProductInLoop() {
+        Map<Integer, Product> productMap = getAllProductsMap();
+        if (productMap.isEmpty()) {
+            System.out.println("No hay productos disponibles.");
+            return null;
+        } else {
             int userIndex = Input.readIntInRange(
                     "Introduce el índice del producto: ",
                     1,
