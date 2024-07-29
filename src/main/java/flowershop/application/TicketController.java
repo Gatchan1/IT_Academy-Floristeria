@@ -15,7 +15,6 @@ public class TicketController {
 
     private static TicketController instance;
     private final TicketDao ticketDao;
-    //TODO  (eliminar linea productReaderDao)
     private static final Logger logger = Logger.getLogger(TicketController.class.getName());
 
     public TicketController(DaoManager daoManager) {
