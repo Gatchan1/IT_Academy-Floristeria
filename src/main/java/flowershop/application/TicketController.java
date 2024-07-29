@@ -61,7 +61,6 @@ public class TicketController {
             logger.log(Level.SEVERE, "Error al crear ticket: ", e);
         }
         System.out.println("Nuevo ticket de venta añadido correctamente. \n" + newTicket.toStringAlt());
-
     }
 
     public void showOldTickets() {
