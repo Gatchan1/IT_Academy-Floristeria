@@ -15,15 +15,9 @@ public class TicketController {
 
     private static TicketController instance;
     private final TicketDao ticketDao;
-    private final FlowerDao flowerDao;
-    private final DecorationDao decorationDao;
-    private final TreeDao treeDao;
     private static final Logger logger = Logger.getLogger(TicketController.class.getName());
 
     public TicketController(DaoManager daoManager) {
-        this.flowerDao = daoManager.getFlowerDao();
-        this.decorationDao = daoManager.getDecorationDao();
-        this.treeDao = daoManager.getTreeDao();
         this.ticketDao = daoManager.getTicketDao();
     }
 
@@ -41,15 +35,12 @@ public class TicketController {
         Product productAdd = productController.getSelectedProduct();
 
         do {
-            try {
-                int amount = Input.readInt("Introduce la cantidad de ventas para este producto: ");
-                saleTotal += productAdd.getPrice() * amount;
-                saleProductsAdd.put(productAdd, amount);
-                continueLoop = Input.readYesNo("Pulsa 's' para continuar, 'n' si has terminado de añadir productos en el ticket. ");
-            } catch (InputMismatchException e) {
-                System.out.println("El tipo de dato introducido no es correcto. ");
-            }
-            if (continueLoop){
+            int amount = Input.readInt("Introduce la cantidad de ventas para este producto: ");
+            saleTotal += productAdd.getPrice() * amount;
+            saleProductsAdd.put(productAdd, amount);
+            continueLoop = Input.readYesNo("Pulsa 's' para continuar, 'n' si has terminado de añadir productos en el ticket. ");
+
+            if (continueLoop) {
                 productAdd = productController.getSelectedProductInLoop();
             }
         } while (continueLoop);
@@ -64,15 +55,18 @@ public class TicketController {
     }
 
     public void showOldTickets() {
-        System.out.println("Ha seleccionado mostrar tickets antiguos. ");
         List<Ticket> tickets = ticketDao.findAll();
-        tickets.forEach(System.out::println);
+        if (tickets.isEmpty()) {
+            System.out.println("No hay tickets antiguos disponibles.");
+        } else {
+            System.out.println("\nListado de Tickets Antiguos:");
+            System.out.println("----------------------------");
+            tickets.forEach(System.out::println);
+        }
     }
 
     public void totalIncome() {
-        System.out.println("Ha seleccionado mostrar el total de ingresos: ");
         double income = ticketDao.getTotalRevenue();
-        System.out.println("El total de ingresos es " + income + "€. ");
+        System.out.printf("\n-> El total de ingresos es: %.2f€.\n", income);
     }
-
 }

@@ -81,7 +81,6 @@ public class Ticket {
                         .append("\n");
             }
         }
-
         if (!productsString.isEmpty()) {
             productsString.setLength(productsString.length() - 1);
         }
@@ -100,7 +99,6 @@ public class Ticket {
                     .append(entry.getValue())
                     .append("\n");
         }
-
         if (!productsString.isEmpty()) {
             productsString.setLength(productsString.length() - 1);
         }
