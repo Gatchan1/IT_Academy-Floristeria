@@ -2,6 +2,8 @@ package flowershop.entities;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class Ticket {
 
@@ -48,7 +50,7 @@ public class Ticket {
 
     public void setSaleDate(LocalDate saleDate) {
 
-        this.saleDate = LocalDate.now;
+        this.saleDate = saleDate;
     }
 
     @Override
@@ -79,9 +81,28 @@ public class Ticket {
         if (productsString.length() > 0) {
             productsString.setLength(productsString.length() - 2);
         }
-        return "Ticket ID:" + idTicket +
+        return "Ticket ID:" + id +
                 "\n saleProducts: " + productsString.toString() + " " +
                 "\n saleDate :" + saleDate +
+                "\n saleTotal=" + saleTotal +
+                "\n";
+    }
+
+    public String toStringAlt() {
+        StringBuilder productsString = new StringBuilder();
+        for (Map.Entry<Product, Integer> entry : saleProducts.entrySet()) {
+            productsString.append(entry.getKey().toString())
+                    .append(" Quantity: ")
+                    .append(entry.getValue())
+                    .append(" ");
+        }
+
+        if (productsString.length() > 0) {
+            productsString.setLength(productsString.length() - 2);
+        }
+        return "Ticket:" +
+                "\n saleProducts: " + productsString.toString() + " " +
+                "\n saleDate :" + LocalDate.now() +
                 "\n saleTotal=" + saleTotal +
                 "\n";
     }

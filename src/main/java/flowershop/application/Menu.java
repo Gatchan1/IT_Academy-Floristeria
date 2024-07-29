@@ -8,7 +8,7 @@ public class Menu {
 
     private final ProductController productController;
     //private final TicketController ticketController;
-    //private final StockController stockController;
+    private final StockController stockController;
 
     private static final int MIN_OPTION = 0;
     private static final int MAX_OPTION = 9;
@@ -16,7 +16,7 @@ public class Menu {
     public Menu(DaoManager daoManager) {
         this.productController = ProductController.getInstance(daoManager);
         // this.ticketController = TicketCrontroller.getInstance(daoManager);
-        // this.stockController = StockController.getInstance(daoManager);
+        this.stockController = StockController.getInstance(daoManager);
     }
 
     private static int showMenu() {
@@ -58,13 +58,13 @@ public class Menu {
                     productController.updateProductStock();
                     break;
                 case 4:
-                    //stockController.;
+                    stockController.stockCategory();
                     break;
                 case 5:
-                    //stockController.;
+                    productController.showStockProducts();
                     break;
                 case 6:
-                    //stockController.;
+                    stockController.stockTotalValue();
                     break;
                 case 7:
                     //ticketController.;
@@ -82,6 +82,7 @@ public class Menu {
             }
         } while (!exit);
     }
+
 
     public static void byeBye() {
         System.out.println("\n" +

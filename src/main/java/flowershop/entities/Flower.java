@@ -1,4 +1,6 @@
-package entities;
+package flowershop.entities;
+
+import java.util.Objects;
 
 public class Flower extends Product{
 

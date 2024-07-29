@@ -56,13 +56,13 @@ public class Input {
 
         while (!correctData) {
             try {
-                System.out.println(message);
+                System.out.print(message);
                 inputValue = scanner.nextInt();
 
                 if (inputValue >= min && inputValue <= max) {
                     correctData = true;
                 } else {
-                    System.out.print("Error: Introduce un valor entre " + min + " y " + max);
+                    System.out.println("Error: Introduce un valor entre " + min + " y " + max);
                 }
             } catch (InputMismatchException e) {
                 System.out.println(ERROR_INT);

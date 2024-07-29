@@ -1,5 +1,7 @@
 package flowershop.entities;
 
+import java.util.Objects;
+
 public class Tree extends Product {
 
     private double height;
