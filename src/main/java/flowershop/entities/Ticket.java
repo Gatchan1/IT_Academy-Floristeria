@@ -75,11 +75,11 @@ public class Ticket {
             productsString.append(entry.getKey().toString())
                     .append(", Quantity: ")
                     .append(entry.getValue())
-                    .append(" ");
+                    .append("\n");
         }
 
         if (!productsString.isEmpty()) {
-            productsString.setLength(productsString.length() - 2);
+            productsString.setLength(productsString.length() - 1);
         }
         return "Ticket ID:" + id +
                 "\n saleProducts: \n" + productsString + " " +
@@ -94,11 +94,11 @@ public class Ticket {
             productsString.append(entry.getKey().toStringAlt())
                     .append(", Quantity: ")
                     .append(entry.getValue())
-                    .append(" \n");
+                    .append("\n");
         }
 
         if (!productsString.isEmpty()) {
-            productsString.setLength(productsString.length() - 2);
+            productsString.setLength(productsString.length() - 1);
         }
         return "Ticket:" +
                 "\n saleProducts: \n" + productsString + " " +

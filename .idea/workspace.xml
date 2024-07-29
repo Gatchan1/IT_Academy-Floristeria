@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c899864d-0b78-40bb-bb14-656898ac7839" name="Changes" comment="modification2">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_22_07_2024_15_35__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_22_07_2024_15_35__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_23_07_2024_16_45__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_23_07_2024_16_45__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_23_07_2024_16_45__Changes_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_23_07_2024_16_45__Changes_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/entities/Decoration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/entities/Decoration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/entities/Flower.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/entities/Flower.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/entities/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/entities/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/entities/Tree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/entities/Tree.java" afterDir="false" />
-    </list>
+    <list default="true" id="c899864d-0b78-40bb-bb14-656898ac7839" name="Changes" comment="modification2" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,7 +25,7 @@
   "keyToString": {
     "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/Product",
+    "git-widget-placeholder": "test",
     "kotlin-language-version-configured": "true"
   }
 }]]></component>
