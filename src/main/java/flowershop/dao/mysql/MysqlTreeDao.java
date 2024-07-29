@@ -173,12 +173,12 @@ public class MysqlTreeDao implements TreeDao {
 
     @Override
     public double getTotalValue() {
-        int totalValue = 0;
+        double totalValue = 0;
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT SUM(stock * price) " +
                      "FROM product WHERE type='TREE'")) {
             if (rs.next()) {
-                totalValue = rs.getInt(1);
+                totalValue = rs.getDouble(1);
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Error al leer valor económico en la base de datos", e);
