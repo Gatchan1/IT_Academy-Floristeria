@@ -15,15 +15,9 @@ public class TicketController {
 
     private static TicketController instance;
     private final TicketDao ticketDao;
-    private final FlowerDao flowerDao;
-    private final DecorationDao decorationDao;
-    private final TreeDao treeDao;
     private static final Logger logger = Logger.getLogger(TicketController.class.getName());
 
     public TicketController(DaoManager daoManager) {
-        this.flowerDao = daoManager.getFlowerDao();
-        this.decorationDao = daoManager.getDecorationDao();
-        this.treeDao = daoManager.getTreeDao();
         this.ticketDao = daoManager.getTicketDao();
     }
 
@@ -64,16 +58,18 @@ public class TicketController {
     }
 
     public void showOldTickets() {
-        System.out.println("Ha seleccionado mostrar tickets antiguos. ");
         List<Ticket> tickets = ticketDao.findAll();
-        tickets.forEach(System.out::println);
+        if (tickets.isEmpty()) {
+            System.out.println("No hay tickets antiguos disponibles.");
+        } else {
+            System.out.println("\nListado de Tickets Antiguos:");
+            System.out.println("----------------------------");
+            tickets.forEach(System.out::println);
+        }
     }
 
     public void totalIncome() {
-        System.out.println("Ha seleccionado mostrar el total de ingresos: ");
         double income = ticketDao.getTotalRevenue();
-        System.out.println("El total de ingresos es " + income + "€. ");
+        System.out.printf("\n-> El total de ingresos es: %.2f€.\n", income);
     }
-
-
 }
