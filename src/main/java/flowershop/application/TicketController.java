@@ -37,10 +37,11 @@ public class TicketController {
 
         do {
             try {
+                productAdd = instance.getSelectedProductInLoop();
                 int amount = Input.readInt("Introduce la cantidad de ventas para este producto: ");
                 saleTotal += productAdd.getPrice() * amount;
                 saleProductsAdd.put(productAdd, amount);
-                control = Input.readInt("Introduce un nuevo ID, o Pulsa \'0\' si has terminado de añadir productos en el ticket. ");
+                control = Input.readInt("Pulsa \'0\' si has terminado de añadir productos en el ticket. ");
             } catch (InputMismatchException e) {
                 System.out.println("El tipo de dato introducido no es correcto. ");
             }
@@ -76,6 +77,21 @@ public class TicketController {
         System.out.println("Ha seleccionado mostrar el total de ingresos: ");
         double income = ticketDao.getTotalRevenue();
         System.out.println("El total de ingresos es " + income + "€. ");
+    }
+
+    public Product getSelectedProductInLoop() {
+        Map<Integer, Product> productMap = getAllProductsMap();
+        if (productMap.isEmpty()) {
+            System.out.println("No hay productos disponibles.");
+            return null;
+        } else {
+            int userIndex = Input.readIntInRange(
+                    "Introduce el índice del producto: ",
+                    1,
+                    productMap.size()
+            );
+            return productMap.get(userIndex);
+        }
     }
 
 
