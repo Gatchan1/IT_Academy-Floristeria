@@ -70,7 +70,7 @@ public class TicketController {
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Error al crear ticket: ", e);
         }
-        System.out.println("Nuevo ticket de venta añadido correctamente. \n" + newTicket.toString());
+        System.out.println("Nuevo ticket de venta añadido correctamente. \n" + newTicket.toStringAlt());
 
     }
 
