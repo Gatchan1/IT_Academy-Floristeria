@@ -69,24 +69,15 @@ public class TicketController {
     public void showOldTickets() {
         System.out.println("Ha seleccionado mostrar tickets antiguos. ");
         List<Ticket> tickets = ticketDao.findAll();
-        for (Ticket ticketPrint : tickets) {
-            System.out.println(ticketPrint.toString());
-        }
-
+        tickets.forEach(System.out::println);
     }
-
 
     public void totalIncome() {
         System.out.println("Ha seleccionado mostrar el total de ingresos: ");
-        List<Ticket> tickets = ticketDao.findAll();
-        double income = 0;
-        for (Ticket ticket : tickets) {
-            income += ticket.getSaleTotal();
-        }
-
+        double income = ticketDao.getTotalRevenue();
         System.out.println("El total de ingresos es " + income + "€. ");
-        //test TicketDao.getTotalRevenue();
     }
+}
 
 
 }
