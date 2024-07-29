@@ -41,4 +41,4 @@ build/
 
 
 .idea/misc.xml
-.idea/*
+config.properties
