@@ -29,15 +29,16 @@ public class MysqlTicketDao implements TicketDao {
 
         String sqlTicket = "INSERT INTO ticket (total_price) VALUES (?)";
         String sqlDetail = "INSERT INTO ticket_detail (id_ticket, id_product, quantity) VALUES (?, ?, ?)";
+        String sqlReduceStock = "UPDATE product SET stock = stock - ? WHERE id_product = ?";
         try (PreparedStatement stmtTicket = connection.prepareStatement(sqlTicket, Statement.RETURN_GENERATED_KEYS);
              PreparedStatement stmtDetail = connection.prepareStatement(sqlDetail);
+             PreparedStatement stmtReduceStock = connection.prepareStatement(sqlReduceStock)
         ) {
             Integer ticketId = null;
-
             stmtTicket.setDouble(1, ticket.getSaleTotal());
             int affectedRows = stmtTicket.executeUpdate();
             if (affectedRows == 0) {
-                throw new SQLException();
+                throw new SQLException("Error al crear ticket");
             }
             try (ResultSet keys = stmtTicket.getGeneratedKeys()) {
                 if (keys.next()) {
@@ -47,18 +48,18 @@ public class MysqlTicketDao implements TicketDao {
             if (ticketId == null) {
                 throw new SQLException();
             }
-
             Map<Product, Integer> products = ticket.getSaleProducts();
             for (Map.Entry<Product, Integer> entry : products.entrySet()) {
+                int productId = Integer.parseInt(entry.getKey().getId());
+                int quantity = entry.getValue();
                 stmtDetail.setInt(1, ticketId);
-                stmtDetail.setInt(2, Integer.parseInt(entry.getKey().getId()));
-                stmtDetail.setInt(3, entry.getValue());
-                affectedRows = stmtDetail.executeUpdate();
-                if (affectedRows == 0) {
-                    throw new SQLException("Error al introducir elemento en la base de datos");
-                }
+                stmtDetail.setInt(2, productId);
+                stmtDetail.setInt(3, quantity);
+                stmtDetail.executeUpdate();
+                stmtReduceStock.setInt(1, quantity);
+                stmtReduceStock.setInt(2, productId);
+                stmtReduceStock.executeUpdate();
             }
-
             connection.commit();
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Error al introducir elemento en la base de datos", e);
