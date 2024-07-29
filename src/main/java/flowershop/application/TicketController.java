@@ -49,10 +49,10 @@ public class TicketController {
             } catch (InputMismatchException e) {
                 System.out.println("El tipo de dato introducido no es correcto. ");
             }
-            if (continueLoop = true){
+            if (continueLoop){
                 productAdd = instance.getSelectedProductInLoop(productController);
             }
-        } while (continueLoop = true);
+        } while (continueLoop);
 
         Ticket newTicket = new Ticket(saleProductsAdd, saleTotal);
         try {
