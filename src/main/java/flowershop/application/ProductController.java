@@ -3,7 +3,6 @@ package flowershop.application;
 import flowershop.dao.*;
 import flowershop.entities.*;
 import flowershop.helpers.Input;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -97,6 +96,21 @@ public class ProductController {
             return null;
         } else {
             showAllProducts(productMap);
+            int userIndex = Input.readIntInRange(
+                    "Introduce el índice del producto: ",
+                    1,
+                    productMap.size()
+            );
+            return productMap.get(userIndex);
+        }
+    }
+
+    public Product getSelectedProductInLoop() {
+        Map<Integer, Product> productMap = getAllProductsMap();
+        if (productMap.isEmpty()) {
+            System.out.println("No hay productos disponibles.");
+            return null;
+        } else {
             int userIndex = Input.readIntInRange(
                     "Introduce el índice del producto: ",
                     1,
