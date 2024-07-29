@@ -15,10 +15,15 @@ public class TicketController {
 
     private static TicketController instance;
     private final TicketDao ticketDao;
+    private final FlowerDao flowerDao;
+    private final DecorationDao decorationDao;
+    private final TreeDao treeDao;
     private static final Logger logger = Logger.getLogger(TicketController.class.getName());
 
     public TicketController(DaoManager daoManager) {
-
+        this.flowerDao = daoManager.getFlowerDao();
+        this.decorationDao = daoManager.getDecorationDao();
+        this.treeDao = daoManager.getTreeDao();
         this.ticketDao = daoManager.getTicketDao();
     }
 
@@ -30,33 +35,35 @@ public class TicketController {
     }
 
     public void addTicket(ProductController productController) {
-        int control = -1;
+        boolean continueLoop = true;
         double saleTotal = 0;
         HashMap<Product, Integer> saleProductsAdd = new HashMap<Product, Integer>();
         Product productAdd = productController.getSelectedProduct();
 
         do {
             try {
-                productAdd = instance.getSelectedProductInLoop();
                 int amount = Input.readInt("Introduce la cantidad de ventas para este producto: ");
                 saleTotal += productAdd.getPrice() * amount;
                 saleProductsAdd.put(productAdd, amount);
-                control = Input.readInt("Pulsa \'0\' si has terminado de añadir productos en el ticket. ");
+                continueLoop = Input.readYesNo("Pulsa \'s\' para continuar, \'n\' si has terminado de añadir productos en el ticket. ");
             } catch (InputMismatchException e) {
                 System.out.println("El tipo de dato introducido no es correcto. ");
             }
-        } while (control != 0);
+            if (continueLoop = true){
+                productAdd = instance.getSelectedProductInLoop(productController);
+            }
+        } while (continueLoop = true);
 
         Ticket newTicket = new Ticket(saleProductsAdd, saleTotal);
         try {
             ticketDao.create(newTicket);
-            for (Product productStockReduce : saleProductsAdd.keySet()) {
+            for (Product product : saleProductsAdd.keySet()) {
                 int amount = -(saleProductsAdd.get(product));
-                if (productStockReduce instanceof Flower) {
+                if (product instanceof Flower) {
                     flowerDao.updateStock(product.getId(), amount);
-                } else if (productStockReduce instanceof Tree) {
+                } else if (product instanceof Tree) {
                     treeDao.updateStock(product.getId(), amount);
-                } else if (productStockReduce instanceof Decoration) {
+                } else if (product instanceof Decoration) {
                     decorationDao.updateStock(product.getId(), amount);
                 }
             }
@@ -79,7 +86,7 @@ public class TicketController {
         System.out.println("El total de ingresos es " + income + "€. ");
     }
 
-    public Product getSelectedProductInLoop() {
+    public Product getSelectedProductInLoop(ProductController productController) {
         Map<Integer, Product> productMap = getAllProductsMap();
         if (productMap.isEmpty()) {
             System.out.println("No hay productos disponibles.");
