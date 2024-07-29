@@ -1,8 +1,6 @@
 package flowershop.entities;
 
-import java.util.Objects;
-
-public class Product{
+public abstract class Product{
 
     protected String id;
     protected String name;
@@ -31,22 +29,18 @@ public class Product{
     }
 
     public void setName(String name) {
-
         this.name = name;
     }
 
     public double getPrice() {
-
         return price;
     }
 
     public void setPrice(double price) {
-
         this.price = price;
     }
 
     public int getStock() {
-
         return stock;
     }
 
@@ -55,22 +49,5 @@ public class Product{
         this.stock = stock;
     }
 
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) {
-//           return true;
-//        }
-//        if (o == null || getClass() != o.getClass()){
-//           return  false;
-//        }
-//        Product product = (Product) o;
-//        return Objects.equals(name, product.name);
-//    }
-//
-//
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(name);
-//    }
+    public abstract String toStringAlt();
 }

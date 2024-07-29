@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c899864d-0b78-40bb-bb14-656898ac7839" name="Changes" comment="modification2" />
+    <list default="true" id="c899864d-0b78-40bb-bb14-656898ac7839" name="Changes" comment="modification menu">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/entities/Decoration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/entities/Decoration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/entities/Flower.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/entities/Flower.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/entities/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/entities/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/entities/Ticket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/entities/Ticket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/flowershop/entities/Tree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/flowershop/entities/Tree.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -25,7 +32,7 @@
   "keyToString": {
     "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "dev",
+    "git-widget-placeholder": "test",
     "kotlin-language-version-configured": "true"
   }
 }]]></component>
@@ -62,6 +69,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="modification2" />
-    <option name="LAST_COMMIT_MESSAGE" value="modification2" />
+    <MESSAGE value="modification menu" />
+    <option name="LAST_COMMIT_MESSAGE" value="modification menu" />
   </component>
 </project>

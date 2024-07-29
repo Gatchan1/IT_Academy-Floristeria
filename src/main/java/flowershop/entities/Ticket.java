@@ -91,7 +91,7 @@ public class Ticket {
     public String toStringAlt() {
         StringBuilder productsString = new StringBuilder();
         for (Map.Entry<Product, Integer> entry : saleProducts.entrySet()) {
-            productsString.append(entry.getKey().toString())
+            productsString.append(entry.getKey().toStringAlt())
                     .append(" Quantity: ")
                     .append(entry.getValue())
                     .append(" \n");
