@@ -15,7 +15,7 @@ public class Menu {
 
     public Menu(DaoManager daoManager) {
         this.productController = ProductController.getInstance(daoManager);
-        this.ticketController = TicketCrontroller.getInstance(daoManager);
+        this.ticketController = TicketController.getInstance(daoManager);
         this.stockController = StockController.getInstance(daoManager);
     }
 
