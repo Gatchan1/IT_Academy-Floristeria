@@ -49,15 +49,14 @@ public class TicketController {
         Ticket newTicket = new Ticket(saleProductsAdd, saleTotal);
         try {
             ticketDao.create(newTicket);
-            //TODO reduceStock method on Dao's
             for (Product productStockReduce : saleProductsAdd.keySet()) {
-                int amount = saleProductsAdd.get(product);
+                int amount = -(saleProductsAdd.get(product));
                 if (productStockReduce instanceof Flower) {
-                    flowerDao.reduceStock(product.getId(), amount);
+                    flowerDao.updateStock(product.getId(), amount);
                 } else if (productStockReduce instanceof Tree) {
-                    treeDao.reduceStock(product.getId(), amount);
+                    treeDao.updateStock(product.getId(), amount);
                 } else if (productStockReduce instanceof Decoration) {
-                    decorationDao.reduceStock(product.getId(), amount);
+                    decorationDao.updateStock(product.getId(), amount);
                 }
             }
         } catch (SQLException e) {
