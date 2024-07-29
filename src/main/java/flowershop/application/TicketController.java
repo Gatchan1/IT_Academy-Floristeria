@@ -51,7 +51,7 @@ public class TicketController {
         Ticket newTicket = new Ticket(saleProductsAdd, saleTotal);
         try {
             ticketDao.create(newTicket);                                                                            //TODO mucho cambio en este try
-            System.out.println("Nuevo ticket de venta añadido correctamente. \n" + newTicket);       //TODO quitar toString, redundante
+            System.out.println("Nuevo ticket de venta añadido correctamente. \n" + newTicket.toStringAlt());       //TODO cambiar toString
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Error al crear ticket: ", e);
         }
@@ -68,7 +68,8 @@ public class TicketController {
 
 
     public void totalIncome() {
-        System.out.println("Ha seleccionado mostrar el total de ingresos: ");
+       System.out.println("Ha seleccionado mostrar el total de ingresos: ");
+       //double income = ticketDao.getTotalRevenue();
         List<Ticket> tickets = ticketDao.findAll();
         double income = 0;
         for (Ticket ticket : tickets) {

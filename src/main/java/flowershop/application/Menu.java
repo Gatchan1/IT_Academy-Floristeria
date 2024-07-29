@@ -74,7 +74,7 @@ public class Menu {
                     ticketController.showOldTickets();
                     break;
                 case 9:
-                    ticketController.;
+                    ticketController.totalIncome();
                     break;
                 case 0:
                     byeBye();
