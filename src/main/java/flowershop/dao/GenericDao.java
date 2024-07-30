@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface GenericDao<T> {
 
-    void create(T entity) throws SQLException;
+    void create(T entity) throws Exception;
 
     T read(String id);
 
