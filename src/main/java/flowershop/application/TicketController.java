@@ -48,7 +48,7 @@ public class TicketController {
         Ticket newTicket = new Ticket(saleProductsAdd, saleTotal);
         try {
             ticketDao.create(newTicket);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             logger.log(Level.SEVERE, "Error al crear ticket: ", e);
         }
         System.out.println("Nuevo ticket de venta añadido correctamente. \n" + newTicket.toStringAlt());
