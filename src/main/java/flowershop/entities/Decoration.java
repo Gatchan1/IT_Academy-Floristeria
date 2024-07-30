@@ -1,26 +1,11 @@
 package flowershop.entities;
 
-import java.util.Objects;
-
 public class Decoration extends Product {
-
-   private Material material;
-
-    public Decoration() {
-        super();
-    }
+    private Material material;
 
     public Decoration(String name, double price, int stock, Material material) {
         super(name, price, stock);
         this.material = material;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public Material getMaterial() {
@@ -36,34 +21,15 @@ public class Decoration extends Product {
         PLASTIC;
     }
 
-    // hash&equals
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-           return true;
-        }
-        if (!(o instanceof Decoration)){
-           return false;
-        }
-        if (!super.equals(o)){
-           return false;
-        }
-        Decoration decoration = (Decoration) o;
-        return Objects.equals(material, decoration.material);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), material);
-    }
-
     @Override
     public String toString() {
         return String.format("Nombre: %s, Material: %s, Precio: %.2f, Stock: %d",
                 getName(), getMaterial(), getPrice(), getStock());
     }
 
-
-
+    @Override
+    public String toStringAlt() {
+        return String.format("Nombre: %s, Material: %s, Precio: %.2f",
+                getName(), getMaterial(), getPrice());
+    }
 }
