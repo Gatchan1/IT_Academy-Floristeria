@@ -35,15 +35,12 @@ public class TicketController {
         Product productAdd = productController.getSelectedProduct();
 
         do {
-            try {
-                int amount = Input.readInt("Introduce la cantidad de ventas para este producto: ");
-                saleTotal += productAdd.getPrice() * amount;
-                saleProductsAdd.put(productAdd, amount);
-                continueLoop = Input.readYesNo("Pulsa 's' para continuar, 'n' si has terminado de añadir productos en el ticket. ");
-            } catch (InputMismatchException e) {
-                System.out.println("El tipo de dato introducido no es correcto. ");
-            }
-            if (continueLoop){
+            int amount = Input.readInt("Introduce la cantidad de ventas para este producto: ");
+            saleTotal += productAdd.getPrice() * amount;
+            saleProductsAdd.put(productAdd, amount);
+            continueLoop = Input.readYesNo("Pulsa 's' para continuar, 'n' si has terminado de añadir productos en el ticket. ");
+
+            if (continueLoop) {
                 productAdd = productController.getSelectedProductInLoop();
             }
         } while (continueLoop);
@@ -51,7 +48,7 @@ public class TicketController {
         Ticket newTicket = new Ticket(saleProductsAdd, saleTotal);
         try {
             ticketDao.create(newTicket);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             logger.log(Level.SEVERE, "Error al crear ticket: ", e);
         }
         System.out.println("Nuevo ticket de venta añadido correctamente. \n" + newTicket.toStringAlt());
