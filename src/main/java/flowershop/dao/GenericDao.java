@@ -5,9 +5,9 @@ import java.util.List;
 
 public interface GenericDao<T> {
 
-    void create(T entity) throws Exception;
+    public void create(T entity) throws Exception;
 
-    T read(String id);
+    public T read(String id);
 
-    List<T> findAll();
+    public List<T> findAll();
 }
