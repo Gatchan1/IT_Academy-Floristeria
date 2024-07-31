@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 public class Flowershop {
     private String database;
-    static Flowershop instance;
+    private static Flowershop instance;
     private DaoManager manager;
     private static final Logger logger = Logger.getLogger(Flowershop.class.getName());
 
